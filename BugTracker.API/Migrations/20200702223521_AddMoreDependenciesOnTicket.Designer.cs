@@ -4,14 +4,16 @@ using BugTracker.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BugTracker.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200702223521_AddMoreDependenciesOnTicket")]
+    partial class AddMoreDependenciesOnTicket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,12 +134,6 @@ namespace BugTracker.API.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PriorityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -159,10 +155,6 @@ namespace BugTracker.API.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("PriorityId");
-
-                    b.HasIndex("StatusId");
 
                     b.HasIndex("projectId");
 
@@ -281,7 +273,7 @@ namespace BugTracker.API.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("UserTickets");
+                    b.ToTable("UserTicket");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -441,17 +433,9 @@ namespace BugTracker.API.Migrations
 
             modelBuilder.Entity("BugTracker.API.Models.Ticket", b =>
                 {
-                    b.HasOne("BugTracker.API.Models.Category", "Category")
+                    b.HasOne("BugTracker.API.Models.Category", null)
                         .WithMany("Tickets")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("BugTracker.API.Models.Priority", "Priority")
-                        .WithMany("Tickets")
-                        .HasForeignKey("PriorityId");
-
-                    b.HasOne("BugTracker.API.Models.Status", "Status")
-                        .WithMany("Tickets")
-                        .HasForeignKey("StatusId");
 
                     b.HasOne("BugTracker.API.Models.Project", "project")
                         .WithMany("Tickets")

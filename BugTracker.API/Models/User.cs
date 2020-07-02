@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace BugTracker.API.Models
@@ -13,5 +14,11 @@ namespace BugTracker.API.Models
         public string Adrs_Division { get; set; }
         public string Adrs_Country { get; set; }
         public string Phone { get; set; }
+
+        public Project project { get; set; }
+        public ICollection<UserTicket> UserTickets { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public Role Role { get; set; }
+
     }
 }

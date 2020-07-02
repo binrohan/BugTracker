@@ -4,170 +4,22 @@ using BugTracker.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BugTracker.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200702201507_AddModels")]
+    partial class AddModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("BugTracker.API.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TicketCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Types");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CommenterId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommenterId");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.Priority", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TicketPriority")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Priorities");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.Project", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DeadTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isArchived")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Project");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.Status", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TicketStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Statuses");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("PriorityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("isArchived")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isDeveloperPassed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isManagerPassed")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("projectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("PriorityId");
-
-                    b.HasIndex("StatusId");
-
-                    b.HasIndex("projectId");
-
-                    b.ToTable("Tickets");
-                });
 
             modelBuilder.Entity("BugTracker.API.Models.User", b =>
                 {
@@ -236,9 +88,6 @@ namespace BugTracker.API.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -248,9 +97,6 @@ namespace BugTracker.API.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
-
-                    b.Property<int?>("projectId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -262,26 +108,7 @@ namespace BugTracker.API.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("projectId");
-
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.UserTicket", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "TicketId");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("UserTickets");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -291,10 +118,6 @@ namespace BugTracker.API.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -313,8 +136,6 @@ namespace BugTracker.API.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -419,69 +240,6 @@ namespace BugTracker.API.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.Role", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.HasDiscriminator().HasValue("Role");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.Comment", b =>
-                {
-                    b.HasOne("BugTracker.API.Models.User", "Commenter")
-                        .WithMany("Comments")
-                        .HasForeignKey("CommenterId");
-
-                    b.HasOne("BugTracker.API.Models.Ticket", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("TicketId");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.Ticket", b =>
-                {
-                    b.HasOne("BugTracker.API.Models.Category", "Category")
-                        .WithMany("Tickets")
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("BugTracker.API.Models.Priority", "Priority")
-                        .WithMany("Tickets")
-                        .HasForeignKey("PriorityId");
-
-                    b.HasOne("BugTracker.API.Models.Status", "Status")
-                        .WithMany("Tickets")
-                        .HasForeignKey("StatusId");
-
-                    b.HasOne("BugTracker.API.Models.Project", "project")
-                        .WithMany("Tickets")
-                        .HasForeignKey("projectId");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.User", b =>
-                {
-                    b.HasOne("BugTracker.API.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId");
-
-                    b.HasOne("BugTracker.API.Models.Project", "project")
-                        .WithMany("Users")
-                        .HasForeignKey("projectId");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.UserTicket", b =>
-                {
-                    b.HasOne("BugTracker.API.Models.Ticket", "Ticket")
-                        .WithMany("UserTickets")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BugTracker.API.Models.User", "User")
-                        .WithMany("UserTickets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
