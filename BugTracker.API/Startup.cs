@@ -26,28 +26,36 @@ namespace BugTracker.API
 
         public IConfiguration Configuration { get; }
 
-        //DbContext Configuration for Whole Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options =>  
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultSqlServerConnection")));
             
+            // services.AddDbContext<DataContext>(options =>  
+            //     options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-
-            IdentityBuilder builder = services.AddIdentityCore<User>(opt =>
+            services.AddIdentity<User,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)  
+                .AddEntityFrameworkStores<DataContext>();
+                
+            services.Configure<IdentityOptions>(options =>
             {
-                opt.Password.RequireDigit = false;
-                opt.Password.RequiredLength = 4;
-                opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequireUppercase = false;
+                // Default Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
             });
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default User settings.
+                options.User.RequireUniqueEmail = true;
 
-            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
-            builder.AddEntityFrameworkStores<DataContext>();
-            builder.AddRoleValidator<RoleValidator<Role>>();
-            builder.AddRoleManager<RoleManager<Role>>();
-            builder.AddSignInManager<SignInManager<User>>();
+            });
+            
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
