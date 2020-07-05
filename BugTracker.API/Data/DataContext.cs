@@ -1,4 +1,5 @@
 using BugTracker.API.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +37,21 @@ namespace BugTracker.API.Data
                 .HasOne(t => t.User)
                 .WithMany(t => t.UserTickets)
                 .HasForeignKey(t => t.UserId);
+
+            builder.Entity<UserRole>(userRole => 
+            {
+                userRole.HasKey(ur => new {ur.UserId, ur.RoleId});
+
+                // userRole.HasOne(ur => ur.Role)
+                //     .WithMany(r => r.UserRoles)
+                //     .HasForeignKey(ur => ur.RoleId)
+                //     .IsRequired();
+                
+                // userRole.HasOne(ur => ur.User)
+                //     .WithMany(r => r.UserRoles)
+                //     .HasForeignKey(ur => ur.UserId)
+                //     .IsRequired();
+            });
            
         }
 

@@ -4,14 +4,16 @@ using BugTracker.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BugTracker.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200705200119_CheckingRole")]
+    partial class CheckingRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,6 +104,21 @@ namespace BugTracker.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Project");
+                });
+
+            modelBuilder.Entity("BugTracker.API.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("BugTracker.API.Models.Status", b =>
@@ -236,6 +253,12 @@ namespace BugTracker.API.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RoleId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -259,27 +282,11 @@ namespace BugTracker.API.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("RoleId1");
+
                     b.HasIndex("projectId");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.UserRole", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("BugTracker.API.Models.UserTicket", b =>
@@ -462,16 +469,13 @@ namespace BugTracker.API.Migrations
 
             modelBuilder.Entity("BugTracker.API.Models.User", b =>
                 {
+                    b.HasOne("BugTracker.API.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId1");
+
                     b.HasOne("BugTracker.API.Models.Project", "project")
                         .WithMany("Users")
                         .HasForeignKey("projectId");
-                });
-
-            modelBuilder.Entity("BugTracker.API.Models.UserRole", b =>
-                {
-                    b.HasOne("BugTracker.API.Models.User", null)
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("BugTracker.API.Models.UserTicket", b =>

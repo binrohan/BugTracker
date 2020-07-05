@@ -57,7 +57,7 @@ namespace BugTracker.API.Controllers {
         {
             var user = await _userManager.FindByEmailAsync(userForLogin.Email);
             var result = await _signInManager.CheckPasswordSignInAsync(user, userForLogin.Password, false);
-            Console.WriteLine("User Email: "+ user.Email +"Password: "+ userForLogin.Password +"result.Succeed: "+ result.Succeeded);
+            
             if(result.Succeeded)
             {
                 // var appUser = _mapper.Map<Dto>(user);
@@ -79,7 +79,7 @@ namespace BugTracker.API.Controllers {
             };
 
             var roles = await _userManager.GetRolesAsync(user);
-
+Console.WriteLine("******************User Email: Password:::"+ roles.Count + " result.Succeed: ");
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
