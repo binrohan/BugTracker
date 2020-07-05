@@ -1,0 +1,10 @@
+.my-form{
+    padding: 71px 0px 5px 0px;
+}
+.bt-radio{
+    padding-bottom: 15px;
+}
+
+mat-radio-button, label{
+    margin-right: 20px;
+}

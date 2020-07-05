@@ -16,3 +16,31 @@
   .example-spacer {
     flex: 1 1 auto;
   }
+
+  mat-toolbar{
+    position: fixed;
+    opacity: .5;
+  }
+
+  mat-sidenav{
+    width: 180px;
+  }
+  mat-list-item a{
+    width: 100%;
+  }
+  .bt-clear{
+    background-color: #3f51b5;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+  }
+  .bt-clear button{
+    margin: 2px;
+  }
+  mat-list{
+    margin: 50px 0;
+  }
+
+  app-registration{
+    padding-top: 1000px;
+  }

@@ -1,14 +1,21 @@
 <mat-sidenav-container class="example-container" *ngIf="shouldRun">
     <mat-sidenav #sidenav [mode]="mode">
-      <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-      <p>
-        <mat-radio-group class="example-radio-group">
-          <label>Mode:</label>
-          <mat-radio-button value="over">Over</mat-radio-button>
-          <mat-radio-button value="side">Side</mat-radio-button>
-          <mat-radio-button value="push">Push</mat-radio-button>
-        </mat-radio-group>
-      </p>
+      <div class="bt-clear" color="warn">
+        <button mat-fab color="warn" (click)="sidenav.toggle()" aria-label="Example icon button with a home icon">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+      <mat-list role="list">
+        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/users']" routerLinkActive="router-link-active" >User Management</a></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/projects']" routerLinkActive="router-link-active" >Projects</a></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/tickets']" routerLinkActive="router-link-active" >Tickets</a></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/login']" routerLinkActive="router-link-active" >Link</a></mat-list-item>
+      </mat-list>
     </mat-sidenav>
 
 
@@ -20,13 +27,12 @@
         <span class="example-spacer"></span>
         <div class="example-button-row">
           <a mat-button [routerLink]="['/profile']" routerLinkActive="router-link-active" >User</a>
-          <a mat-button [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Logout</a>
+          <a mat-button (click) = "snackBarMessege()" [routerLink]="['/login']" routerLinkActive="router-link-active" >Logout</a>
         </div>
-      </mat-toolbar>
-    
+    </mat-toolbar>
 
-    <router-outlet></router-outlet>
-      
+  <router-outlet></router-outlet>
 
-    
-  </mat-sidenav-container>
+</mat-sidenav-container>
+
+

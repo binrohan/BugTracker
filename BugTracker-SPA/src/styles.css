@@ -27,3 +27,47 @@ mat-toolbar button{
 .list-group-item.active{
     color: #2780E3;
 }
+
+/***  Loginh form and Registration form  ****/
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.my-form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.my-form>div{
+  width: 360px;
+}
+.mat-form-field, button{
+  width: 100%;
+}
+.my-form button{
+  height: 55px;
+  width: 360px;
+}
+.form-login-link{
+  font-size: 12px;
+  padding: 2px 0;
+  text-align: center;
+}
+.form-link-group{
+  margin-top: 70px;
+}
