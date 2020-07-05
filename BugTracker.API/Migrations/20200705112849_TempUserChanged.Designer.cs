@@ -4,14 +4,16 @@ using BugTracker.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BugTracker.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200705112849_TempUserChanged")]
+    partial class TempUserChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,23 +179,8 @@ namespace BugTracker.API.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Adrs_City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Adrs_Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Adrs_Division")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Adrs_Local")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -203,12 +190,6 @@ namespace BugTracker.API.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Joined")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -227,17 +208,14 @@ namespace BugTracker.API.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -249,9 +227,6 @@ namespace BugTracker.API.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<int?>("projectId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -262,9 +237,7 @@ namespace BugTracker.API.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("projectId");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -293,10 +266,6 @@ namespace BugTracker.API.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -313,8 +282,6 @@ namespace BugTracker.API.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -421,17 +388,10 @@ namespace BugTracker.API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BugTracker.API.Models.Role", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.HasDiscriminator().HasValue("Role");
-                });
-
             modelBuilder.Entity("BugTracker.API.Models.Comment", b =>
                 {
                     b.HasOne("BugTracker.API.Models.User", "Commenter")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("CommenterId");
 
                     b.HasOne("BugTracker.API.Models.Ticket", null)
@@ -462,13 +422,9 @@ namespace BugTracker.API.Migrations
 
             modelBuilder.Entity("BugTracker.API.Models.User", b =>
                 {
-                    b.HasOne("BugTracker.API.Models.Role", "Role")
+                    b.HasOne("BugTracker.API.Models.Project", null)
                         .WithMany("Users")
-                        .HasForeignKey("RoleId");
-
-                    b.HasOne("BugTracker.API.Models.Project", "project")
-                        .WithMany("Users")
-                        .HasForeignKey("projectId");
+                        .HasForeignKey("ProjectId");
                 });
 
             modelBuilder.Entity("BugTracker.API.Models.UserTicket", b =>
@@ -480,7 +436,7 @@ namespace BugTracker.API.Migrations
                         .IsRequired();
 
                     b.HasOne("BugTracker.API.Models.User", "User")
-                        .WithMany("UserTickets")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

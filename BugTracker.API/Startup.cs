@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
 
 namespace BugTracker.API
 {
@@ -41,12 +42,12 @@ namespace BugTracker.API
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequiredUniqueChars = 0;
             });
             services.Configure<IdentityOptions>(options =>
             {
@@ -55,6 +56,7 @@ namespace BugTracker.API
 
             });
             
+            services.AddAutoMapper(typeof(BugTrackerRepository).Assembly);
             services.AddControllers();
         }
 
