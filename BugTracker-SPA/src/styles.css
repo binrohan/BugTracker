@@ -46,28 +46,26 @@ input.example-right-align {
   -moz-appearance: textfield;
 }
 
-.my-form{
+.full-body{
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.my-form>div{
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 3;
+}
+form mat-form-field,
+form button{
   width: 360px;
 }
-.mat-form-field, button{
-  width: 100%;
+.mat-form-field + .mat-form-field{
+  margin: 0;
 }
-.my-form button{
-  height: 55px;
-  width: 360px;
-}
-.form-login-link{
-  font-size: 12px;
-  padding: 2px 0;
-  text-align: center;
-}
-.form-link-group{
-  margin-top: 70px;
+form button{
+  height: 52px;
 }

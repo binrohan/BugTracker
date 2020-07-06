@@ -1,6 +1,6 @@
-<div class="my-form">
+<div class="full-body">
   <h1>Bug_Tracker Login</h1>
-  <div>
+  <form #loginForm="ngForm" (ngSubmit)="login()">
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input
@@ -8,14 +8,19 @@
         placeholder="pat@example.com"
         [formControl]="email"
         required
+        [(ngModel)]="model.email"
+        name="email"
       />
       <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
-  </div>
-  <div>
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" />
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [(ngModel)]="model.password"
+        name="password"
+      />
       <button
         mat-icon-button
         matSuffix
@@ -26,11 +31,21 @@
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
     </mat-form-field>
-  </div>
-  <button mat-flat-button color="primary">SIGN IN</button>
-  <div class="form-link-group">
-    <div class="form-login-link">Forgot your <a href="#">Password?</a></div>
-    <div class="form-login-link">Create an account <a (click) = "goToRegistration()">Sign Up</a></div>
-    <div class="form-login-link">Sign in as a <a href="#">Demo User</a></div>
+    <p>{{loginForm.status}}</p>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="!loginForm.valid"
+    >
+      SIGN IN
+    </button>
+  </form>
+  <div class="login-link-group">
+    <div class="login-login-link">Forgot your <a href="#">Password?</a></div>
+    <div class="login-login-link">
+      Create an account <a (click)="goToRegistration()">Sign Up</a>
+    </div>
+    <div class="login-login-link">Sign in as a <a href="#">Demo User</a></div>
   </div>
 </div>

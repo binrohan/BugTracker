@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~9.1.6",
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
+    "@auth0/angular-jwt": "^4.2.0",
+    "angular-jwt": "^0.1.11",
     "bootstrap": "^4.5.0",
     "bootswatch": "^4.5.0",
     "font-awesome": "^4.7.0",

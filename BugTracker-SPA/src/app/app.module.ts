@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import { JwtModule } from '@auth0/angular-jwt';
+import {  HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -29,6 +30,11 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { appRoutes } from './routes';
 import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.component';
 
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -45,6 +51,7 @@ import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.co
    ],
    imports: [
       BrowserModule,
+      HttpClientModule,
       RouterModule.forRoot(appRoutes),
       BrowserAnimationsModule,
       MatToolbarModule,
@@ -58,7 +65,14 @@ import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.co
       MatListModule,
       MatSnackBarModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      JwtModule.forRoot({
+         config: {
+            tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+      })
    ],
    providers: [],
    bootstrap: [
