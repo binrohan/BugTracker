@@ -18,6 +18,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BugTracker.API
 {
@@ -33,15 +34,15 @@ namespace BugTracker.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options =>  
+            services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultSqlServerConnection")));
-            
+
             // services.AddDbContext<DataContext>(options =>  
             //     options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)  
+            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<DataContext>();
-                
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Password settings.
@@ -58,9 +59,27 @@ namespace BugTracker.API
                 options.User.RequireUniqueEmail = true;
 
             });
+
+            services.AddMvc(options =>
+           {
+               var policy = new AuthorizationPolicyBuilder()
+                   .RequireAuthenticatedUser()
+                   .Build();
+           })  // added a nuget 
+                .AddNewtonsoftJson(o =>
+                {
+                    o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
+
+            services.AddAutoMapper(typeof(BugTrackerRepository).Assembly);
+            services.AddControllers();
+            services.AddCors();
+            services.AddAutoMapper(typeof(BugTrackerRepository).Assembly);
+            services.AddScoped<IBugTrackerRepository, BugTrackerRepository>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
-                {   
+                {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -70,10 +89,6 @@ namespace BugTracker.API
                         ValidateAudience = false
                     };
                 });
-            
-            services.AddAutoMapper(typeof(BugTrackerRepository).Assembly);
-            services.AddControllers();
-            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,12 +100,10 @@ namespace BugTracker.API
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

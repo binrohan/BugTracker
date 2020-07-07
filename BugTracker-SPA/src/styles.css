@@ -48,6 +48,8 @@ input.example-right-align {
 
 .full-body{
   width: 100%;
+  padding: 71px 0px 5px 0px;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;

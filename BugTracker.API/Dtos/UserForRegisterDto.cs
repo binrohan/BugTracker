@@ -24,9 +24,14 @@ namespace BugTracker.API.Dtos
         [Required]
         public string Adrs_Country { get; set; }
 
+        //Remove this property after adding the Email confirmation system 
+        public bool EmailConfirmed { get; set; }
+
         public UserForRegisterDto()
         {   
             Joined = DateTime.Now;
+            //Email Confirmation backup
+            EmailConfirmed = true;
         }
     }
 }

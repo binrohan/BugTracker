@@ -19,6 +19,7 @@
         matInput
         [type]="hide ? 'password' : 'text'"
         [(ngModel)]="model.password"
+        [formControl] = "password"
         name="password"
       />
       <button
@@ -31,12 +32,11 @@
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
     </mat-form-field>
-    <p>{{loginForm.status}}</p>
     <button
       mat-flat-button
       color="primary"
       type="submit"
-      [disabled]="!loginForm.valid"
+      [disabled]="!password.valid || !email.valid"
     >
       SIGN IN
     </button>
