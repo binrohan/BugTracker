@@ -4,7 +4,7 @@ import { CommentPosted } from './CommentPosted';
 
 export interface User {
     id: string;
-    username: string;
+    userName: string;
     email: string;
     joined: Date;
     gender?: string;

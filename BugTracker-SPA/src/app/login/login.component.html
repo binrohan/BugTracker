@@ -1,6 +1,7 @@
 <div class="full-body">
-  <h1>Bug_Tracker Login</h1>
+  <div>
   <form #loginForm="ngForm" (ngSubmit)="login()">
+    <h1>Bug_Tracker Login</h1>
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input
@@ -47,5 +48,6 @@
       Create an account <a (click)="goToRegistration()">Sign Up</a>
     </div>
     <div class="login-login-link">Sign in as a <a href="#">Demo User</a></div>
+  </div>
   </div>
 </div>

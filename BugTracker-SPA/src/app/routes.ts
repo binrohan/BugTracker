@@ -6,6 +6,7 @@ import { TicketComponent } from './ticket/ticket.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { ProfileResovler } from './_resolvers/profile.resolver';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -14,7 +15,7 @@ export const appRoutes: Routes = [
     { path: 'users', component: UserManagementComponent},
     { path: 'projects', component: ProjectComponent},
     { path: 'tickets', component: TicketComponent},
-    { path: 'profile', component: ProfileComponent},
+    { path: 'profile', component: ProfileComponent, resolve: {user: ProfileResovler}},
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 
 ];

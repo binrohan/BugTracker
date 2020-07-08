@@ -61,11 +61,11 @@ namespace BugTracker.API
             });
 
             services.AddMvc(options =>
-           {
-               var policy = new AuthorizationPolicyBuilder()
+            {
+                var policy = new AuthorizationPolicyBuilder()
                    .RequireAuthenticatedUser()
                    .Build();
-           })  // added a nuget 
+            })  // added a nuget 
                 .AddNewtonsoftJson(o =>
                 {
                     o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

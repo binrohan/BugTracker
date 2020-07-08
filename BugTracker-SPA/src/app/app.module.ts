@@ -29,6 +29,9 @@ import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { appRoutes } from './routes';
 import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.component';
+import { ProfileResovler } from './_resolvers/profile.resolver';
+import { AuthService } from './_services/auth.service';
+import { UserService } from './_services/user.service';
 
 
 export function tokenGetter() {
@@ -74,7 +77,11 @@ export function tokenGetter() {
          }
       })
    ],
-   providers: [],
+   providers: [
+      AuthService,
+      UserService,
+      ProfileResovler
+   ],
    bootstrap: [
       AppComponent
    ]

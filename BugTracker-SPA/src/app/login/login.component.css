@@ -1,5 +1,9 @@
-.full-body{
-    height: 100vh;
+
+.full-body>div{
+    transform: translateY(50%);
+}
+h1{
+    text-align: center;
 }
 .login-link-group{
     margin-top: 75px;

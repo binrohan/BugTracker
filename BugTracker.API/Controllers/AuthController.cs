@@ -60,11 +60,11 @@ namespace BugTracker.API.Controllers {
             
             if(result.Succeeded)
             {
-                // var appUser = _mapper.Map<Dto>(user);
+                var appUser = _mapper.Map<UserForDetailed>(user);
                 return Ok( new
                 {
                     token = GenerateJwtToken(user).Result,
-                    // user = appUser
+                    user = appUser
                 });
             }
             return Unauthorized();
