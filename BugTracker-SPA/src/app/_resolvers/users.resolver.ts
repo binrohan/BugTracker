@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class ProfileResolver implements Resolve<User>{
+export class UsersResolver implements Resolve<User>{
 
     constructor(private userService: UserService,
                 private snackbar: SnackbarService,
@@ -16,7 +16,7 @@ export class ProfileResolver implements Resolve<User>{
                 private authService: AuthService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
-        return this.userService.getUser(this.authService.decodedToken.nameid).pipe(
+        return this.userService.getUsers().pipe(
             catchError(error => {
                 this.snackbar.Success('Problem retrieving your data');
                 this.router.navigate(['/dashboard']);

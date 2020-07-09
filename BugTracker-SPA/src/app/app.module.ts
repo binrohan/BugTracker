@@ -29,9 +29,11 @@ import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { appRoutes } from './routes';
 import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.component';
-import { ProfileResovler } from './_resolvers/profile.resolver';
+import { ProfileResolver } from './_resolvers/profile.resolver';
 import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
+import { UsersResolver } from './_resolvers/users.resolver';
+import { ProjectsResolver } from './_resolvers/projects.resolver';
 
 
 export function tokenGetter() {
@@ -80,7 +82,9 @@ export function tokenGetter() {
    providers: [
       AuthService,
       UserService,
-      ProfileResovler
+      ProfileResolver,
+      UsersResolver,
+      ProjectsResolver
    ],
    bootstrap: [
       AppComponent
