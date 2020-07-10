@@ -10,6 +10,9 @@ namespace BugTracker.API.Helpers
         {
             CreateMap<User, UserForDetailed>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<Project, ProjectsForDetailed>();
+            CreateMap<Ticket, TicketsForDetailed>();
+            CreateMap<UserTicket, UserTicketDto>();
         }
     }
 }

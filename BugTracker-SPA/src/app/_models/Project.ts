@@ -1,13 +1,13 @@
+import { Ticket } from './Ticket';
+import { User } from './User';
+
 export interface Project {
-    id: string;
-    userName: string;
-    email: string;
-    joined: Date;
-    gender?: string;
-    describtion?: string;
-    local: string;
-    city: string;
-    division: string;
-    country: string;
-    phone?: string;
+    id: number;
+    title: string;
+    discription: string;
+    startTime: Date;
+    DeadTime: Date;
+    isAcrchived: boolean;
+    tickets: Ticket[];
+    users: User[];
 }

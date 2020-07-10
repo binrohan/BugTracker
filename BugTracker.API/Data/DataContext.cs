@@ -18,6 +18,7 @@ namespace BugTracker.API.Data
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Category> Types { get; set; }
         public DbSet<UserTicket> UserTickets { get; set; }
+        public DbSet<Project> Projects { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -26,13 +27,13 @@ namespace BugTracker.API.Data
                 .Property(u => u.Email)
                 .IsRequired();
 
-            //Define: Many to Many relation between User and Ticket
-            builder.Entity<UserTicket>().HasKey(t => new { t.UserId, t.TicketId });
+
+            // Define: Many to Many relation between User and Ticket
+            builder.Entity<UserTicket>().HasKey(ut => new { ut.UserId, ut.TicketId });
             builder.Entity<UserTicket>()
                 .HasOne(t => t.Ticket)
                 .WithMany(t => t.UserTickets)
                 .HasForeignKey(t => t.TicketId);
-            
             builder.Entity<UserTicket>()
                 .HasOne(t => t.User)
                 .WithMany(t => t.UserTickets)
@@ -54,6 +55,9 @@ namespace BugTracker.API.Data
             });
            
         }
+
+            
+
 
             
 
