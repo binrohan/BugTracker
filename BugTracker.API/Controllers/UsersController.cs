@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BugTracker.API.Data;
 using BugTracker.API.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugTracker.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -24,7 +26,7 @@ namespace BugTracker.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
-            var currentUserId = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var currentUserId = (User.FindFirst(ClaimTypes.NameIdentifier).Value);
             bool isCurrentUser = String.Equals(currentUserId, id);
             var user = await _repo.GetUser(id, isCurrentUser);
             var userToReturn = _mapper.Map<UserForDetailed>(user);
