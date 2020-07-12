@@ -63,7 +63,7 @@ namespace BugTracker.API
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
-                {Console.WriteLine("********************************************STRATUP.CS"+(ClaimTypes.NameIdentifier));
+                {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
