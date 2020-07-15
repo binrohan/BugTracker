@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BugTracker.API.Controllers
 {
-    [Authorize]
+    // [ServiceFilter(typeof(logUserActivity))]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -25,7 +25,7 @@ namespace BugTracker.API.Controllers
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
-        {
+        {   Console.WriteLine("**************************************************************");
             var currentUserId = (User.FindFirst(ClaimTypes.NameIdentifier).Value);
             bool isCurrentUser = String.Equals(currentUserId, id);
             var user = await _repo.GetUser(id, isCurrentUser);

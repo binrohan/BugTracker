@@ -20,6 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace BugTracker.API
 {
@@ -35,25 +36,49 @@ namespace BugTracker.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultSqlServerConnection")));
+
+
+
+
+
+            IdentityBuilder builder = services.AddIdentityCore<User>( opt =>
+           {
+               opt.Password.RequireDigit = false;
+               opt.Password.RequiredLength = 4;
+               opt.Password.RequireNonAlphanumeric = false;
+               opt.Password.RequireUppercase = false;
+           } );
+
+           builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+           builder.AddEntityFrameworkStores<DataContext>();
+           builder.AddRoleValidator<RoleValidator<Role>>();
+           builder.AddRoleManager<RoleManager<Role>>();
+           builder.AddSignInManager<SignInManager<User>>();
+
+
+
+
 
             // services.AddDbContext<DataContext>(options =>  
             //     options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<DataContext>();
+            // services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            //     .AddEntityFrameworkStores<DataContext>();
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                // Default Password settings.
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 4;
-                options.Password.RequiredUniqueChars = 0;
-            });
+            // services.Configure<IdentityOptions>(options =>
+            // {
+            //     // Default Password settings.
+            //     options.Password.RequireDigit = false;
+            //     options.Password.RequireLowercase = false;
+            //     options.Password.RequireNonAlphanumeric = false;
+            //     options.Password.RequireUppercase = false;
+            //     options.Password.RequiredLength = 4;
+            //     options.Password.RequiredUniqueChars = 0;
+            // });
             services.Configure<IdentityOptions>(options =>
             {
                 // Default User settings.
@@ -63,7 +88,7 @@ namespace BugTracker.API
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
-                {
+                {Console.WriteLine("****************************AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA*****************************"+(ClaimTypes.NameIdentifier));
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -79,6 +104,7 @@ namespace BugTracker.API
                 var policy = new AuthorizationPolicyBuilder()
                    .RequireAuthenticatedUser()
                    .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
             })  // added a nuget 
                 .AddNewtonsoftJson(o =>
                 {
@@ -90,7 +116,7 @@ namespace BugTracker.API
             services.AddCors();
             services.AddAutoMapper(typeof(BugTrackerRepository).Assembly);
             services.AddScoped<IBugTrackerRepository, BugTrackerRepository>();
-
+            // services.AddScoped<logUserActivity>();
             
         }
 
@@ -101,11 +127,14 @@ namespace BugTracker.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseAuthorization();
-            app.UseAuthentication();
-            app.UseHttpsRedirection();
-            app.UseRouting();
+            
+            
+            // app.UseHttpsRedirection();
+            
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseAuthentication();
+            app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

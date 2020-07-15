@@ -2,25 +2,12 @@
 
 namespace BugTracker.API.Migrations
 {
-    public partial class UserRoleDefined : Migration
+    public partial class IdentityUserRole : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_AspNetRoles_RoleId",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropIndex(
-                name: "IX_AspNetUsers_RoleId",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "RoleId",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "Discriminator",
-                table: "AspNetRoles");
+            migrationBuilder.DropTable(
+                name: "UserRole");
 
             migrationBuilder.AddColumn<string>(
                 name: "RoleId1",
@@ -35,6 +22,12 @@ namespace BugTracker.API.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "Discriminator",
                 table: "AspNetUserRoles",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Discriminator",
+                table: "AspNetRoles",
                 nullable: false,
                 defaultValue: "");
 
@@ -95,31 +88,33 @@ namespace BugTracker.API.Migrations
                 name: "Discriminator",
                 table: "AspNetUserRoles");
 
-            migrationBuilder.AddColumn<string>(
-                name: "RoleId",
-                table: "AspNetUsers",
-                type: "nvarchar(450)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.DropColumn(
                 name: "Discriminator",
-                table: "AspNetRoles",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                table: "AspNetRoles");
+
+            migrationBuilder.CreateTable(
+                name: "UserRole",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_UserRole_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_RoleId",
-                table: "AspNetUsers",
-                column: "RoleId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_AspNetRoles_RoleId",
-                table: "AspNetUsers",
-                column: "RoleId",
-                principalTable: "AspNetRoles",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                name: "IX_UserRole_UserId1",
+                table: "UserRole",
+                column: "UserId1");
         }
     }
 }
