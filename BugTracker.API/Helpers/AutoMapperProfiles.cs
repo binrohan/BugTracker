@@ -9,11 +9,16 @@ namespace BugTracker.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForDetailed>();
+            CreateMap<User, UserShortDto>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<Ticket,TicketShortDto>();
             CreateMap<Project, ProjectsForDetailed>();
+            CreateMap<Project, ProjectShortDto>();
+            CreateMap<ProjectToCreateDto, Project>();
+            CreateMap<ProjectForUpdateDto, Project>();
+            CreateMap<Comment, CommentForTicketDto>();
 
 
-            CreateMap<User, UserForSend>();
             CreateMap<UserTicket, UserWithTicketDto>()
             .ForMember(dest => dest.TUser, opt => 
             opt.MapFrom(src => src.User));
@@ -22,13 +27,13 @@ namespace BugTracker.API.Helpers
             opt.MapFrom(src => src.UserTickets));
 
 
-            CreateMap<Ticket, TicketForSend>();
             CreateMap<UserTicket, TicketWithUserDto>()
             .ForMember(dest => dest.UTicket, opt => 
             opt.MapFrom(src => src.Ticket));
             CreateMap<User, UserForDetailed>()
             .ForMember(dest => dest.TicketForUser, opt =>
             opt.MapFrom(src => src.UserTickets));
+
         }
     }
 }

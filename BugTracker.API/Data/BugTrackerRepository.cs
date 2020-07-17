@@ -30,21 +30,10 @@ namespace BugTracker.API.Data
 
         public async Task<User> GetUser(string id, bool isCurrentUser)
         {
-            // var query = _context.Users.Include(u => u.UserTickets).AsQueryable();
-
-            // if(isCurrentUser)
-            //     query = query.IgnoreQueryFilters();
-
-            // var user = await query.FirstOrDefaultAsync(u => u.Id == id);
-
-            //  var ticket = await _context.Tickets
-            //     .Include(t => t.UserTickets)
-            //     .ThenInclude(ut => ut.User)
-            //     .FirstOrDefaultAsync(u => u.Id == id);
-
             var user = await _context.Users
                 .Include(u => u.UserTickets)
                 .ThenInclude(ut => ut.Ticket)
+                .Include(u => u.project)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
@@ -77,10 +66,14 @@ namespace BugTracker.API.Data
             var ticket = await _context.Tickets
                 .Include(t => t.UserTickets)
                 .ThenInclude(ut => ut.User)
+                .Include(t => t.Comments)
                 .FirstOrDefaultAsync(u => u.Id == id);
+            
             
             return ticket;
         }
+
+        
         public async Task<IEnumerable<Ticket>> GetTickets()
         {
             var tickets = await _context.Tickets.ToListAsync();

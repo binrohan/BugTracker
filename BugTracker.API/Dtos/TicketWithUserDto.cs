@@ -2,6 +2,6 @@ namespace BugTracker.API.Dtos
 {
     public class TicketWithUserDto
     {
-        public TicketForSend UTicket { get; set; }
+        public TicketShortDto UTicket { get; set; }
     }
 }

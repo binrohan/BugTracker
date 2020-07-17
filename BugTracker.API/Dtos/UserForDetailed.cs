@@ -18,7 +18,7 @@ namespace BugTracker.API.Dtos
         public string Adrs_Country { get; set; }
         public string Phone { get; set; }
 
-        public ProjectsForDetailed project { get; set; }
+        public ProjectShortDto project { get; set; }
         public ICollection<TicketWithUserDto> TicketForUser { get; set; }
         public Role Role { get; set; }
     }

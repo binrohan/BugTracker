@@ -26,12 +26,15 @@ namespace BugTracker.API.Dtos
 
         //Remove this property after adding the Email confirmation system 
         public bool EmailConfirmed { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
 
         public UserForRegisterDto()
         {   
             Joined = DateTime.Now;
             //Email Confirmation backup
             EmailConfirmed = true;
+            PhoneNumberConfirmed = true;
+
         }
     }
 }

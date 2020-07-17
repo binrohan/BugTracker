@@ -18,7 +18,7 @@ namespace BugTracker.API.Dtos
         public int ProjectID { get; set; }
 
         public ICollection<UserWithTicketDto> UserTicketDto { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentForTicketDto> Comments { get; set; }
         public Category Category { get; set; }
         public Priority Priority { get; set; }
         public Status Status { get; set; }

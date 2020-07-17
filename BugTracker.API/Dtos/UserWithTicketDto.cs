@@ -4,6 +4,6 @@ namespace BugTracker.API.Dtos
 {
     public class UserWithTicketDto
     {
-        public UserForSend TUser { get; set; }
+        public UserShortDto TUser { get; set; }
     }
 }

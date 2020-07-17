@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using BugTracker.API.Data;
@@ -22,6 +23,14 @@ namespace BugTracker.API.Controllers {
             var ticket = await _repo.GetTicket(id);
             var ticketToReturn = _mapper.Map<TicketsForDetailed>(ticket);
             return Ok(ticketToReturn);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProjects()
+        {
+            var tickets = await _repo.GetTickets();
+            var ticketsForReturn =  _mapper.Map<IEnumerable<TicketShortDto>>(tickets);
+            return Ok(ticketsForReturn);
         }
         
     }

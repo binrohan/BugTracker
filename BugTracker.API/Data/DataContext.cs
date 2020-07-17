@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BugTracker.API.Data
 {
-    public class DataContext : IdentityDbContext<User>
+    public class DataContext : IdentityDbContext<User, Role, string>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) {}
 
@@ -19,6 +19,7 @@ namespace BugTracker.API.Data
         public DbSet<Category> Types { get; set; }
         public DbSet<UserTicket> UserTickets { get; set; }
         public DbSet<Project> Projects { get; set; }
+        // public DbSet<Role> Role { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

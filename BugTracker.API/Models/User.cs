@@ -17,8 +17,5 @@ namespace BugTracker.API.Models
         public Project project { get; set; }
         public ICollection<UserTicket> UserTickets { get; set; }
         public ICollection<Comment> Comments { get; set; }
-
-        public ICollection<UserRole> UserRoles { get; set; }
-
     }
 }
