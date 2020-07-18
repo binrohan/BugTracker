@@ -4,14 +4,16 @@ using BugTracker.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BugTracker.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200717193059_ticket3")]
+    partial class ticket3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,6 @@ namespace BugTracker.API.Migrations
             modelBuilder.Entity("BugTracker.API.Models.Role", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -169,17 +170,11 @@ namespace BugTracker.API.Migrations
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("SubmissionDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("isArchived")
                         .HasColumnType("bit");
@@ -193,6 +188,12 @@ namespace BugTracker.API.Migrations
                     b.Property<int?>("projectId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("submissionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -201,9 +202,15 @@ namespace BugTracker.API.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Title")
+                        .IsUnique()
+                        .HasFilter("[Title] IS NOT NULL");
 
                     b.HasIndex("projectId");
+
+                    b.HasIndex("userId")
+                        .IsUnique()
+                        .HasFilter("[userId] IS NOT NULL");
 
                     b.ToTable("Tickets");
                 });
@@ -432,13 +439,13 @@ namespace BugTracker.API.Migrations
                         .WithMany("Tickets")
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("BugTracker.API.Models.User", "User")
-                        .WithMany("Tickets")
-                        .HasForeignKey("UserId");
-
                     b.HasOne("BugTracker.API.Models.Project", "project")
                         .WithMany("Tickets")
                         .HasForeignKey("projectId");
+
+                    b.HasOne("BugTracker.API.Models.User", "AssingedUser")
+                        .WithOne("TicketofUser")
+                        .HasForeignKey("BugTracker.API.Models.Ticket", "userId");
                 });
 
             modelBuilder.Entity("BugTracker.API.Models.User", b =>

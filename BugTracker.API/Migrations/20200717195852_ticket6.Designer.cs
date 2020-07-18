@@ -4,14 +4,16 @@ using BugTracker.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BugTracker.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200717195852_ticket6")]
+    partial class ticket6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,6 @@ namespace BugTracker.API.Migrations
             modelBuilder.Entity("BugTracker.API.Models.Role", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -169,9 +170,6 @@ namespace BugTracker.API.Migrations
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("SubmissionDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -192,6 +190,9 @@ namespace BugTracker.API.Migrations
 
                     b.Property<int?>("projectId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("submissionDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -433,7 +434,7 @@ namespace BugTracker.API.Migrations
                         .HasForeignKey("StatusId");
 
                     b.HasOne("BugTracker.API.Models.User", "User")
-                        .WithMany("Tickets")
+                        .WithMany("TicketsofUser")
                         .HasForeignKey("UserId");
 
                     b.HasOne("BugTracker.API.Models.Project", "project")

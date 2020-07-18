@@ -17,7 +17,8 @@ namespace BugTracker.API.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Category> Types { get; set; }
-        public DbSet<UserTicket> UserTickets { get; set; }
+
+        // public DbSet<UserTicket> UserTickets { get; set; }
         public DbSet<Project> Projects { get; set; }
         // public DbSet<Role> Role { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -26,35 +27,33 @@ namespace BugTracker.API.Data
             
             builder.Entity<User>()
                 .Property(u => u.Email)
-                .IsRequired();
+                .IsRequired(true);
+
+            builder.Entity<Role>()
+                .Property(r => r.Id)
+                .ValueGeneratedOnAdd();
+
+
+                
+            // builder.Entity<User>()
+            //     .HasOne(u => u.TicketsofUser)
+            //     .WithMany(t => t.AssingedUser)
+            //     .HasForeignKey<Ticket>(u => u.userId);
+
+                
+                
 
 
             // Define: Many to Many relation between User and Ticket
-            builder.Entity<UserTicket>().HasKey(ut => new { ut.UserId, ut.TicketId });
-            builder.Entity<UserTicket>()
-                .HasOne(t => t.Ticket)
-                .WithMany(t => t.UserTickets)
-                .HasForeignKey(t => t.TicketId);
-            builder.Entity<UserTicket>()
-                .HasOne(t => t.User)
-                .WithMany(t => t.UserTickets)
-                .HasForeignKey(t => t.UserId);
-
-            // builder.Entity<UserRole>(userRole => 
-            // {
-            //     userRole.HasKey(ur => new {ur.UserId, ur.RoleId});
-
-            //     userRole.HasOne(ur => ur.Role)
-            //         .WithMany(r => r.UserRoles)
-            //         .HasForeignKey(ur => ur.RoleId)
-            //         .IsRequired();
-                
-            //     userRole.HasOne(ur => ur.User)
-            //         .WithMany(r => r.UserRoles)
-            //         .HasForeignKey(ur => ur.UserId)
-            //         .IsRequired();
-            // });
-           
+            // builder.Entity<UserTicket>().HasKey(ut => new { ut.UserId, ut.TicketId });
+            // builder.Entity<UserTicket>()
+            //     .HasOne(t => t.Ticket)
+            //     .WithMany(t => t.UserTickets)
+            //     .HasForeignKey(t => t.TicketId);
+            // builder.Entity<UserTicket>()
+            //     .HasOne(t => t.User)
+            //     .WithMany(t => t.UserTickets)
+            //     .HasForeignKey(t => t.UserId);
         }
 
             

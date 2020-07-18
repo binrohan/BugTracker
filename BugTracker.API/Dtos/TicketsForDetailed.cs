@@ -10,14 +10,14 @@ namespace BugTracker.API.Dtos
         public string Title { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
+        public DateTime SubmissionDate { get; set; }
         public bool isArchived { get; set; }
         public bool isDeveloperPassed { get; set; }
         public bool isManagerPassed { get; set; }
 
-        public Project project { get; set; }
-        public int ProjectID { get; set; }
+        public ProjectShortDto project { get; set; }
 
-        public ICollection<UserWithTicketDto> UserTicketDto { get; set; }
+        public UserShortDto User { get; set; }
         public ICollection<CommentForTicketDto> Comments { get; set; }
         public Category Category { get; set; }
         public Priority Priority { get; set; }

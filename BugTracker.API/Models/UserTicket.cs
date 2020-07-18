@@ -1,6 +1,6 @@
 namespace BugTracker.API.Models
 {
-    public class UserTicket
+    public class UserTickets
     {
         public string UserId { get; set; }
         public User User { get; set; }

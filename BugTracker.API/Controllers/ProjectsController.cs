@@ -61,7 +61,7 @@ namespace BugTracker.API.Controllers {
                 return Unauthorized();
             
             var projectFormRepo = await _repo.GetProject(projectForUpdate.ProjectId);
-            _mapper.Map(projectForUpdate,projectFormRepo);
+            _mapper.Map(projectForUpdate, projectFormRepo);
 
             if(await _repo.SaveAll())
             {
@@ -69,6 +69,27 @@ namespace BugTracker.API.Controllers {
             }
 
             throw new Exception($"updating project {projectForUpdate.ProjectId} failed to update");
+        }
+
+        [HttpPut("{id}/assign")]
+        public async Task<IActionResult> AssignUsers(int id, AssignedUsersDto assignedUsers)
+        {
+            
+            foreach (var userId in assignedUsers.userId)
+            {
+                var userFromRepo = await _repo.GetUser(userId, false);
+                if(userFromRepo.project == null)
+                {
+                    userFromRepo.project = await _repo.GetProject(id);
+                } 
+                else
+                    userFromRepo.project = null;
+
+                if(! await _repo.SaveAll())
+                    return BadRequest("Failed on Save");
+            }
+
+            return NoContent();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace BugTracker.API.Dtos
         public string Phone { get; set; }
 
         public ProjectShortDto project { get; set; }
-        public ICollection<TicketWithUserDto> TicketForUser { get; set; }
+        public ICollection<TicketShortDto> Tickets { get; set; }
         public Role Role { get; set; }
     }
 }
