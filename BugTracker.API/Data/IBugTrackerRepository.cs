@@ -15,5 +15,14 @@ namespace BugTracker.API.Data
         Task<IEnumerable<Project>> GetProjects();
         Task<Ticket> GetTicket(int id);
         Task<IEnumerable<Ticket>> GetTickets();
+
+
+
+        Task<IEnumerable<Category>> GetCategories();
+        Task<Category> GetCategory(int id);
+        Task<IEnumerable<Status>> GetStatuses();
+        Task<Status> GetStatus(int id);
+        Task<IEnumerable<Priority>> GetPriorities();
+        Task<Priority> GetPriority(int id);
     }
 }

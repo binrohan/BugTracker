@@ -79,5 +79,29 @@ namespace BugTracker.API.Controllers {
 
             throw new Exception("Cant be updated the ticket");
         }
+
+
+        [HttpGet("cate/{cId}")]
+        public async Task<IActionResult> GetCategory(int cId)
+        {
+            var category = await _repo.GetCategory(cId);
+            return Ok (category);
+        }
+
+
+        [HttpGet("sta/{sId}")]
+        public async Task<IActionResult> GetStatus(int sId)
+        {
+            var status = await _repo.GetCategory(sId);
+            return Ok (status);
+        }
+
+
+        [HttpGet("pri/{pId}")]
+        public async Task<IActionResult> GetPriority(int pId)
+        {
+            var priority = await _repo.GetPriority(pId);
+            return Ok (priority);
+        }
     }
 }

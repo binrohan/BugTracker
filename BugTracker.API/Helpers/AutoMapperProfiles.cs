@@ -11,17 +11,36 @@ namespace BugTracker.API.Helpers
             CreateMap<User, UserForDetailed>();
             CreateMap<User, UserShortDto>();
             CreateMap<UserForRegisterDto, User>();
-            CreateMap<Ticket,TicketShortDto>();
-            CreateMap<Ticket, TicketsForDetailed>();
+            CreateMap<UserToUpdateDto, User>();
+            CreateMap<Ticket,TicketShortDto>()
+                .ForMember(dest => dest.Category, opt =>
+                    opt.MapFrom(src => src.Category.TicketCategory))
+                .ForMember(dest => dest.Status, opt =>
+                    opt.MapFrom(src => src.Status.TicketStatus))
+                .ForMember(dest => dest.Priority, opt =>
+                    opt.MapFrom(src => src.Priority.TicketPriority));
+            CreateMap<Ticket, TicketsForDetailed>()
+                .ForMember(dest => dest.Category, opt =>
+                    opt.MapFrom(src => src.Category.TicketCategory))
+                .ForMember(dest => dest.Status, opt =>
+                    opt.MapFrom(src => src.Status.TicketStatus))
+                .ForMember(dest => dest.Priority, opt =>
+                    opt.MapFrom(src => src.Priority.TicketPriority));
             CreateMap<TicketToCreateDto, Ticket>();
             CreateMap<TicketToUpdateDto, Ticket>();
+
             CreateMap<Project, ProjectsForDetailed>();
             CreateMap<Project, ProjectShortDto>();
             CreateMap<ProjectToCreateDto, Project>();
             CreateMap<ProjectForUpdateDto, Project>();
+
             CreateMap<Comment, CommentForTicketDto>();
 
+            CreateMap<Category, CategoryToReturn>().ReverseMap();
+            CreateMap<Status, StatusToReturn>().ReverseMap();
+            CreateMap<Priority, PriorityToReturn>().ReverseMap();
 
+            CreateMap<User, mockUser>();
             // CreateMap<UserTicket, UserWithTicketDto>()
             // .ForMember(dest => dest.TUser, opt => 
             // opt.MapFrom(src => src.User));

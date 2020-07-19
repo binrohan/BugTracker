@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BugTracker.API.Migrations
 {
-    public partial class IdentityIntial : Migration
+    public partial class Restart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,19 @@ namespace BugTracker.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TicketCategory = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,19 +75,6 @@ namespace BugTracker.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Statuses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Types",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TicketCategory = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Types", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -125,6 +125,7 @@ namespace BugTracker.API.Migrations
                     Adrs_Division = table.Column<string>(nullable: true),
                     Adrs_Country = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
+                    number = table.Column<int>(nullable: false),
                     projectId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -134,52 +135,6 @@ namespace BugTracker.API.Migrations
                         name: "FK_AspNetUsers_Projects_projectId",
                         column: x => x.projectId,
                         principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tickets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Updated = table.Column<DateTime>(nullable: false),
-                    isArchived = table.Column<bool>(nullable: false),
-                    isDeveloperPassed = table.Column<bool>(nullable: false),
-                    isManagerPassed = table.Column<bool>(nullable: false),
-                    ProjectId = table.Column<int>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: true),
-                    PriorityId = table.Column<int>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Types_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Types",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Priorities_PriorityId",
-                        column: x => x.PriorityId,
-                        principalTable: "Priorities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -230,7 +185,10 @@ namespace BugTracker.API.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
+                    num = table.Column<int>(nullable: false),
+                    UserId1 = table.Column<string>(nullable: true),
+                    RoleId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -242,11 +200,23 @@ namespace BugTracker.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId1",
+                        column: x => x.RoleId1,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -270,20 +240,56 @@ namespace BugTracker.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRole",
+                name: "Tickets",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false),
-                    UserId1 = table.Column<string>(nullable: true)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Updated = table.Column<DateTime>(nullable: false),
+                    SubmissionDate = table.Column<DateTime>(nullable: false),
+                    isArchived = table.Column<bool>(nullable: false),
+                    isDeveloperPassed = table.Column<bool>(nullable: false),
+                    isManagerPassed = table.Column<bool>(nullable: false),
+                    projectId = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: true),
+                    PriorityId = table.Column<int>(nullable: true),
+                    StatusId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserRole_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Tickets_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Priorities_PriorityId",
+                        column: x => x.PriorityId,
+                        principalTable: "Priorities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Projects_projectId",
+                        column: x => x.projectId,
+                        principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -316,30 +322,6 @@ namespace BugTracker.API.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "UserTickets",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(nullable: false),
-                    TicketId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserTickets", x => new { x.UserId, x.TicketId });
-                    table.ForeignKey(
-                        name: "FK_UserTickets_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserTickets_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -366,6 +348,16 @@ namespace BugTracker.API.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId1",
+                table: "AspNetUserRoles",
+                column: "RoleId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_UserId1",
+                table: "AspNetUserRoles",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -405,24 +397,19 @@ namespace BugTracker.API.Migrations
                 column: "PriorityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_ProjectId",
-                table: "Tickets",
-                column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_StatusId",
                 table: "Tickets",
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_UserId1",
-                table: "UserRole",
-                column: "UserId1");
+                name: "IX_Tickets_UserId",
+                table: "Tickets",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTickets_TicketId",
-                table: "UserTickets",
-                column: "TicketId");
+                name: "IX_Tickets_projectId",
+                table: "Tickets",
+                column: "projectId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -446,28 +433,22 @@ namespace BugTracker.API.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "UserRole");
-
-            migrationBuilder.DropTable(
-                name: "UserTickets");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Tickets");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Types");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Priorities");
 
             migrationBuilder.DropTable(
                 name: "Statuses");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Projects");

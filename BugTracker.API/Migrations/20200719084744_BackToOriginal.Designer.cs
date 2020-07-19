@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200717195852_ticket6")]
-    partial class ticket6
+    [Migration("20200719084744_BackToOriginal")]
+    partial class BackToOriginal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace BugTracker.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Types");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BugTracker.API.Models.Comment", b =>
@@ -109,6 +109,7 @@ namespace BugTracker.API.Migrations
             modelBuilder.Entity("BugTracker.API.Models.Role", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -170,6 +171,9 @@ namespace BugTracker.API.Migrations
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("SubmissionDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -190,9 +194,6 @@ namespace BugTracker.API.Migrations
 
                     b.Property<int?>("projectId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("submissionDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -304,6 +305,21 @@ namespace BugTracker.API.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("BugTracker.API.Models.UserRole", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -374,21 +390,6 @@ namespace BugTracker.API.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
@@ -434,7 +435,7 @@ namespace BugTracker.API.Migrations
                         .HasForeignKey("StatusId");
 
                     b.HasOne("BugTracker.API.Models.User", "User")
-                        .WithMany("TicketsofUser")
+                        .WithMany("Tickets")
                         .HasForeignKey("UserId");
 
                     b.HasOne("BugTracker.API.Models.Project", "project")
@@ -447,6 +448,21 @@ namespace BugTracker.API.Migrations
                     b.HasOne("BugTracker.API.Models.Project", "project")
                         .WithMany("Users")
                         .HasForeignKey("projectId");
+                });
+
+            modelBuilder.Entity("BugTracker.API.Models.UserRole", b =>
+                {
+                    b.HasOne("BugTracker.API.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BugTracker.API.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -469,21 +485,6 @@ namespace BugTracker.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BugTracker.API.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("BugTracker.API.Models.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BugTracker.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")

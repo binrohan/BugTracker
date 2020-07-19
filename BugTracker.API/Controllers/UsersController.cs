@@ -11,34 +11,62 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BugTracker.API.Controllers {
+namespace BugTracker.API.Controllers
+{
     // [ServiceFilter(typeof(logUserActivity))]
-    [Route ("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase {
+    public class UsersController : ControllerBase
+    {
         private readonly IBugTrackerRepository _repo;
         private readonly IMapper _mapper;
-        public UsersController (IBugTrackerRepository repo, IMapper mapper) {
+        private readonly UserManager<User> _userManager;
+        public UsersController(IBugTrackerRepository repo, IMapper mapper, UserManager<User> userManager)
+        {
+            _userManager = userManager;
             _mapper = mapper;
             _repo = repo;
         }
 
-        [HttpGet ("{id}")]
-        public async Task<IActionResult> GetUser (string id) 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(string id)
         {
-            var currentUserId = (User.FindFirst (ClaimTypes.NameIdentifier).Value);
-            bool isCurrentUser = String.Equals (currentUserId, id);
-            var user = await _repo.GetUser (id, isCurrentUser);
-            var userToReturn = _mapper.Map<UserForDetailed> (user);
-            return Ok (userToReturn);
+            var currentUserId = (User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            bool isCurrentUser = String.Equals(currentUserId, id);
+            var user = await _repo.GetUser(id, isCurrentUser);
+            var userToReturn = _mapper.Map<UserForDetailed>(user);
+            return Ok(userToReturn);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers () {
-            var users = await _repo.GetUsers ();
-            var usersForReturn = _mapper.Map<IEnumerable<UserShortDto>> (users);
-            
-            return Ok (usersForReturn);
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _repo.GetUsers();
+            var usersToReturn =  _mapper.Map<IEnumerable<UserShortDto>>(users);
+
+            foreach (var user in usersToReturn)
+            {
+                var userTemp = await _userManager.FindByEmailAsync(user.Email);
+                var Role = await _userManager.GetRolesAsync(userTemp);
+                user.Roles = Role;
+            }
+            return Ok(usersToReturn);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(string id, UserToUpdateDto userToUpdate)
+        {
+            if (!id.Equals(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var userFromRepo = await _repo.GetUser(id, false);
+
+            _mapper.Map(userToUpdate, userFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Failed to save");
         }
     }
 }

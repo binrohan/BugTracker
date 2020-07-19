@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BugTracker.API.Models;
 
 namespace BugTracker.API.Dtos
@@ -7,6 +8,7 @@ namespace BugTracker.API.Dtos
         public string Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }       
+        public string Phone { get; set; }
+        public IList<string> Roles { get; set; }     
     }
 }

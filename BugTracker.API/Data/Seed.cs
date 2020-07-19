@@ -29,17 +29,17 @@ namespace BugTracker.API.Data
                     roleManager.CreateAsync(role).Wait();
                 }
                 //Create Some Types
-                var types = new List<Category>
-                {
-                    new Category{TicketCategory = "User Interface"},
-                    new Category{TicketCategory = "API"},
-                    new Category{TicketCategory = "Database"}
-                };
-                //Adding the roles into the database table
-                foreach (var type in types)
-                {
+                // var types = new List<Category>
+                // {
+                //     new Category{TicketCategory = "User Interface"},
+                //     new Category{TicketCategory = "API"},
+                //     new Category{TicketCategory = "Database"}
+                // };
+                // //Adding the roles into the database table
+                // foreach (var type in types)
+                // {
                     
-                }
+                // }
                 //Assigning each user with role of member
                 foreach (var user in users)
                 {
@@ -60,7 +60,7 @@ namespace BugTracker.API.Data
                 if(result.Succeeded)
                 {
                     var admin = userManager.FindByNameAsync("Admin").Result;
-                    userManager.AddToRolesAsync(admin, new[] {"Admin", "Moderator"});
+                    userManager.AddToRoleAsync(admin, "Admin");
                 }
             }
         }

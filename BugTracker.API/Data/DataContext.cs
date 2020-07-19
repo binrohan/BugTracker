@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BugTracker.API.Data
 {
-    public class DataContext : IdentityDbContext<User, Role, string>
+    public class DataContext : IdentityDbContext<User, Role, string,  IdentityUserClaim<string>,
+    UserRole, IdentityUserLogin<string>,
+    IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) {}
 
@@ -16,7 +18,7 @@ namespace BugTracker.API.Data
         public DbSet<Priority> Priorities { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<Category> Types { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         // public DbSet<UserTicket> UserTickets { get; set; }
         public DbSet<Project> Projects { get; set; }
@@ -34,7 +36,25 @@ namespace BugTracker.API.Data
                 .ValueGeneratedOnAdd();
 
 
-                
+        builder.Entity<User>(b =>
+        {
+            b.HasMany<UserRole>(u => u.UserRoles)
+                .WithOne(ur => ur.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
+        });
+
+        builder.Entity<Role>(b =>
+        {
+            b.HasMany<UserRole>(r => r.UserRoles)
+                .WithOne(ur => ur.Role)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
+        });
+
+
+            // builder.Entity<IdentityUserRole<string>>()
+            //     .HasKey(ut => new { ut.UserId, ut.RoleId });
             // builder.Entity<User>()
             //     .HasOne(u => u.TicketsofUser)
             //     .WithMany(t => t.AssingedUser)
