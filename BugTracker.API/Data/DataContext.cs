@@ -36,21 +36,22 @@ namespace BugTracker.API.Data
                 .ValueGeneratedOnAdd();
 
 
-        builder.Entity<User>(b =>
-        {
-            b.HasMany<UserRole>(u => u.UserRoles)
-                .WithOne(ur => ur.User)
-                .HasForeignKey(ur => ur.UserId)
-                .IsRequired();
-        });
+            builder.Entity<User>(b =>
+            {
+                b.HasMany<UserRole>(u => u.UserRoles)
+                    .WithOne(ur => ur.User)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
+            });
 
-        builder.Entity<Role>(b =>
-        {
-            b.HasMany<UserRole>(r => r.UserRoles)
-                .WithOne(ur => ur.Role)
-                .HasForeignKey(ur => ur.RoleId)
-                .IsRequired();
-        });
+            builder.Entity<Role>(b =>
+            {
+                b.HasMany<UserRole>(r => r.UserRoles)
+                    .WithOne(ur => ur.Role)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
+            });
+
 
 
             // builder.Entity<IdentityUserRole<string>>()

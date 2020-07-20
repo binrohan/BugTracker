@@ -13,7 +13,7 @@ namespace BugTracker.API.Dtos
         public ProjectToCreateDto()
         {   
             StartTime = DateTime.Now;
-            DeadTime = DateTime.Now;
+            DeadTime = DateTime.Now; //Temp
             isArchived = false;
         }
     }

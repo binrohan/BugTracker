@@ -28,9 +28,9 @@ namespace BugTracker.API.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProjects()
+        public async Task<IActionResult> GetProjects(bool isArchived)
         {
-            var projects = await _repo.GetProjects();
+            var projects = await _repo.GetProjects(isArchived);
             var projectsForReturn =  _mapper.Map<IEnumerable<ProjectShortDto>>(projects);
             return Ok(projectsForReturn);
         }
@@ -55,12 +55,13 @@ namespace BugTracker.API.Controllers {
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject(string id, ProjectForUpdateDto projectForUpdate)
+        public async Task<IActionResult> UpdateProject(int id, ProjectForUpdateDto projectForUpdate)
         {
-            if(!id.Equals((User.FindFirst(ClaimTypes.NameIdentifier)).Value))
-                return Unauthorized();
+            var projectFormRepo = await _repo.GetProject(id);
+
+            if(projectFormRepo.isArchived)
+                BadRequest("Project is Archived");
             
-            var projectFormRepo = await _repo.GetProject(projectForUpdate.ProjectId);
             _mapper.Map(projectForUpdate, projectFormRepo);
 
             if(await _repo.SaveAll())
@@ -68,13 +69,16 @@ namespace BugTracker.API.Controllers {
                 return NoContent();
             }
 
-            throw new Exception($"updating project {projectForUpdate.ProjectId} failed to update");
+            throw new Exception($"updating project {id} failed to update");
         }
 
         [HttpPut("{id}/assign")]
         public async Task<IActionResult> AssignUsers(int id, AssignedUsersDto assignedUsers)
         {
-            
+            var projectFromRepo = await _repo.GetProject(id);
+            if(projectFromRepo.isArchived)
+                return BadRequest("Project is Archived");
+
             foreach (var userId in assignedUsers.userId)
             {
                 var userFromRepo = await _repo.GetUser(userId, false);

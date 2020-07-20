@@ -29,9 +29,9 @@ namespace BugTracker.API.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTickets()
+        public async Task<IActionResult> GetTickets(bool isArchived)
         {
-            var tickets = await _repo.GetTickets();
+            var tickets = await _repo.GetTickets(isArchived);
             var ticketsForReturn =  _mapper.Map<IEnumerable<TicketShortDto>>(tickets);
             return Ok(ticketsForReturn);
         }
@@ -75,6 +75,9 @@ namespace BugTracker.API.Controllers {
             
             var ticketFromRepo =await _repo.GetTicket(ticketId);
 
+            if(ticketFromRepo.isArchived)
+                BadRequest("Ticket is Archived");
+
             ticketFromRepo.User = await _repo.GetUser(ticketToUpdate.userId, false);
             ticketFromRepo.Status = await _repo.GetStatus(ticketToUpdate.StatusId);
             ticketFromRepo.Category = await _repo.GetCategory(ticketToUpdate.CategoryId);
@@ -113,5 +116,6 @@ namespace BugTracker.API.Controllers {
             var priority = await _repo.GetPriority(pId);
             return Ok (priority);
         }
+        
     }
 }

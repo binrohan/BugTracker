@@ -14,10 +14,10 @@ namespace BugTracker.API.Data
         Task<IEnumerable<User>> GetUsers();
 
         Task<Project> GetProject(int id);
-        Task<IEnumerable<Project>> GetProjects();
+        Task<IEnumerable<Project>> GetProjects(bool isArchived);
 
         Task<Ticket> GetTicket(int id);
-        Task<IEnumerable<Ticket>> GetTickets();
+        Task<IEnumerable<Ticket>> GetTickets(bool isArchived);
 
         Task<Comment> GetComment(int id);
 

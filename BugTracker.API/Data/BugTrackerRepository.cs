@@ -57,9 +57,13 @@ namespace BugTracker.API.Data
             return project;
         }
 
-        public async Task<IEnumerable<Project>> GetProjects()
+        public async Task<IEnumerable<Project>> GetProjects(bool isArchived)
         {
             var projects = await _context.Projects.ToListAsync();
+            if(isArchived)
+                projects = projects.Where(p => p.isArchived == true).ToList();
+            if(!isArchived)
+                projects = projects.Where(p => p.isArchived == false).ToList();
 
             return projects;
         }
@@ -80,13 +84,18 @@ namespace BugTracker.API.Data
         }
 
 
-        public async Task<IEnumerable<Ticket>> GetTickets()
+        public async Task<IEnumerable<Ticket>> GetTickets(bool isArchived)
         {
             var tickets = await _context.Tickets
+                                .OrderBy(t => t.SubmissionDate)
                                 .Include(t => t.Status)
                                 .Include(t => t.Category)
                                 .Include(t => t.Priority)
                                 .ToListAsync();
+            if(isArchived)
+                tickets = tickets.Where(t => t.isArchived == true).ToList();
+            if(!isArchived)
+                tickets = tickets.Where(t => t.isArchived == false).ToList();
 
             return tickets;
         }

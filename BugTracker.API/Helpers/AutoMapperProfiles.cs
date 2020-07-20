@@ -41,6 +41,7 @@ namespace BugTracker.API.Helpers
             CreateMap<Priority, PriorityToReturn>().ReverseMap();
 
             CreateMap<User, mockUser>();
+            CreateMap<Project, ProjectForUpdateDto>();
             // CreateMap<UserTicket, UserWithTicketDto>()
             // .ForMember(dest => dest.TUser, opt => 
             // opt.MapFrom(src => src.User));
