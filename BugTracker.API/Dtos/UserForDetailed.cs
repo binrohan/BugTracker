@@ -17,10 +17,10 @@ namespace BugTracker.API.Dtos
         public string Adrs_Division { get; set; }
         public string Adrs_Country { get; set; }
         public string Phone { get; set; }
+        public IList<string> Roles { get; set; }
 
         public ProjectShortDto project { get; set; }
         public ICollection<TicketShortDto> Tickets { get; set; }
-        public Role Role { get; set; }
     }
 }
 // Detail of user included list of Ticket co responding to the user

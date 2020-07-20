@@ -33,8 +33,11 @@ namespace BugTracker.API.Controllers
         {
             var currentUserId = (User.FindFirst(ClaimTypes.NameIdentifier).Value);
             bool isCurrentUser = String.Equals(currentUserId, id);
+
             var user = await _repo.GetUser(id, isCurrentUser);
             var userToReturn = _mapper.Map<UserForDetailed>(user);
+            userToReturn.Roles = await _userManager.GetRolesAsync(user);
+
             return Ok(userToReturn);
         }
 
