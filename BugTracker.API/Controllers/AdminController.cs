@@ -60,5 +60,28 @@ namespace BugTracker.API.Controllers
             
             throw new Exception (userFromRepo.UserName+" unable to remove");
         }
+
+        [HttpPost("editRoles/{uId}")]
+        public async Task<IActionResult> EditRoles(string uId, RoleEditDto roleEdit)
+        {
+            var user = await _userManager.FindByIdAsync(uId);
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var selectedRoles = roleEdit.RoleNames;
+
+            selectedRoles = selectedRoles ?? new string[] { };
+            var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
+
+            if (!result.Succeeded)
+                return BadRequest("Failed to add to roles");
+
+            result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
+
+            if (!result.Succeeded)
+                return BadRequest("Failed to remove the roles");
+
+            return Ok(await _userManager.GetRolesAsync(user));
+        }
     }
 }
