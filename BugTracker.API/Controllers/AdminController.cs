@@ -47,5 +47,18 @@ namespace BugTracker.API.Controllers
             }
             return Ok(userToReturn);
         }
+
+        [HttpDelete("removeUser/{id}")]
+        public async Task<IActionResult> RemoveUser(string id){
+
+            var userFromRepo =  await _userManager.FindByIdAsync(id);
+
+            _repo.Delete(userFromRepo);
+
+            if(await _repo.SaveAll())
+                return NoContent();
+            
+            throw new Exception (userFromRepo.UserName+" unable to remove");
+        }
     }
 }

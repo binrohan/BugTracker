@@ -47,7 +47,14 @@ namespace BugTracker.API.Controllers {
             
             var newTicket = _mapper.Map<Ticket>(ticketToCreate);
             newTicket.project = await _repo.GetProject(ticketToCreate.projectId);
-            newTicket.User = await _repo.GetUser(ticketToCreate.userId, false);
+            if(ticketToCreate.userId != null )
+                newTicket.User = await _repo.GetUser(ticketToCreate.userId, false);
+            if(ticketToCreate.CategoryId != 0 )
+                newTicket.Status = await _repo.GetStatus(ticketToCreate.CategoryId);
+            if(ticketToCreate.StatusId != 0 )
+                newTicket.Category = await _repo.GetCategory(ticketToCreate.CategoryId);
+            if(ticketToCreate.PriorityId != 0 )
+                newTicket.Priority = await _repo.GetPriority(ticketToCreate.PriorityId);
             
             _repo.Add(newTicket);
 
@@ -69,6 +76,9 @@ namespace BugTracker.API.Controllers {
             var ticketFromRepo =await _repo.GetTicket(ticketId);
 
             ticketFromRepo.User = await _repo.GetUser(ticketToUpdate.userId, false);
+            ticketFromRepo.Status = await _repo.GetStatus(ticketToUpdate.StatusId);
+            ticketFromRepo.Category = await _repo.GetCategory(ticketToUpdate.CategoryId);
+            ticketFromRepo.Priority = await _repo.GetPriority(ticketToUpdate.PriorityId);
 
             _mapper.Map(ticketToUpdate, ticketFromRepo);
             

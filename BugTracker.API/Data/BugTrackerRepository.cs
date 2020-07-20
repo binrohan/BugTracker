@@ -140,5 +140,12 @@ namespace BugTracker.API.Data
 
             return priority;
         }
+
+        public async Task<Comment> GetComment(int id)
+        {
+            var comment = await _context.Comments
+                                    .FirstOrDefaultAsync(c => c.Id == id);
+            return comment;
+        }
     }
 }

@@ -15,9 +15,9 @@ namespace BugTracker.API.Dtos
 
         
         public string userId { get; set; }
-        public Category Category { get; set; }
-        public Priority Priority { get; set; }
-        public Status Status { get; set; }
+        public int CategoryId { get; set; }
+        public int PriorityId { get; set; }
+        public int StatusId { get; set; }
 
         public TicketToUpdateDto()  
         {

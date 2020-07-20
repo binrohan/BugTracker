@@ -35,9 +35,11 @@ namespace BugTracker.API.Controllers
             bool isCurrentUser = String.Equals(currentUserId, id);
 
             var user = await _repo.GetUser(id, isCurrentUser);
-            var userToReturn = _mapper.Map<UserForDetailed>(user);
-            userToReturn.Roles = await _userManager.GetRolesAsync(user);
 
+            var userToReturn = _mapper.Map<UserForDetailed>(user);
+
+            userToReturn.Roles = await _userManager.GetRolesAsync(user);
+        
             return Ok(userToReturn);
         }
 
@@ -50,8 +52,8 @@ namespace BugTracker.API.Controllers
             foreach (var user in usersToReturn)
             {
                 var userTemp = await _userManager.FindByEmailAsync(user.Email);
-                var Role = await _userManager.GetRolesAsync(userTemp);
-                user.Roles = Role;
+                var roles = await _userManager.GetRolesAsync(userTemp);
+                user.Roles = roles;
             }
             return Ok(usersToReturn);
         }
