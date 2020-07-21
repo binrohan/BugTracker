@@ -39,7 +39,7 @@ namespace BugTracker.API.Controllers {
         }
 
         [HttpDelete("cate/{id}")]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> RemoveCategory(int id)
         {
             var categoryFromRepo = await _repo.GetCategory(id);
             _repo.Delete(categoryFromRepo);

@@ -6,6 +6,7 @@ export interface User {
     id: string;
     userName: string;
     email: string;
+
     joined: Date;
     gender?: string;
     describtion?: string;
@@ -18,4 +19,5 @@ export interface User {
     project?: Project;
     tickets?: Ticket[];
     comments?: CommentPosted[];
+    roles: string[];
 }

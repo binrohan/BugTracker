@@ -8,6 +8,8 @@ export interface Project {
     startTime: Date;
     DeadTime: Date;
     isAcrchived: boolean;
-    tickets: Ticket[];
-    users: User[];
+
+    tickets?: Ticket[];
+    users?: User[];
 }
+

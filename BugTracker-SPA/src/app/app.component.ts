@@ -19,20 +19,26 @@ export class AppComponent implements OnInit{
   mode = 'over';
   shouldRun = true;
   hide = true;
+  user: User;
   jwtHelper = new JwtHelperService();
+  showToolbar = false;
 
   constructor(private snackbar: SnackbarService,
               private authService: AuthService,
               private router: Router) {}
   ngOnInit() {
     const token = localStorage.getItem('token');
-    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.user = JSON.parse(localStorage.getItem('user'));
     if (token){
       this.authService.decodedToken = this.jwtHelper.decodeToken(token);
     }
-    if (user) {
-      this.authService.currentUser = user;
+    if (this.user) {
+      this.authService.currentUser = this.user;
     }
+    if (this.authService.loggedIn()){
+      this.showToolbar = true;
+    }
+    console.log(this.authService.loggedIn());
   }
   logout(){
     localStorage.removeItem('token');

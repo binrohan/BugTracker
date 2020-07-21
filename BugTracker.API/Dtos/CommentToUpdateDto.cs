@@ -7,7 +7,7 @@ namespace BugTracker.API.Dtos
 
         public string Content { get; set; }
         public DateTime Updated { get; set; }
-        public bool IsDeteled { get; set; }
+        public bool IsDeleted { get; set; }
 
         public CommentToUpdateDto()
         {

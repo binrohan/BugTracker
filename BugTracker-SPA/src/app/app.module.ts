@@ -34,6 +34,7 @@ import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
 import { UsersResolver } from './_resolvers/users.resolver';
 import { ProjectsResolver } from './_resolvers/projects.resolver';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 export function tokenGetter() {
@@ -84,7 +85,8 @@ export function tokenGetter() {
       UserService,
       ProfileResolver,
       UsersResolver,
-      ProjectsResolver
+      ProjectsResolver,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent

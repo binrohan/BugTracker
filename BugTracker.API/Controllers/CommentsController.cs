@@ -37,7 +37,7 @@ namespace BugTracker.API.Controllers {
         {
             var commenntFromRepo = await _repo.GetComment(id);
 
-            if(commenntFromRepo.IsDeteled == true)
+            if(commenntFromRepo.IsDeleted == true)
                 return BadRequest();
 
             _mapper.Map(commenntFromRepo, commentToUpdate);

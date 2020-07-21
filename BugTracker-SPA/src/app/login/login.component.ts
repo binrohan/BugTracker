@@ -27,15 +27,7 @@ export class LoginComponent implements OnInit {
     if (this.authService.loggedIn()) {
       this.router.navigate(['dashboard']);
     }
-    // this.createRegisterForm();
   }
-
-  // createRegisterForm() {
-  //   this.loginForm = this.fb.group({
-  //     email: ['', [Validators.required, Validators.email]],
-  //     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]]
-  //   });
-  // }
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
