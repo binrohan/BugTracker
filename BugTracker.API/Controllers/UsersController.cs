@@ -69,7 +69,7 @@ namespace BugTracker.API.Controllers
             _mapper.Map(userToUpdate, userFromRepo);
 
             if (await _repo.SaveAll())
-                return NoContent();
+                return Ok(userFromRepo);
 
             throw new Exception("Failed to save");
         }

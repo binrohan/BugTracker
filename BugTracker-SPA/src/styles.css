@@ -62,12 +62,12 @@ form{
   z-index: 3;
 }
 form mat-form-field,
-form button{
+.form-submit{
   width: 360px;
 }
 .mat-form-field + .mat-form-field{
   margin: 0;
 }
-form button{
+.form-submit{
   height: 52px;
 }

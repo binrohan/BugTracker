@@ -9,11 +9,11 @@ export interface User {
 
     joined: Date;
     gender?: string;
-    describtion?: string;
-    local: string;
-    city: string;
-    division: string;
-    country: string;
+    description?: string;
+    adrs_Local: string;
+    adrs_City: string;
+    adrs_Division: string;
+    adrs_Country: string;
     phone?: string;
 
     project?: Project;

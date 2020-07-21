@@ -1,0 +1,11 @@
+.whole {
+  padding: 80px 25px 25px 25px;
+}
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}

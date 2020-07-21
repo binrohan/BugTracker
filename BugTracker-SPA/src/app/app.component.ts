@@ -8,6 +8,7 @@ import { AuthService } from './_services/auth.service';
 import { Router } from '@angular/router';
 import { User } from './_models/User';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +25,8 @@ export class AppComponent implements OnInit{
   showToolbar = false;
 
   constructor(private snackbar: SnackbarService,
-              private authService: AuthService,
-              private router: Router) {}
+              public authService: AuthService,
+              private router: Router) { }
   ngOnInit() {
     const token = localStorage.getItem('token');
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -35,10 +36,6 @@ export class AppComponent implements OnInit{
     if (this.user) {
       this.authService.currentUser = this.user;
     }
-    if (this.authService.loggedIn()){
-      this.showToolbar = true;
-    }
-    console.log(this.authService.loggedIn());
   }
   logout(){
     localStorage.removeItem('token');
@@ -46,7 +43,7 @@ export class AppComponent implements OnInit{
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
     this.snackbar.Success('logout');
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
   }
 
 }

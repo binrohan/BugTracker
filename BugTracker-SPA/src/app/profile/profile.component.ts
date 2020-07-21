@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { User } from '../_models/User';
 import { ActivatedRoute } from '@angular/router';
 import { SnackbarService } from '../_services/snackbar.service';
+import { FormGroup, NgForm } from '@angular/forms';
+import { UserService } from '../_services/user.service';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,8 +14,20 @@ import { SnackbarService } from '../_services/snackbar.service';
 export class ProfileComponent implements OnInit {
 
   user: User;
+  userUpdateForm: FormGroup;
+  @ViewChild('editForm', {static: true}) editForm: NgForm;
+  isNameLock = true;
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.editForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              private userService: UserService,
+              private authService: AuthService,
+              private snackbar: SnackbarService) { }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
@@ -20,4 +35,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  updateUser(){
+    console.log('Reached Here');
+    this.userService.updateUser(this.authService.decodedToken.nameid, this.user)
+     .subscribe(next => {
+       this.snackbar.Success('User updated');
+       this.editForm.reset(this.user);
+     }, error => {
+       this.snackbar.Success(error);
+     });
+  }
 }

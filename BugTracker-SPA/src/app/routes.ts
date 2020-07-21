@@ -9,15 +9,41 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ProfileResolver } from './_resolvers/profile.resolver';
 import { UsersResolver } from './_resolvers/users.resolver';
 import { ProjectsResolver } from './_resolvers/projects.resolver';
+import { AuthGuard } from './_guards/auth.guard';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export const appRoutes: Routes = [
-    { path: 'login', component: LoginComponent},
-    { path: 'registration', component: RegistrationComponent},
-    { path: 'dashboard', component: DashboardComponent},
-    { path: 'users', component: UserManagementComponent, resolve: {users: UsersResolver}},
-    { path: 'projects', component: ProjectComponent, resolve: {projects: ProjectsResolver}},
-    { path: 'tickets', component: TicketComponent},
-    { path: 'profile', component: ProfileComponent, resolve: {user: ProfileResolver}},
-    { path: '**', redirectTo: 'login', pathMatch: 'full' }
-
+  { path: 'registration', component: RegistrationComponent },
+  { path: '', component: LoginComponent },
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'registration', component: RegistrationComponent },
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'users',
+        component: UserManagementComponent,
+        resolve: { users: UsersResolver }
+      },
+      {
+        path: 'projects',
+        component: ProjectComponent,
+        resolve: { projects: ProjectsResolver }
+      },
+      { path: 'tickets', component: TicketComponent },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        resolve: { user: ProfileResolver },
+        canDeactivate: [PreventUnsavedChanges]
+      },
+    ],
+  },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
