@@ -9,3 +9,15 @@ table {
   font-size: 14px;
   width: 100%;
 }
+
+.mat-sort-header-container {
+  align-items: center;
+}
+
+
+
+
+/**  Override Default Style  **/
+.extra-style{
+  padding: 0 20px;
+}

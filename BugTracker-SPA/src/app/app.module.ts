@@ -18,6 +18,9 @@ import {MatListModule} from '@angular/material/list';
 import {MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -38,6 +41,8 @@ import { UsersResolver } from './_resolvers/users.resolver';
 import { ProjectsResolver } from './_resolvers/projects.resolver';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 
 
 export function tokenGetter() {
@@ -56,6 +61,7 @@ export function tokenGetter() {
       ProfileComponent,
       TicketDetailComponent,
       ProjectDetailComponent,
+      UserDetailsComponent,
       SnackbarMessageComponent
    ],
    imports: [
@@ -77,6 +83,9 @@ export function tokenGetter() {
       ReactiveFormsModule,
       MatTableModule,
       MatPaginatorModule,
+      MatSortModule,
+      MatCheckboxModule,
+      MatTableModule,
       JwtModule.forRoot({
          config: {
             tokenGetter,
@@ -91,6 +100,7 @@ export function tokenGetter() {
       ProfileResolver,
       UsersResolver,
       ProjectsResolver,
+      UserDetailsResolver,
       AuthGuard,
       PreventUnsavedChanges
    ],

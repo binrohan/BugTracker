@@ -36,11 +36,11 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser(){
-    console.log('Reached Here');
     this.userService.updateUser(this.authService.decodedToken.nameid, this.user)
      .subscribe(next => {
        this.snackbar.Success('User updated');
        this.editForm.reset(this.user);
+       this.isNameLock = true;
      }, error => {
        this.snackbar.Success(error);
      });

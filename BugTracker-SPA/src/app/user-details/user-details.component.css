@@ -1,0 +1,10 @@
+.whole{
+    padding: 80px 25px 25px 25px;
+}
+h1>span,
+h3>span{
+    color: hotpink;
+}
+.example-margin {
+    margin: 0 12px;
+  }

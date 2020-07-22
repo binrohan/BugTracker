@@ -11,6 +11,8 @@ import { UsersResolver } from './_resolvers/users.resolver';
 import { ProjectsResolver } from './_resolvers/projects.resolver';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -26,6 +28,7 @@ export const appRoutes: Routes = [
         path: 'dashboard',
         component: DashboardComponent
       },
+      { path: 'user/:id', component: UserDetailsComponent, resolve: {user: UserDetailsResolver} },
       {
         path: 'users',
         component: UserManagementComponent,
