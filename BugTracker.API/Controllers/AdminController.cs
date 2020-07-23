@@ -31,23 +31,6 @@ namespace BugTracker.API.Controllers
             _mapper = mapper;
         }
 
-
-        // Remove this method later
-        [HttpGet ("role")]
-        public async Task<IActionResult> GetUsersRoles () {
-            
-            var users = await _repo.GetUsers();
-            var userToReturn =  _mapper.Map<IEnumerable<UserShortDto>>(users);
-
-            foreach (var user in userToReturn)
-            {
-                var userTemp = await _userManager.FindByEmailAsync(user.Email);
-                var Role = await _userManager.GetRolesAsync(userTemp);
-                user.Roles = Role;
-            }
-            return Ok(userToReturn);
-        }
-
         [HttpDelete("removeUser/{id}")]
         public async Task<IActionResult> RemoveUser(string id){
 

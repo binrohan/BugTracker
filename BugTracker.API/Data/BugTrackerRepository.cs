@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BugTracker.API.Helpers;
 using BugTracker.API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -42,17 +44,52 @@ namespace BugTracker.API.Data
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers(UserParams userParams)
         {
-            var users = await _context.Users.OrderBy(u => u.UserName).Include(u => u.UserRoles).ToListAsync();
-            return users;
+            var users = _context.Users.Include(u => u.UserRoles).AsQueryable();
+            if(!string.IsNullOrEmpty(userParams.StateBy))
+            {
+                switch(userParams.StateBy)
+                {
+                    case "free":
+                        users = users.Where(u => u.project == null);
+                        break;
+                    case "assinged":
+                        users = users.Where(u => u.project != null);
+                        break;
+                }
+            }
+            
+            if(!string.IsNullOrEmpty(userParams.OrderBy))
+            {
+                switch(userParams.OrderBy)
+                {
+                    case "Namedesc":
+                        users = users.OrderByDescending(u => u.UserName);
+                        break;
+                    case "Nameasc":
+                        users = users.OrderBy(u => u.UserName);
+                        break;
+                    case "Emailasc":
+                        users = users.OrderBy(u => u.Email);
+                        break;
+                    case "Emaildesc":
+                        users = users.OrderByDescending(u => u.Email);
+                        break;
+                    default:
+                        users = users.OrderBy(u => u.Id);
+                        break;
+                }
+            }
+            
+            
+            
+            
+            
+            return await users.ToListAsync();
         }
 
-        public async Task<IEnumerable<User>> GetFreeUsers()
-        {
-            var users = await _context.Users.OrderBy(u => u.UserName).Include(u => u.UserRoles).Where(u => u.project == null).ToListAsync();
-            return users;
-        }
+
 
         public async Task<Project> GetProject(int id)
         {

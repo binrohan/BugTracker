@@ -12,24 +12,34 @@ import { AuthService } from '../_services/auth.service';
   // tslint:disable-next-line: component-selector
   selector: 'app-UserManagement',
   templateUrl: './UserManagement.component.html',
-  styleUrls: ['./UserManagement.component.css']
+  styleUrls: ['./UserManagement.component.css'],
 })
 export class UserManagementComponent implements OnInit {
-  displayedColumns: string[] = [ 'No.', 'Name', 'Email', 'Phone', 'Roles', 'Action'];
+  displayedColumns: string[] = [
+    'No.',
+    'Name',
+    'Email',
+    'Phone',
+    'Roles',
+    'Action',
+  ];
   i = 0;
+  userParams: any = {};
+  users: User[];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  users: User;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-  constructor(private route: ActivatedRoute,
-              private snackbar: SnackbarService,
-              private userService: UserService,
-              private authService: AuthService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private snackbar: SnackbarService,
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.users = data.users;
     });
+    this.userParams.orderBy = 'nameASC';
   }
 
   applyFilter(event: Event) {
@@ -43,22 +53,35 @@ export class UserManagementComponent implements OnInit {
     //   this.sortedData = data;
     //   return;
     // }
+    if (sort.active) {
+      this.userParams.orderBy = (sort.active + sort.direction);
+      console.log(this.userParams.orderBy);
+      this.loadUsers();
+    }
   }
 
-// this.sortedData = data.sort((a, b) => {
-//     const isAsc = sort.direction === 'asc';
-//     switch (sort.active) {
-//       case 'name': return compare(a.name, b.name, isAsc);
-//       case 'calories': return compare(a.calories, b.calories, isAsc);
-//       case 'fat': return compare(a.fat, b.fat, isAsc);
-//       case 'carbs': return compare(a.carbs, b.carbs, isAsc);
-//       case 'protein': return compare(a.protein, b.protein, isAsc);
-//       default: return 0;
-//     }
-//   });
+  loadUsers() {
+    this.userService.getUsers(this.userParams).subscribe(
+      (data) => {
+        this.users = data;
+      },
+      (error) => {}
+    );
+  }
 
-// function compare(a: number | string, b: number | string, isAsc: boolean) {
-//     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-//   }
+  // this.sortedData = data.sort((a, b) => {
+  //     const isAsc = sort.direction === 'asc';
+  //     switch (sort.active) {
+  //       case 'name': return compare(a.name, b.name, isAsc);
+  //       case 'calories': return compare(a.calories, b.calories, isAsc);
+  //       case 'fat': return compare(a.fat, b.fat, isAsc);
+  //       case 'carbs': return compare(a.carbs, b.carbs, isAsc);
+  //       case 'protein': return compare(a.protein, b.protein, isAsc);
+  //       default: return 0;
+  //     }
+  //   });
+
+  // function compare(a: number | string, b: number | string, isAsc: boolean) {
+  //     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  //   }
 }
-

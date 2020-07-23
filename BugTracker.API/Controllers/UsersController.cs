@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BugTracker.API.Data;
 using BugTracker.API.Dtos;
+using BugTracker.API.Helpers;
 using BugTracker.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -44,9 +45,9 @@ namespace BugTracker.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _repo.GetUsers();
+            var users = await _repo.GetUsers(userParams);
             var usersToReturn =  _mapper.Map<IEnumerable<UserShortDto>>(users);
 
             foreach (var user in usersToReturn)
@@ -58,21 +59,6 @@ namespace BugTracker.API.Controllers
             return Ok(usersToReturn);
         }
 
-        [HttpGet("free")]
-        public async Task<IActionResult> GetfreeUsers()
-        {
-            var users = await _repo.GetFreeUsers();
-            var usersToReturn =  _mapper.Map<IEnumerable<UserShortDto>>(users);
-
-            foreach (var user in usersToReturn)
-            {
-                var userTemp = await _userManager.FindByEmailAsync(user.Email);
-                var roles = await _userManager.GetRolesAsync(userTemp);
-                user.Roles = roles;
-            }
-            return Ok(usersToReturn);
-
-        }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(string id, UserToUpdateDto userToUpdate)

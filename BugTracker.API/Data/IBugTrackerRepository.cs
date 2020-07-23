@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BugTracker.API.Helpers;
 using BugTracker.API.Models;
 
 namespace BugTracker.API.Data
@@ -11,8 +12,7 @@ namespace BugTracker.API.Data
         Task<bool> SaveAll();
 
         Task<User> GetUser(string id, bool isCurrentUser);
-        Task<IEnumerable<User>> GetUsers();
-        Task<IEnumerable<User>> GetFreeUsers();
+        Task<IEnumerable<User>> GetUsers(UserParams userParams);
 
 
         Task<Project> GetProject(int id);
