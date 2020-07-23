@@ -21,6 +21,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -85,7 +87,9 @@ export function tokenGetter() {
       MatPaginatorModule,
       MatSortModule,
       MatCheckboxModule,
-      MatTableModule,
+      MatTabsModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
       JwtModule.forRoot({
          config: {
             tokenGetter,

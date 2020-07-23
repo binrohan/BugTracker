@@ -19,7 +19,7 @@
 
   mat-toolbar{
     position: fixed;
-    opacity: .5;
+    z-index: 10;
   }
 
   mat-sidenav{

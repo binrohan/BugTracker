@@ -1,3 +1,150 @@
-<p *ngFor="let project of projects">
- {{project.id}}
-</p>
+<div class="whole">
+    <h1>Project</h1>
+    <mat-tab-group dynamicHeight mat-align-tabs="end" color="primary" backgroundColor="accent">
+        <mat-tab label="List">
+            <ng-template matTabContent>
+                <mat-form-field>
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+                  </mat-form-field>
+                  <div class="mat-elevation-z8">
+                    <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="projects" class="mat-elevation-z8">
+                    
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="Id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header="Id" > Id </th>
+                            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                          </ng-container>
+                
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="Title">
+                          <th mat-header-cell *matHeaderCellDef  mat-sort-header="Title"> Title </th>
+                          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="Started">
+                          <th mat-header-cell *matHeaderCellDef  mat-sort-header="Started"> Started </th>
+                          <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="Deadline">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header="Deadline"> Deadline </th>
+                          <td mat-cell *matCellDef="let element"> {{element.deadTime}} </td>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="Tickets">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header="Tickets"> Tickets </th>
+                          <td mat-cell *matCellDef="let element">  </td>
+                        </ng-container>
+              
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="Action">
+                            <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
+                            <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/user/', element.id]" >Detail</button></td>
+                          </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        </tr>
+                      </table>
+                      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                  </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Create">
+          <h2>Create new project</h2>
+          <div class="info-block">
+            <form [formGroup] = "projectForm" (ngSubmit) = "addProject()">
+              <mat-form-field appearance="fill">
+                <mat-label>Title</mat-label>
+                <input matInput
+                required
+                formControlName = "title"
+                />
+              </mat-form-field>
+              <mat-form-field color="accent" appearance="fill">
+                <mat-label>DeadLine</mat-label>
+                <input matInput [matDatepicker]="picker1"
+                required
+                formControlName = "deadTime"
+                >
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea matInput
+              
+                formControlName = "description"
+                ></textarea>
+              </mat-form-field>
+              <button mat-flat-button color="primary" class="form-submit" type="submit" [disabled]="!projectForm.valid">Save</button>
+            </form>
+          </div>
+        </mat-tab>
+        <mat-tab label="Archived">
+          <ng-template matTabContent>
+            <mat-form-field>
+              <mat-label>Filter</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+            </mat-form-field>
+            <div class="mat-elevation-z8">
+              <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="archivedProject" class="mat-elevation-z8">
+              
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="Id">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header="Id" > Id </th>
+                      <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                    </ng-container>
+          
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="Title">
+                    <th mat-header-cell *matHeaderCellDef  mat-sort-header="Title"> Title </th>
+                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                  </ng-container>
+                
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="Started">
+                    <th mat-header-cell *matHeaderCellDef  mat-sort-header="Started"> Started </th>
+                    <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
+                  </ng-container>
+                
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="Deadline">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="Deadline"> Deadline </th>
+                    <td mat-cell *matCellDef="let element"> {{element.deadTime}} </td>
+                  </ng-container>
+                
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="Tickets">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="Tickets"> Tickets </th>
+                    <td mat-cell *matCellDef="let element">  </td>
+                  </ng-container>
+        
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="Action">
+                      <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
+                      <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/user/', element.id]" >Detail</button></td>
+                    </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+                  <!-- Row shown when there is no matching data. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                  </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+</div>

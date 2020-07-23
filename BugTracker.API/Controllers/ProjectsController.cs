@@ -27,7 +27,7 @@ namespace BugTracker.API.Controllers {
             return Ok(projectToReturn);
         }
 
-        [HttpGet]
+        [HttpGet("list/{isArchived}")]
         public async Task<IActionResult> GetProjects(bool isArchived)
         {
             var projects = await _repo.GetProjects(isArchived);

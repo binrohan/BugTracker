@@ -3,8 +3,7 @@
 @import '../node_modules/bootswatch/dist/cosmo/bootstrap.min.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css'; */
 
-
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
   font-family: Roboto, Arial, sans-serif;
@@ -18,14 +17,14 @@ body {
   float: right;
   margin: 8px;
 }
-mat-toolbar button{
+mat-toolbar button {
   background-color: transparent;
   outline: none;
   border: none;
 }
 
-.list-group-item.active{
-    color: #2780E3;
+.list-group-item.active {
+  color: #2780e3;
 }
 
 /***  Loginh form and Registration form  ****/
@@ -46,7 +45,7 @@ input.example-right-align {
   -moz-appearance: textfield;
 }
 
-.full-body{
+.full-body {
   width: 100%;
   padding: 71px 0px 5px 0px;
   /* min-height: 100vh; */
@@ -55,19 +54,19 @@ input.example-right-align {
   justify-content: center;
   align-items: center;
 }
-form{
+form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   z-index: 3;
 }
 form mat-form-field,
-.form-submit{
+.form-submit {
   width: 360px;
 }
-.mat-form-field + .mat-form-field{
+.mat-form-field + .mat-form-field {
   margin: 0;
 }
-.form-submit{
+.form-submit {
   height: 52px;
 }

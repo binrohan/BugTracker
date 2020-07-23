@@ -10,10 +10,13 @@ import { HttpClient } from '@angular/common/http';
 export class ProjectService {
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
-  getProjects() {
-    return this.http.get<Project[]>(this.baseUrl + 'projects/');
+  getProjects(isArchived: boolean) {
+    return this.http.get<Project[]>(this.baseUrl + 'projects/list/' + isArchived);
   }
   getProject(id: any): Observable<Project> {
     return this.http.get<Project>(this.baseUrl + 'projects/' + id);
+  }
+  addProject(id: any, project: Project) {
+    return this.http.post(this.baseUrl + 'projects/' + id + '/add', project);
   }
 }

@@ -12,7 +12,7 @@ export class ProjectsResolver implements Resolve<Project>{
     constructor(private projectService: ProjectService, private snackbar: SnackbarService, private router: Router) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Project> {
-        return this.projectService.getProjects().pipe(
+        return this.projectService.getProjects(false).pipe(
             catchError(error => {
                 this.snackbar.Success('Problem retrieving your data');
                 this.router.navigate(['/dashboard']);
