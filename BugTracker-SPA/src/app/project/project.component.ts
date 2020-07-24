@@ -65,7 +65,6 @@ export class ProjectComponent implements OnInit {
       }, () => {
         this.projectService.getProjects(false).subscribe( data => {
           this.projects = data;
-          this.projectForm;
         });
       });
     }

@@ -13,6 +13,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
+import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -38,6 +40,11 @@ export const appRoutes: Routes = [
         path: 'projects',
         component: ProjectComponent,
         resolve: { projects: ProjectsResolver }
+      },
+      {
+        path: 'project/:id',
+        component: ProjectDetailComponent,
+        resolve: { project: ProjectDetailsResolver }
       },
       { path: 'tickets', component: TicketComponent },
       {

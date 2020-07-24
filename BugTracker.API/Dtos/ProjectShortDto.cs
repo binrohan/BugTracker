@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace BugTracker.API.Dtos
 {
@@ -10,5 +11,6 @@ namespace BugTracker.API.Dtos
         public DateTime StartTime { get; set; } 
         public DateTime DeadTime { get; set; }
         public bool isArchived { get; set; }
+        public int TicketCount { get; set; }
     }
 }

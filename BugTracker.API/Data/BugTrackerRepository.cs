@@ -48,9 +48,15 @@ namespace BugTracker.API.Data
             return users;
         }
 
+        public async Task<IEnumerable<User>> GetFreeUsers()
+        {
+            var users = await _context.Users.OrderBy(u => u.UserName).Include(u => u.UserRoles).Where(u => u.project == null).ToListAsync();
+            return users;
+        }
+
         public async Task<Project> GetProject(int id)
         {
-            var query = _context.Projects.Include(p => p.Tickets).Include(p => p.Users).AsQueryable();
+            var query = _context.Projects.Include(p => p.Tickets).Include(p => p.Users).ThenInclude(u => u.UserRoles).AsQueryable();
 
             var project = await query.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -59,7 +65,7 @@ namespace BugTracker.API.Data
 
         public async Task<IEnumerable<Project>> GetProjects(bool isArchived)
         {
-            var projects = await _context.Projects.ToListAsync();
+            var projects = await _context.Projects.Include(p => p.Tickets).ToListAsync();
             if(isArchived)
                 projects = projects.Where(p => p.isArchived == true).ToList();
             if(!isArchived)

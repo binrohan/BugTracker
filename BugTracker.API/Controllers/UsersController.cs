@@ -58,6 +58,22 @@ namespace BugTracker.API.Controllers
             return Ok(usersToReturn);
         }
 
+        [HttpGet("free")]
+        public async Task<IActionResult> GetfreeUsers()
+        {
+            var users = await _repo.GetFreeUsers();
+            var usersToReturn =  _mapper.Map<IEnumerable<UserShortDto>>(users);
+
+            foreach (var user in usersToReturn)
+            {
+                var userTemp = await _userManager.FindByEmailAsync(user.Email);
+                var roles = await _userManager.GetRolesAsync(userTemp);
+                user.Roles = roles;
+            }
+            return Ok(usersToReturn);
+
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(string id, UserToUpdateDto userToUpdate)
         {

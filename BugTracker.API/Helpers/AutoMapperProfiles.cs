@@ -30,7 +30,9 @@ namespace BugTracker.API.Helpers
             CreateMap<TicketToUpdateDto, Ticket>();
 
             CreateMap<Project, ProjectsForDetailed>();
-            CreateMap<Project, ProjectShortDto>();
+            CreateMap<Project, ProjectShortDto>()
+                .ForMember(dest => dest.TicketCount, opt => 
+                    opt.MapFrom(src => src.Tickets.Count));
             CreateMap<ProjectToCreateDto, Project>();
             CreateMap<ProjectForUpdateDto, Project>();
 
@@ -42,6 +44,7 @@ namespace BugTracker.API.Helpers
 
             CreateMap<User, mockUser>();
             CreateMap<Project, ProjectForUpdateDto>();
+
             // CreateMap<UserTicket, UserWithTicketDto>()
             // .ForMember(dest => dest.TUser, opt => 
             // opt.MapFrom(src => src.User));

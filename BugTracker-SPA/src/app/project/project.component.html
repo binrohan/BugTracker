@@ -37,13 +37,13 @@
                         <!-- Symbol Column -->
                         <ng-container matColumnDef="Tickets">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header="Tickets"> Tickets </th>
-                          <td mat-cell *matCellDef="let element">  </td>
+                          <td mat-cell *matCellDef="let element"> {{element.ticketCount}} </td>
                         </ng-container>
               
                         <!-- Symbol Column -->
                         <ng-container matColumnDef="Action">
                             <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
-                            <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/user/', element.id]" >Detail</button></td>
+                            <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/project/', element.id]" >Detail</button></td>
                           </ng-container>
                       
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -125,13 +125,13 @@
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="Tickets">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header="Tickets"> Tickets </th>
-                    <td mat-cell *matCellDef="let element">  </td>
+                    <td mat-cell *matCellDef="let element">{{element.ticketCount}}</td>
                   </ng-container>
         
                   <!-- Symbol Column -->
                   <ng-container matColumnDef="Action">
                       <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
-                      <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/user/', element.id]" >Detail</button></td>
+                      <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/project/', element.id]" >Detail</button></td>
                     </ng-container>
                 
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

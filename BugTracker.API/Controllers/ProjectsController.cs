@@ -6,15 +6,21 @@ using AutoMapper;
 using BugTracker.API.Data;
 using BugTracker.API.Dtos;
 using BugTracker.API.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BugTracker.API.Controllers {
-    [Route ("api/[controller]")]
+namespace BugTracker.API.Controllers
+{
+    [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase {
+    public class ProjectsController : ControllerBase
+    {
         private readonly IMapper _mapper;
         private readonly IBugTrackerRepository _repo;
-        public ProjectsController (IBugTrackerRepository repo, IMapper mapper) {
+        private readonly UserManager<User> _userManager;
+        public ProjectsController(IBugTrackerRepository repo, IMapper mapper, UserManager<User> userManager)
+        {
+            _userManager = userManager;
             _repo = repo;
             _mapper = mapper;
         }
@@ -24,6 +30,12 @@ namespace BugTracker.API.Controllers {
         {
             var project = await _repo.GetProject(id);
             var projectToReturn = _mapper.Map<ProjectsForDetailed>(project);
+            foreach (var user in projectToReturn.Users)
+            {
+                var userTemp = await _userManager.FindByEmailAsync(user.Email);
+                var roles = await _userManager.GetRolesAsync(userTemp);
+                user.Roles = roles;
+            }
             return Ok(projectToReturn);
         }
 
@@ -31,13 +43,14 @@ namespace BugTracker.API.Controllers {
         public async Task<IActionResult> GetProjects(bool isArchived)
         {
             var projects = await _repo.GetProjects(isArchived);
-            var projectsForReturn =  _mapper.Map<IEnumerable<ProjectShortDto>>(projects);
+            var projectsForReturn = _mapper.Map<IEnumerable<ProjectShortDto>>(projects);
+
             return Ok(projectsForReturn);
         }
 
         [HttpPost("{id}/add")]
         public async Task<IActionResult> AddProject(string id, ProjectToCreateDto projectToCreate)
-        {   
+        {
             if (!id.Equals((User.FindFirst(ClaimTypes.NameIdentifier)).Value))
                 return Unauthorized();
 
@@ -45,7 +58,7 @@ namespace BugTracker.API.Controllers {
 
             _repo.Add(newProject);
 
-            if(await _repo.SaveAll())
+            if (await _repo.SaveAll())
             {
                 var projectToReturn = _mapper.Map<ProjectsForDetailed>(newProject);
                 return Ok(projectToReturn);
@@ -59,12 +72,12 @@ namespace BugTracker.API.Controllers {
         {
             var projectFormRepo = await _repo.GetProject(id);
 
-            if(projectFormRepo.isArchived)
+            if (projectFormRepo.isArchived)
                 BadRequest("Project is Archived");
-            
+
             _mapper.Map(projectForUpdate, projectFormRepo);
 
-            if(await _repo.SaveAll())
+            if (await _repo.SaveAll())
             {
                 return NoContent();
             }
@@ -76,20 +89,20 @@ namespace BugTracker.API.Controllers {
         public async Task<IActionResult> AssignUsers(int id, AssignedUsersDto assignedUsers)
         {
             var projectFromRepo = await _repo.GetProject(id);
-            if(projectFromRepo.isArchived)
+            if (projectFromRepo.isArchived)
                 return BadRequest("Project is Archived");
 
             foreach (var userId in assignedUsers.userId)
             {
                 var userFromRepo = await _repo.GetUser(userId, false);
-                if(userFromRepo.project == null)
+                if (userFromRepo.project == null)
                 {
                     userFromRepo.project = await _repo.GetProject(id);
-                } 
+                }
                 else
                     userFromRepo.project = null;
 
-                if(! await _repo.SaveAll())
+                if (!await _repo.SaveAll())
                     return BadRequest("Failed on Save");
             }
 
