@@ -39,7 +39,6 @@ export class UserManagementComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.users = data.users;
     });
-    this.userParams.orderBy = 'nameASC';
   }
 
   applyFilter(event: Event) {

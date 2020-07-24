@@ -1,67 +1,78 @@
 <div class="profile whole">
     <div class="info-block">
         <h1>Profile</h1>
-        <div *ngIf="editForm.dirty">
-            <p>You made change</p>
+    </div>
+    <div class="container">
+        <div class="content">
+            <form #editForm = "ngForm" id="editForm" (ngSubmit) = "updateUser()">
+                <div class="info-block black-border">
+                    <h2>Basic Information</h2>
+                    <div class="info-field">
+                        <h3>Name</h3>
+                        <input
+                            name = "username"
+                            class="form-control"
+                            [(ngModel)]="user.userName"
+                            [readonly] = "isNameLock"
+                        >
+                        <h3>Previllage :<span *ngFor="let role of user.roles">{{role}}</span></h3>
+                        <h3>Gender :<span>{{user.gender | titlecase}}</span></h3>
+                        <h3>Joined :<span>{{user.joined | date: 'dd:mm:yyyy'}}</span></h3>
+                    </div>
+                </div>
+                <div class="info-block black-border">
+                    <h2>Contact</h2>
+                    <div class="info-field">
+                        <h3>Email</h3>
+                        <input
+                            name="email"
+                            class="form-control"
+                            [(ngModel)]="user.email"
+                            [readonly] = "true"
+                        >
+                        <h3>Phone Number</h3>
+                        <input
+                            name="phone"
+                            class="form-control"
+                            [(ngModel)]="user.phone"
+                            [readonly] = "isNameLock"
+                        >
+                        <h3>Address</h3>
+                        <input
+                            name="adrs_Local"
+                            class="form-control"
+                            [(ngModel)]="user.adrs_Local"
+                            [readonly] = "isNameLock"
+                        >
+                    </div>
+                </div>
+        
+                    <div class="info-block black-border">
+                        <h2>Work</h2>
+                        <h3>Project : {{user.project?.title || "N/A"}}</h3>
+                        <h3>Number of tickets : {{user.tickets.length}}</h3>
+                    </div>
+                    <div class="info-block black-border">
+                        <h2>About</h2>
+                        <textarea
+                            name="description"
+                            class="form-control"
+                            [(ngModel)]="user.description"
+                            [readonly] = "isNameLock"
+                        ></textarea>
+                    </div>
+            </form>
+        </div>
+        <div class="right-nav">
+            <div class="info-block">
+                <button mat-flat-button color="accent" type="button" (click) = "isNameLock = !isNameLock">edit</button>
+                <button mat-flat-button color="primary" type="submit" form="editForm" [disabled] = "!editForm.dirty" >Save</button>
+                <div class="alert" *ngIf="editForm.dirty">
+                    <mat-icon>warning</mat-icon><p>You have made changes</p>
+                </div>
+            </div>
         </div>
     </div>
-    <form #editForm = "ngForm" id="editForm" (ngSubmit) = "updateUser()">
-        <div class="info-block">
-            <h2>Basic Information</h2>
-            <div class="info-field">
-                <h3>Name :</h3>
-                <input
-                    name = "username"
-                    class="form-control"
-                    [(ngModel)]="user.userName"
-                    [readonly] = "isNameLock"
-                >
-                <h3>Previllage :<span *ngFor="let role of user.roles">{{role}}</span></h3>
-                <h3>Gender :<span>{{user.gender}}</span></h3>
-                <h3>Joined :<span>{{user.joined | date: 'dd:mm:yyyy'}}</span></h3>
-            </div>
-        </div>
-        <div class="info-block">
-            <h2>Contact</h2>
-            <div class="info-field">
-                <h3>Email</h3>
-                <input
-                    name="email"
-                    class="form-control"
-                    [(ngModel)]="user.email"
-                    [readonly] = "true"
-                >
-                <h3>Phone Number</h3>
-                <input
-                    name="phone"
-                    class="form-control"
-                    [(ngModel)]="user.phone"
-                    [readonly] = "isNameLock"
-                >
-                <h3>Address</h3>
-                <input
-                    name="adrs_Local"
-                    class="form-control"
-                    [(ngModel)]="user.adrs_Local"
-                    [readonly] = "isNameLock"
-                >
-            </div>
-            <div class="info-block">
-                <h2>Work</h2>
-                <h3>Assigned Project : {{user.project?.title || "N/A"}}</h3>
-                <h3>Number of tickets : {{user.tickets.length}}</h3>
-            </div>
-            <div class="info-block">
-                <h2>About</h2>
-                <textarea
-                    name="description"
-                    class="form-control"
-                    [(ngModel)]="user.description"
-                    [readonly] = "isNameLock"
-                ></textarea>
-            </div>
-        </div>
-        <button type="button" (click) = "isNameLock = !isNameLock">edit</button>
-        <button type="submit" form="editForm" [disabled] = "!editForm.dirty" >Updte</button>
-    </form>
+
+
 </div>

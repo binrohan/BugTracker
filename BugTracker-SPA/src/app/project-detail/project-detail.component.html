@@ -72,14 +72,25 @@
                   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
               </div>
             </div>
-            <div class="unAssign" style="width: 500px;">
-              <h3>Available Users</h3>
-              <div style="height: 500px; overflow: auto;">
-            
-              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h4>Developers</h4>
+            <div *ngFor="let user of availableUsers">
+              <div *ngIf="user.roles.includes('Developer')">
+                <input type="checkbox" #checkboxValue (change)="onSelect($event, checkboxValue.value)"  id="{{user.userName}}" class="form-control" name="vehicle1" value="{{user.id}}" />
+                <label for="{{user.userName}}">{{user.userName}} <span *ngFor="let role of user.roles">{{role}}</span> </label>
             </div>
-            <div class="newSelect">
-
+            </div>
+          </div>
+          <div>
+            <h4>Managers</h4>
+            <div *ngFor="let user of availableUsers">
+              <div *ngIf="user.roles.includes('Manager')">
+                <input type="checkbox" #checkboxValue (change)="onSelect($event, checkboxValue)"  id="{{user.userName}}" class="form-control" name="vehicle1" value="{{user.id}}" />
+                <label for="{{user.userName}}">{{user.userName}} <span *ngFor="let role of user.roles">{{role}}</span> </label>
+            </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ body {
   font-family: Roboto, Arial, sans-serif;
   margin: 0;
 }
-.basic-container {
+/* .basic-container {
   padding: 30px;
 }
 .version-info {
@@ -25,10 +25,10 @@ mat-toolbar button {
 
 .list-group-item.active {
   color: #2780e3;
-}
+} */
 
 /***  Loginh form and Registration form  ****/
-.mat-form-field + .mat-form-field {
+/* .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
 
@@ -47,9 +47,9 @@ input.example-right-align {
 
 .full-body {
   width: 100%;
-  padding: 71px 0px 5px 0px;
+  padding: 71px 0px 5px 0px; */
   /* min-height: 100vh; */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -69,4 +69,4 @@ form mat-form-field,
 }
 .form-submit {
   height: 52px;
-}
+} */

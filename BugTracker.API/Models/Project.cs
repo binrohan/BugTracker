@@ -11,7 +11,6 @@ namespace BugTracker.API.Models
         public DateTime StartTime { get; set; }
         public DateTime DeadTime { get; set; }
         public bool isArchived { get; set; }
-        public bool  isManagerAssinged { get; set; }
 
 
         public ICollection<Ticket> Tickets { get; set; }

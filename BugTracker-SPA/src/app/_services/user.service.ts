@@ -20,6 +20,7 @@ export class UserService {
     if (userParams != null)
     {
       params = params.append('orderBy', userParams.orderBy);
+      params = params.append('stateBy', userParams.stateBy);
     }
 
     return this.http.get<User[]>(this.baseUrl + 'users/', {observe: 'response', params})

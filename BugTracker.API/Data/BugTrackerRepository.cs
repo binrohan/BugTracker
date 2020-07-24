@@ -54,7 +54,7 @@ namespace BugTracker.API.Data
                     case "free":
                         users = users.Where(u => u.project == null);
                         break;
-                    case "assinged":
+                    case "assigned":
                         users = users.Where(u => u.project != null);
                         break;
                 }

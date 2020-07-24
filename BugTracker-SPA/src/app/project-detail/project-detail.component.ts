@@ -15,9 +15,11 @@ export class ProjectDetailComponent implements OnInit {
   displayedColumns: string[] = ['No.', 'Name', 'Roles', 'Action'];
   project: Project;
   i = 0;
-  users: User[];
   assignedUsers: any[];
-  newUsers: string[];
+  availableUsers: User[];
+  newUsersId: any[] = [];
+  managerId: string;
+  userParams: any = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -29,13 +31,16 @@ export class ProjectDetailComponent implements OnInit {
       this.project = data.project;
     });
     this.assignedUsers = this.project.users;
+    this.userParams.stateBy = 'free';
+    this.userParams.orderBy = 'Nameasc';
     this.getUsers();
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe(
+    this.userService.getUsers(this.userParams).subscribe(
       (data) => {
-        this.users = data;
+        this.availableUsers = data;
+        console.log(this.availableUsers);
       },
       (error) => {
         console.log('error');
@@ -43,9 +48,13 @@ export class ProjectDetailComponent implements OnInit {
     );
   }
 
-  onSelect( el) {
-    console.log(el);
-    this.newUsers.push(el);
+  onSelect( el, id: string) {
+    if (!this.newUsersId.includes(id)){
+      this.newUsersId.push(id);
+    } else if (this.newUsersId.includes(id)) {
+      const i = this.newUsersId.indexOf(id);
+      this.newUsersId.splice(i, 1);
+    }
   }
 
   onRemove(e, username: string) {}

@@ -91,12 +91,12 @@ namespace BugTracker.API.Controllers
             var projectFromRepo = await _repo.GetProject(id);
             if (projectFromRepo.isArchived)
                 return BadRequest("Project is Archived");
-            if(projectFromRepo.isManagerAssinged)
-                return BadRequest("Manager Already Assinged");
+            // if(projectFromRepo.isManagerAssinged)
+            //     return BadRequest("Manager Already Assinged");
             
-            var managerFromRepo = await _repo.GetUser(assignedUsers.ManagerId, false);
-            managerFromRepo.project = projectFromRepo;
-            projectFromRepo.isManagerAssinged = true;
+            // var managerFromRepo = await _repo.GetUser(assignedUsers.ManagerId, false);
+            // managerFromRepo.project = projectFromRepo;
+            // projectFromRepo.isManagerAssinged = true;
 
 
             foreach (var userId in assignedUsers.userId)
