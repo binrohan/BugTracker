@@ -1,7 +1,5 @@
 <div class="profile whole">
-    <div class="info-block">
         <h1>Profile</h1>
-    </div>
     <div class="container">
         <div class="content">
             <form #editForm = "ngForm" id="editForm" (ngSubmit) = "updateUser()">
@@ -64,13 +62,13 @@
             </form>
         </div>
         <div class="right-nav">
-            <div class="info-block">
+
                 <button mat-flat-button color="accent" type="button" (click) = "isNameLock = !isNameLock">edit</button>
                 <button mat-flat-button color="primary" type="submit" form="editForm" [disabled] = "!editForm.dirty" >Save</button>
                 <div class="alert" *ngIf="editForm.dirty">
                     <mat-icon>warning</mat-icon><p>You have made changes</p>
                 </div>
-            </div>
+
         </div>
     </div>
 

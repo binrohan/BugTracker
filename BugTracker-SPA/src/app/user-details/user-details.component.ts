@@ -8,6 +8,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { ProjectService } from '../_services/project.service';
 import { Project } from '../_models/Project';
 import { UserService } from '../_services/user.service';
+import { TicketService } from '../_services/ticket.service';
 
 @Component({
   selector: 'app-user-details',
@@ -24,15 +25,21 @@ export class UserDetailsComponent implements OnInit {
   projects: Project[];
   userId: string[] = [];
   showList = false;
+  showTicketForm = false;
   displayedColumns: string[] = [
-    'No.',
     'Title',
     'Category',
     'Status',
     'Priority',
     'Passed',
     'Mgr Approved',
-    'Submission'
+    'Submission',
+    'Action'
+  ];
+  displayedProjectColumns: string[] = [
+    'ID',
+    'Title',
+    'Action'
   ];
 
   constructor(
@@ -40,7 +47,8 @@ export class UserDetailsComponent implements OnInit {
     private adminService: AdminService,
     private snackbar: SnackbarService,
     private projectService: ProjectService,
-    private userService: UserService
+    private userService: UserService,
+    private ticketService: TicketService
   ) {}
 
   ngOnInit() {
@@ -101,6 +109,10 @@ export class UserDetailsComponent implements OnInit {
 
   removeProject(id: number){
     const newUser = { userId: this.userId};
+    if (this.user.tickets.length > 0){
+      this.snackbar.Success('User has some tickets to resolve');
+      return false;
+    }
     this.projectService.assignUsers(id, newUser).subscribe(() => {
       this.snackbar.Success('User Removed To Project');
       this.userService.getUser(this.user.id).subscribe(data => {
@@ -114,6 +126,21 @@ export class UserDetailsComponent implements OnInit {
 
   closeProjectList(){
     this.showList = false;
+  }
+
+  showForm(){
+    this.showTicketForm = true;
+  }
+  closeForm($event){
+   this.showTicketForm = false;
+  }
+
+  unassignTicket(id: number){
+    this.ticketService.assignTicket(id, {userId: this.user.id, toRemove: true}).subscribe(() => {
+      this.snackbar.Success('Ticket unassigned from user');
+    }, error => {
+      this.snackbar.Success('Ticket unssigning failed');
+    });
   }
   applyFilter($event){
 

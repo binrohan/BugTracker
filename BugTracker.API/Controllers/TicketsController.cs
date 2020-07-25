@@ -28,7 +28,7 @@ namespace BugTracker.API.Controllers {
             return Ok(ticketToReturn);
         }
 
-        [HttpGet]
+        [HttpGet("{isArchived}")]
         public async Task<IActionResult> GetTickets(bool isArchived)
         {
             var tickets = await _repo.GetTickets(isArchived);
@@ -36,14 +36,18 @@ namespace BugTracker.API.Controllers {
             return Ok(ticketsForReturn);
         }
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> AddTicket(string id, TicketToCreateDto ticketToCreate)
+        [HttpPost]
+        public async Task<IActionResult> AddTicket(TicketToCreateDto ticketToCreate)
         {
-            if (!id.Equals((User.FindFirst(ClaimTypes.NameIdentifier)).Value))
-                return Unauthorized();
+            if(ticketToCreate.userId != null)
+            {
+                var userFromRepo = await _repo.GetUser(ticketToCreate.userId, false);
+                if(userFromRepo == null)
+                    return BadRequest();
+                if(userFromRepo.project.Id != ticketToCreate.CategoryId)
+                    return BadRequest();
+            }
 
-            if(await _repo.GetUser(ticketToCreate.userId, false) == null)
-                return BadRequest();
             
             var newTicket = _mapper.Map<Ticket>(ticketToCreate);
             newTicket.project = await _repo.GetProject(ticketToCreate.projectId);
@@ -67,18 +71,15 @@ namespace BugTracker.API.Controllers {
             throw new Exception("Ticket can't created");
         }
 
-        [HttpPut("{uId}/update/{ticketId}")]
-        public async Task<IActionResult> UpdateTicket(string uId, int ticketId, TicketToUpdateDto ticketToUpdate)
-        {
-            if (!uId.Equals((User.FindFirst(ClaimTypes.NameIdentifier)).Value))
-                return Unauthorized();
-            
+        [HttpPut("update/{ticketId}")]
+        public async Task<IActionResult> UpdateTicket(int ticketId, TicketToUpdateDto ticketToUpdate)
+        {          
             var ticketFromRepo =await _repo.GetTicket(ticketId);
-
+ 
             if(ticketFromRepo.isArchived)
                 BadRequest("Ticket is Archived");
+            
 
-            ticketFromRepo.User = await _repo.GetUser(ticketToUpdate.userId, false);
             ticketFromRepo.Status = await _repo.GetStatus(ticketToUpdate.StatusId);
             ticketFromRepo.Category = await _repo.GetCategory(ticketToUpdate.CategoryId);
             ticketFromRepo.Priority = await _repo.GetPriority(ticketToUpdate.PriorityId);
@@ -91,6 +92,26 @@ namespace BugTracker.API.Controllers {
             }
 
             throw new Exception("Cant be updated the ticket");
+        }
+
+        [HttpPut("assign/{ticketId}")]
+        public async Task<IActionResult> AssignUser(int ticketId, TicketAssignUserDto ticketAssignUser)
+        {Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            var ticketFromRepo = await _repo.GetTicket(ticketId);
+            if(ticketAssignUser.toRemove)
+            {
+                ticketFromRepo.User = null;
+            }
+            else if(!ticketAssignUser.toRemove)
+            {
+                if(ticketFromRepo.User != null)
+                    return BadRequest();
+                ticketFromRepo.User = await _repo.GetUser(ticketAssignUser.UserId, false);
+            }
+            if(await _repo.SaveAll())
+                return NoContent();
+            
+            throw new Exception("User handle for ticket failed");
         }
 
 

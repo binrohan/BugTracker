@@ -25,9 +25,7 @@ textarea{
 span{
     padding-left: 10px;
 }
-.whole{
-    padding: 80px 20px 20px 20px;
-}
+
 .container{
     display: grid;
     grid-template-columns: auto minmax(150px, 20%);
@@ -37,6 +35,7 @@ span{
 .right-nav{
     padding-left: 20px;
     border-left: 1px solid #3f51b58e;
+    margin-left: 20px;
 }
 .right-nav button{
     width: 100%;
@@ -44,7 +43,7 @@ span{
 }
 form{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 .info-block{

@@ -14,7 +14,6 @@ namespace BugTracker.API.Dtos
         public bool isManagerPassed { get; set; }
 
         
-        public string userId { get; set; }
         public int CategoryId { get; set; }
         public int PriorityId { get; set; }
         public int StatusId { get; set; }

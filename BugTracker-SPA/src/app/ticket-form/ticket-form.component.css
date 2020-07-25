@@ -1,0 +1,30 @@
+.container {
+    display: grid;
+    grid-template-columns: auto minmax(150px, 20%);
+  }
+  .content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .right-nav {
+    padding-left: 20px;
+    border-left: 1px solid #3f51b58e;
+    margin-left: 20px;
+  }
+  .right-nav button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .ticket-form-card{
+      width: 33%;
+      min-width: 150px;
+      display: flex;
+      flex-direction: column;
+  }
+  .ticket-form-card>div{
+      width: 100%;
+  }
+  textarea{
+      height: 85px;
+  }

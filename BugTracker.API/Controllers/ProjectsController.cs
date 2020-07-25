@@ -91,6 +91,8 @@ namespace BugTracker.API.Controllers
             var projectFromRepo = await _repo.GetProject(id);
             if (projectFromRepo.isArchived)
                 return BadRequest("Project is Archived");
+
+
             // if(projectFromRepo.isManagerAssinged)
             //     return BadRequest("Manager Already Assinged");
             
@@ -106,14 +108,19 @@ namespace BugTracker.API.Controllers
                 {
                     userFromRepo.project = await _repo.GetProject(id);
                 }
-                else
+                else if(userFromRepo.project != null)
+                {
+                    if(userFromRepo.Tickets.Count > 0)
+                    {
+                        continue;
+                    }
                     userFromRepo.project = null;
+                }
+                    
 
                 if (!await _repo.SaveAll())
                     return BadRequest("Failed on Save");
             }
-
-            
 
             return NoContent();
         }

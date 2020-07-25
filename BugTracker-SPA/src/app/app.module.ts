@@ -23,6 +23,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -46,6 +47,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
+import { TicketFormComponent } from './ticket-form/ticket-form.component';
 
 
 export function tokenGetter() {
@@ -65,7 +67,8 @@ export function tokenGetter() {
       TicketDetailComponent,
       ProjectDetailComponent,
       UserDetailsComponent,
-      SnackbarMessageComponent
+      SnackbarMessageComponent,
+      TicketFormComponent
    ],
    imports: [
       BrowserModule,
@@ -91,6 +94,9 @@ export function tokenGetter() {
       MatTabsModule,
       MatDatepickerModule,
       MatNativeDateModule,
+      MatSelectModule,
+
+
       JwtModule.forRoot({
          config: {
             tokenGetter,
