@@ -18,7 +18,9 @@ namespace BugTracker.API.Helpers
                 .ForMember(dest => dest.Status, opt =>
                     opt.MapFrom(src => src.Status.TicketStatus))
                 .ForMember(dest => dest.Priority, opt =>
-                    opt.MapFrom(src => src.Priority.TicketPriority));
+                    opt.MapFrom(src => src.Priority.TicketPriority))
+                .ForMember(dest => dest.ProjectName, opt => 
+                    opt.MapFrom(src => src.project.Title));
             CreateMap<Ticket, TicketsForDetailed>()
                 .ForMember(dest => dest.Category, opt =>
                     opt.MapFrom(src => src.Category.TicketCategory))

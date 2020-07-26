@@ -9,6 +9,7 @@ import { ProjectService } from '../_services/project.service';
 import { Project } from '../_models/Project';
 import { UserService } from '../_services/user.service';
 import { TicketService } from '../_services/ticket.service';
+import { Ticket } from '../_models/Ticket';
 
 @Component({
   selector: 'app-user-details',
@@ -23,6 +24,7 @@ export class UserDetailsComponent implements OnInit {
   isFree: boolean;
   userRoles: any[];
   projects: Project[];
+  tickets: Ticket[];
   userId: string[] = [];
   showList = false;
   showTicketForm = false;
@@ -56,6 +58,7 @@ export class UserDetailsComponent implements OnInit {
       this.user = data.user;
     });
     this.roles = this.user.roles;
+    this.tickets = this.user.tickets;
     if (this.user.project != null){
       this.isFree = false;
     } else {
@@ -93,6 +96,10 @@ export class UserDetailsComponent implements OnInit {
     this.showList = true;
   }
 
+  getTickets(){
+    // Must impletement in future
+  }
+
   assignProject(id: number){
     const newUser = { userId: this.userId};
     this.projectService.assignUsers(id, newUser).subscribe(() => {
@@ -126,13 +133,6 @@ export class UserDetailsComponent implements OnInit {
 
   closeProjectList(){
     this.showList = false;
-  }
-
-  showForm(){
-    this.showTicketForm = true;
-  }
-  closeForm($event){
-   this.showTicketForm = false;
   }
 
   unassignTicket(id: number){

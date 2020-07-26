@@ -36,8 +36,9 @@
           <mat-select 
           required
           formControlName="projectId"
+          (selectionChange)="getUsersForProject($event.value)"
           >
-            <mat-option value="option">Option</mat-option>
+            <mat-option  *ngFor="let project of projects" value="{{project.id}}">{{project.title}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -45,7 +46,7 @@
           <mat-select
           formControlName="userId"
           >
-            <mat-option value="option">Option</mat-option>
+            <mat-option  *ngFor="let user of users" value="{{user.id}}">{{user.userName}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -55,7 +56,7 @@
           <mat-select
           formControlName="categoryId"
           >
-            <mat-option value="option">Option</mat-option>
+            <mat-option *ngFor="let cate of categories" value="{{cate.id}}">{{cate.ticketcategory}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -63,7 +64,7 @@
           <mat-select
           formControlName="statusId"
           >
-            <mat-option value="option">Option</mat-option>
+            <mat-option *ngFor="let sta of statuses" value="{{sta.id}}">{{sta.ticketStatus}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -71,14 +72,16 @@
           <mat-select
           formControlName="priorityId"
           >
-            <mat-option value="option">Option</mat-option>
+            <mat-option *ngFor="let pri of priorities" value="{{pri.id}}">{{pri.ticketPriority}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
     <div class="right-nav">
-      <button type="submit" class="form-submit" mat-flat-button color="primary">Save</button>
+      <button type="submit" [disabled]="ticketForm.invalid" class="form-submit" mat-flat-button color="primary">Save</button>
       <button type="button" mat-flat-button color="warn" (click)="resetOrsendToParent()">Cancel</button>
     </div>
   </div>
 </form>
+
+

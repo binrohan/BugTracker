@@ -2,6 +2,6 @@ import { Ticket } from './Ticket';
 
 export interface Category {
     id: number;
-    categoryName: string;
+    ticketcategory: string;
     tickets: Ticket[];
 }

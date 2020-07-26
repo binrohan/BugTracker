@@ -48,6 +48,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
 import { TicketFormComponent } from './ticket-form/ticket-form.component';
+import { TicketsResolver } from './_resolvers/ticket.resolver';
 
 
 export function tokenGetter() {
@@ -113,6 +114,7 @@ export function tokenGetter() {
       ProjectsResolver,
       UserDetailsResolver,
       ProjectDetailsResolver,
+      TicketsResolver,
       AuthGuard,
       PreventUnsavedChanges
    ],

@@ -2,6 +2,6 @@ import { Ticket } from './Ticket';
 
 export interface Status {
     id: number;
-    statusName: string;
+    ticketStatus: string;
     tickets?: Ticket[];
 }

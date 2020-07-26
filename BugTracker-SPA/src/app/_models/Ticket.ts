@@ -10,16 +10,21 @@ export interface Ticket {
     description: string;
     created: Date;
     updated: Date;
-    submissionDate: Date;
+    submissionDate?: Date;
     isArchived: boolean;
     isDeveloperPassed: boolean;
     isManagerPassed: boolean;
 
     project: Project;
+    projectId: number;
 
     user?: User;
+    userId: number;
+
     comments: Comment[];
-    category: Category;
-    priority: Priority;
-    status: Status;
+    category?: Category;
+    priority?: Priority;
+    status?: Status;
+
+    projectName: string;
 }

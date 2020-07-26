@@ -2,6 +2,7 @@ namespace BugTracker.API.Dtos
 {
     public class CategoryToReturn
     {
-        public string TicketCategory { get; set; }
+        public int Id { get; set; }
+        public string Ticketcategory { get; set; }
     }
 }

@@ -46,11 +46,8 @@
       <button [disabled]="!isRoleChanged" mat-raised-button color="primary" (click)="updateUserRole()" >Save</button>
       <button [disabled]="!isFree" mat-raised-button color="primary" (click)="getProjects()">Assign to a project</button>
       <button [disabled]="isFree" mat-raised-button color="warn" (click)="removeProject(user.project.id)" >Remove from project</button>
-      <button [disabled]="isFree" mat-raised-button color="accent" (click)="showForm()">Issue a ticket</button>
+      <button [disabled]="isFree" mat-raised-button color="accent" >Issue a ticket</button>
     </div>
-  </div>
-  <div [hidden]="!showTicketForm" >
-    <app-ticket-form [projectIdFromParent]="user.project.id" [userIdFromParent]="user.id" (closeform)="closeForm($event)"></app-ticket-form>
   </div>
   <div class="row table-holder">
     <div class="ticket-place">
@@ -60,7 +57,7 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
       <div class="mat-elevation-z8">
-        <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="user.tickets" class="mat-elevation-z8">
+        <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="tickets" class="mat-elevation-z8">
     
             <!-- Position Column -->
             <ng-container matColumnDef="Title">

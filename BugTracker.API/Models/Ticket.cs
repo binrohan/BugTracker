@@ -15,7 +15,7 @@ namespace BugTracker.API.Models
         public bool isDeveloperPassed { get; set; }
         public bool isManagerPassed { get; set; }
 
-        public Project project { get; set; }
+        public Project project { get; set; }  // Edit Letter case 
         
         #nullable enable
         public User? User { get; set; }

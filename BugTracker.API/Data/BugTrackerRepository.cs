@@ -134,6 +134,7 @@ namespace BugTracker.API.Data
                                 .Include(t => t.Status)
                                 .Include(t => t.Category)
                                 .Include(t => t.Priority)
+                                .Include(t => t.project)
                                 .ToListAsync();
             if(isArchived)
                 tickets = tickets.Where(t => t.isArchived == true).ToList();

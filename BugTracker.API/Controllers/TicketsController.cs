@@ -28,7 +28,7 @@ namespace BugTracker.API.Controllers {
             return Ok(ticketToReturn);
         }
 
-        [HttpGet("{isArchived}")]
+        [HttpGet("list/{isArchived}")]
         public async Task<IActionResult> GetTickets(bool isArchived)
         {
             var tickets = await _repo.GetTickets(isArchived);

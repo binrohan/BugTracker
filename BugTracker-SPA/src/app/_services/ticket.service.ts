@@ -17,7 +17,7 @@ export class TicketService {
   }
 
   getTickets(isArchived: boolean): Observable<Ticket[]>{
-    return this.http.get<Ticket[]>(this.baseUrl + 'tickets/' + isArchived);
+    return this.http.get<Ticket[]>(this.baseUrl + 'tickets/list/' + isArchived);
   }
 
   addTicket(ticket: Ticket){
