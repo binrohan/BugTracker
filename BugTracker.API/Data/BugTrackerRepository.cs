@@ -127,21 +127,87 @@ namespace BugTracker.API.Data
         }
 
 
-        public async Task<IEnumerable<Ticket>> GetTickets(bool isArchived)
+        public async Task<IEnumerable<Ticket>> GetTickets(TicketParams ticketParams)
         {
-            var tickets = await _context.Tickets
+            var tickets =    _context.Tickets
                                 .OrderBy(t => t.SubmissionDate)
                                 .Include(t => t.Status)
                                 .Include(t => t.Category)
                                 .Include(t => t.Priority)
                                 .Include(t => t.project)
-                                .ToListAsync();
-            if(isArchived)
-                tickets = tickets.Where(t => t.isArchived == true).ToList();
-            if(!isArchived)
-                tickets = tickets.Where(t => t.isArchived == false).ToList();
+                                .AsQueryable();
+            
+            
 
-            return tickets;
+            if(!string.IsNullOrEmpty(ticketParams.IsArchived))
+            {
+                switch(ticketParams.IsArchived)
+                {
+                    case "true":
+                        tickets = tickets.Where(t => t.isArchived);
+                        break;
+                    default:
+                        tickets = tickets.Where(t => !t.isArchived);
+                        break;
+                }
+            }
+            
+
+
+            if(!string.IsNullOrEmpty(ticketParams.OrderBy))
+            {
+                switch(ticketParams.OrderBy)
+                {
+                    case "idasc":
+                        tickets = tickets.OrderBy(t => t.Id);
+                        break;
+                    case "iddesc":
+                        tickets = tickets.OrderByDescending(t => t.Id);
+                        break;
+                    case "titleasc":
+                        tickets = tickets.OrderBy(t => t.Title);
+                        break;
+                    case "titledesc":
+                        tickets = tickets.OrderByDescending(t => t.Title);
+                        break;
+                    case "projectNameasc":
+                        tickets = tickets.OrderBy(t => t.project.Title);
+                        break;
+                    case "projectNamedesc":
+                        tickets = tickets.OrderByDescending(t => t.project.Title);
+                        break;
+                    case "submissionDateasc":
+                        tickets = tickets.OrderBy(t => t.SubmissionDate);
+                        break;
+                    case "submissionDatedesc":
+                        tickets = tickets.OrderByDescending(t => t.SubmissionDate);
+                        break;
+                    case "categoryasc":
+                        tickets = tickets.OrderBy(t => t.Category.TicketCategory);
+                        break;
+                    case "categorydesc":
+                        tickets = tickets.OrderByDescending(t => t.Category.TicketCategory);
+                        break;
+                    case "priorityasc":
+                        tickets = tickets.OrderBy(t => t.Priority.TicketPriority);
+                        break;
+                    case "prioritydesc":
+                        tickets = tickets.OrderByDescending(t => t.Priority.TicketPriority);
+                        break;
+                    
+                    case "statusasc":
+                        tickets = tickets.OrderBy(t => t.Status.TicketStatus);
+                        break;
+                    case "statusdesc":
+                        tickets = tickets.OrderByDescending(t => t.Status.TicketStatus);
+                        break;
+                    default:
+                        tickets = tickets.OrderBy(t => t.Id);
+                        break;
+                }
+            }
+
+            return await tickets.ToListAsync();
         }
 
         public async Task<IEnumerable<Category>> GetCategories()

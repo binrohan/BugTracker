@@ -19,7 +19,7 @@ namespace BugTracker.API.Data
         Task<IEnumerable<Project>> GetProjects(bool isArchived);
 
         Task<Ticket> GetTicket(int id);
-        Task<IEnumerable<Ticket>> GetTickets(bool isArchived);
+        Task<IEnumerable<Ticket>> GetTickets(TicketParams ticketParams);
 
         Task<Comment> GetComment(int id);
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BugTracker.API.Data;
 using BugTracker.API.Dtos;
+using BugTracker.API.Helpers;
 using BugTracker.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,10 +29,10 @@ namespace BugTracker.API.Controllers {
             return Ok(ticketToReturn);
         }
 
-        [HttpGet("list/{isArchived}")]
-        public async Task<IActionResult> GetTickets(bool isArchived)
+        [HttpGet("list")]
+        public async Task<IActionResult> GetTickets([FromQuery]TicketParams ticketParams)
         {
-            var tickets = await _repo.GetTickets(isArchived);
+            var tickets = await _repo.GetTickets(ticketParams);
             var ticketsForReturn =  _mapper.Map<IEnumerable<TicketShortDto>>(tickets);
             return Ok(ticketsForReturn);
         }

@@ -54,7 +54,7 @@ export const appRoutes: Routes = [
         component: ProfileComponent,
         resolve: { user: ProfileResolver },
         canDeactivate: [PreventUnsavedChanges]
-      },
+      }
     ],
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },

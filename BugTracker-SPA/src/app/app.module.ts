@@ -49,6 +49,7 @@ import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
 import { TicketFormComponent } from './ticket-form/ticket-form.component';
 import { TicketsResolver } from './_resolvers/ticket.resolver';
+import { TicketListComponent } from './ticket-list/ticket-list.component';
 
 
 export function tokenGetter() {
@@ -69,7 +70,8 @@ export function tokenGetter() {
       ProjectDetailComponent,
       UserDetailsComponent,
       SnackbarMessageComponent,
-      TicketFormComponent
+      TicketFormComponent,
+      TicketListComponent
    ],
    imports: [
       BrowserModule,
