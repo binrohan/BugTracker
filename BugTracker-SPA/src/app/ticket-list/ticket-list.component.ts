@@ -34,18 +34,21 @@ export class TicketListComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
+    const filterValue = (event.target as HTMLInputElement).value;
     // this.users.filter = filterValue.trim().toLowerCase();
+    console.log(filterValue);
+    this.ticketParams.filter = filterValue;
+    this.loadTickets();
   }
 
   sortData(sort: Sort) {
     if (sort.active) {
       this.ticketParams.orderBy = (sort.active + sort.direction);
       console.log(this.ticketParams.orderBy);
-      this.loadUsers();
+      this.loadTickets();
     }
   }
-  loadUsers() {
+  loadTickets() {
     this.ticketService.getTickets(this.ticketParams).subscribe(
       (data) => {
         this.tickets = data;

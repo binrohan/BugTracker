@@ -24,6 +24,7 @@ export class TicketService {
     if (ticketParams != null){
       params = params.append('orderBy', ticketParams.orderBy);
       params = params.append('isArchived', ticketParams.isArchived);
+      params = params.append('filter', ticketParams.filter);
     }
 
     return this.http.get<Ticket[]>(this.baseUrl + 'tickets/list', {observe: 'response', params})

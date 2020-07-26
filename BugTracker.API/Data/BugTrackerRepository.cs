@@ -136,7 +136,17 @@ namespace BugTracker.API.Data
                                 .Include(t => t.Priority)
                                 .Include(t => t.project)
                                 .AsQueryable();
-            
+
+            // if (!string.IsNullOrEmpty(query.name))
+            // {
+            //     var ids = query.name.Split(',');
+            //     data = data.Where(c => c.Name != null && ids.Contains(c.Name)));
+            // }
+
+            if(!string.IsNullOrEmpty(ticketParams.Filter))
+            {
+                tickets = tickets.Where(t => t.Title.Contains(ticketParams.Filter));
+            }
             
 
             if(!string.IsNullOrEmpty(ticketParams.IsArchived))
