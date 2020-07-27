@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using BugTracker.API.Data;
 using BugTracker.API.Dtos;
+using BugTracker.API.Helpers;
 using BugTracker.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +17,15 @@ namespace BugTracker.API.Controllers {
         public CommentsController (IMapper mapper, IBugTrackerRepository repo) {
             _repo = repo;
             _mapper = mapper;
+        }
+
+        [HttpGet("{ticketId}")]
+        public async Task<IActionResult> GetComments(int ticketId, CommentParams commentParams)
+        {
+            var commentsFromRepo = await _repo.GetComments(ticketId, commentParams);
+            var comments = _mapper.Map<IEnumerable<CommentsToReturn>>(commentParams);
+
+            return Ok( new { comments, commentParams.Length });
         }
 
         [HttpPost]

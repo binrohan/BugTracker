@@ -149,6 +149,8 @@ namespace BugTracker.API.Data
             //     var ids = query.name.Split(',');
             //     data = data.Where(c => c.Name != null && ids.Contains(c.Name)));
             // }
+            int length = 0;
+            foreach (var ticket in tickets){ length++;}
 
             if(!string.IsNullOrEmpty(ticketParams.Filter))
             {
@@ -223,8 +225,7 @@ namespace BugTracker.API.Data
                         break;
                 }
             }
-            int length = 0;
-            foreach (var ticket in tickets){ length++;}
+            
             ticketParams.Length = length;
             tickets = tickets.Skip(ticketParams.pageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
 
@@ -286,6 +287,51 @@ namespace BugTracker.API.Data
             var comment = await _context.Comments
                                     .FirstOrDefaultAsync(c => c.Id == id);
             return comment;
+        }
+
+        public async Task<IEnumerable<Comment>> GetComments(int ticketId, CommentParams commentParams)
+        {
+            var comments = _context.Comments.Where(c => c.Ticket.Id == ticketId && c.IsDeleted == false).AsQueryable();
+
+            int length = comments.Count();
+            
+            if(!string.IsNullOrEmpty(commentParams.Filter))
+            {
+                comments = comments.Where(c => c.Content.Contains(commentParams.Filter));
+            }
+
+            if(!string.IsNullOrEmpty(commentParams.OrderBy))
+            {
+                switch (commentParams.OrderBy)
+                {
+                    case "commenterasc":
+                        comments = comments.OrderBy(c => c.Commenter);
+                        break;
+                    case "commenterdesc":
+                        comments = comments.OrderByDescending(c => c.Commenter);
+                        break;
+                    case "contentasc":
+                        comments = comments.OrderBy(c => c.Content);
+                        break;
+                    case "contentdesc":
+                        comments = comments.OrderByDescending(c => c.Content);
+                        break;
+                    case "createdasc":
+                        comments = comments.OrderBy(c => c.Created);
+                        break;
+                    case "createddesc":
+                        comments = comments.OrderByDescending(c => c.Created);
+                        break;
+                    default:
+                        comments = comments.OrderBy(c => c.Created);
+                        break;
+                }
+            }
+
+            comments = comments.Skip(commentParams.pageIndex*commentParams.PageSize).Take(commentParams.PageSize);
+            commentParams.Length = length;
+
+            return await comments.ToListAsync();
         }
     }
 }

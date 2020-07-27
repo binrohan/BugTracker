@@ -39,6 +39,11 @@ namespace BugTracker.API.Helpers
             CreateMap<ProjectForUpdateDto, Project>();
 
             CreateMap<Comment, CommentForTicketDto>();
+            CreateMap<Comment, CommentsToReturn>()
+                .ForMember(dest => dest.UserId, opt => 
+                    opt.MapFrom(src => src.Commenter.Id))
+                .ForMember(dest => dest.UserName, opt =>
+                    opt.MapFrom(src => src.Commenter.UserName));
 
             CreateMap<Category, CategoryToReturn>().ReverseMap();
             CreateMap<Status, StatusToReturn>().ReverseMap();
