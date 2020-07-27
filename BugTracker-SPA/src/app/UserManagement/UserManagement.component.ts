@@ -24,7 +24,7 @@ export class UserManagementComponent implements OnInit {
     'Action',
   ];
   i = 0;
-  userParams: any = {};
+  userParams: any = { filter: '' };
   users: User[];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -42,8 +42,9 @@ export class UserManagementComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // this.users.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.userParams.filter = filterValue;
+    this.loadUsers();
   }
 
   sortData(sort: Sort) {

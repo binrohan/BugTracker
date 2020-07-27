@@ -11,8 +11,9 @@ import { TicketService } from '../_services/ticket.service';
 })
 export class TicketListComponent implements OnInit {
 
-  @Input() tickets;
-  ticketParams: any = {};
+  @Input() ticketRes: any;
+  tickets: Ticket[];
+
   displayedColumns: string[] = [
     'id',
     'title',
@@ -25,12 +26,21 @@ export class TicketListComponent implements OnInit {
     'Action',
   ];
 
+
+  pageSizeOptions: number[] = [5, 9, 15];
+  pageIndex = 0;
+  length: number;
+  pagesize = 9;
+  previousPageIndex: number;
+  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '' };
+
+
+
   constructor(private route: ActivatedRoute, private ticketService: TicketService) { }
 
   ngOnInit() {
-    // this.route.data.subscribe((data) => {
-    //   this.tickets = data.tickets;
-    // });
+    this.tickets = this.ticketRes.ticketsForReturn;
+    this.length = this.ticketRes.length;
   }
 
   applyFilter(event: Event) {
@@ -51,10 +61,22 @@ export class TicketListComponent implements OnInit {
   loadTickets() {
     this.ticketService.getTickets(this.ticketParams).subscribe(
       (data) => {
-        this.tickets = data;
+        this.tickets = data.ticketsForReturn;
+        this.length = data.length;
       },
       (error) => {}
     );
+  }
+
+  paginating(e){
+    console.log(e);
+    this.pagesize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+
+    this.ticketParams.pageSize = this.pagesize;
+    this.ticketParams.pageIndex = this.pageIndex;
+
+    this.loadTickets();
   }
 
 }

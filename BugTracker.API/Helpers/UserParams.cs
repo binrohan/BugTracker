@@ -4,5 +4,6 @@ namespace BugTracker.API.Helpers
     {
         public string OrderBy { get; set; }
         public string StateBy { get; set; }
+        public string Filter { get; set; }
     }
 }

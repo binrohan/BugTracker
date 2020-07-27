@@ -47,6 +47,13 @@ namespace BugTracker.API.Data
         public async Task<IEnumerable<User>> GetUsers(UserParams userParams)
         {
             var users = _context.Users.Include(u => u.UserRoles).AsQueryable();
+
+            if(!string.IsNullOrEmpty(userParams.Filter))
+            {
+                users = users.Where(t => t.UserName.Contains(userParams.Filter));
+            }
+
+
             if(!string.IsNullOrEmpty(userParams.StateBy))
             {
                 switch(userParams.StateBy)
@@ -216,6 +223,10 @@ namespace BugTracker.API.Data
                         break;
                 }
             }
+            int length = 0;
+            foreach (var ticket in tickets){ length++;}
+            ticketParams.Length = length;
+            tickets = tickets.Skip(ticketParams.pageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
 
             return await tickets.ToListAsync();
         }

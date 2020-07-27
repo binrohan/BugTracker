@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Ticket } from '../_models/Ticket';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TicketRes } from '../_models/TicketRes';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class TicketService {
     return this.http.get<Ticket>(this.baseUrl + 'tickets/' + id);
   }
 
-  getTickets(ticketParams?): Observable<Ticket[]>{
+  getTickets(ticketParams?): Observable<TicketRes>{
 
     let params = new HttpParams();
 
@@ -25,9 +26,11 @@ export class TicketService {
       params = params.append('orderBy', ticketParams.orderBy);
       params = params.append('isArchived', ticketParams.isArchived);
       params = params.append('filter', ticketParams.filter);
+      params = params.append('pageSize', ticketParams.pageSize);
+      params = params.append('pageIndex', ticketParams.pageIndex);
     }
 
-    return this.http.get<Ticket[]>(this.baseUrl + 'tickets/list', {observe: 'response', params})
+    return this.http.get<TicketRes>(this.baseUrl + 'tickets/list', {observe: 'response', params})
       .pipe(
         map((res) => {
           return res.body;

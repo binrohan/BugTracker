@@ -32,9 +32,14 @@ namespace BugTracker.API.Controllers {
         [HttpGet("list")]
         public async Task<IActionResult> GetTickets([FromQuery]TicketParams ticketParams)
         {
+            int pageSize = ticketParams.PageSize;
+            int pageIndex = ticketParams.pageIndex;
+            
             var tickets = await _repo.GetTickets(ticketParams);
+
             var ticketsForReturn =  _mapper.Map<IEnumerable<TicketShortDto>>(tickets);
-            return Ok(ticketsForReturn);
+
+            return Ok(new {ticketsForReturn, ticketParams.Length }  );
         }
 
         [HttpPost]

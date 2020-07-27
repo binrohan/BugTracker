@@ -12,7 +12,7 @@ import { TicketService } from '../_services/ticket.service';
 })
 export class TicketComponent implements OnInit {
 
-  ticketParams: any = {};
+  ticketParams: any = { pageIndex: 0, pageSize: 9};
   displayedArchivedColumns: string[] = [
     'id',
     'title',
@@ -21,13 +21,14 @@ export class TicketComponent implements OnInit {
     'category',
     'Action',
   ];
-  tickets: Ticket[];
+  ticketRes: any;
   archivedTickets: Ticket[];
+
   constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService) { }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
-      this.tickets = data.tickets;
+      this.ticketRes = data.ticketRes;
     });
     this.ticketParams.isArchived = true;
     this.loadArchivedTickets();
@@ -36,10 +37,9 @@ export class TicketComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    // this.archivedTickets.filter = filterValue.trim().toLowerCase();
     console.log(filterValue);
     this.ticketParams.filter = filterValue;
-    // this.loadArchivedTickets();
+    this.loadArchivedTickets();
   }
 
   sortData(sort: Sort) {
@@ -51,7 +51,7 @@ export class TicketComponent implements OnInit {
   loadArchivedTickets() {
     this.ticketService.getTickets(this.ticketParams).subscribe(
       (data) => {
-        this.archivedTickets = data;
+        this.archivedTickets = data.ticketsForReturn;
       },
       (error) => {}
     );

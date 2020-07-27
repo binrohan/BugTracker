@@ -13,6 +13,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class TicketsResolver implements Resolve<Ticket> {
+  ticketParams: any = { pageSize: 9, pageIndex: 0, filter: '' };
   constructor(
     private ticketService: TicketService,
     private snackbar: SnackbarService,
@@ -22,7 +23,7 @@ export class TicketsResolver implements Resolve<Ticket> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Ticket> {
-    return this.ticketService.getTickets().pipe(
+    return this.ticketService.getTickets(this.ticketParams).pipe(
       catchError((error) => {
         this.snackbar.Success('Problem retrieving data');
         this.route.navigate(['/dashboard']);

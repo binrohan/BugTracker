@@ -48,7 +48,7 @@ export const appRoutes: Routes = [
         resolve: { project: ProjectDetailsResolver }
       },
       { path: 'tickets', component: TicketComponent,
-        resolve: {tickets: TicketsResolver} },
+        resolve: {ticketRes: TicketsResolver} },
       {
         path: 'profile',
         component: ProfileComponent,
