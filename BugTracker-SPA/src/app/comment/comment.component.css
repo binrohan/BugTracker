@@ -1,0 +1,61 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+/**  Override Default Style  **/
+.extra-style {
+  padding: 0 18px;
+}
+
+
+
+.container-cmt{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.table{
+    max-width: 1500px;
+    width: 100%;
+    padding-bottom: 20px;
+}
+.comments{
+    width: 80%;
+    max-width: 1000px;
+}
+.banner{
+    font-size: 22px;
+    font-weight: 100;
+    padding: 12px;
+    background-color:  rgb(252, 99, 176);
+    color: whitesmoke;
+    border: 1px solid pink;
+    box-shadow: 0px 0px 10px 2px rgba(218, 218, 218, 0.94);
+  }
+p{
+    margin: 0;
+}
+button{
+    width: 200px;
+}

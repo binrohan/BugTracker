@@ -16,6 +16,8 @@ import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { TicketsResolver } from './_resolvers/ticket.resolver';
+import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
+import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -48,7 +50,13 @@ export const appRoutes: Routes = [
         resolve: { project: ProjectDetailsResolver }
       },
       { path: 'tickets', component: TicketComponent,
-        resolve: {ticketRes: TicketsResolver} },
+        resolve: {ticketRes: TicketsResolver}
+      },
+      {
+        path: 'ticket/:id',
+        component: TicketDetailComponent,
+        resolve: {ticket: TicketDetailsResolver}
+       },
       {
         path: 'profile',
         component: ProfileComponent,

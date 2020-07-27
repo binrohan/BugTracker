@@ -1,3 +1,86 @@
-<p>
-  ticket-detail works!
-</p>
+<div class="whole">
+  <div class="container">
+    <div class="content">
+      <div>
+        <div class="banner">
+          <p>Details for ticket #{{ticket.id}}</p>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>TITLE</h3>
+            <p>{{ticket.title | titlecase}}</p>
+          </div>
+          <div class="box">
+            <h3>DESCRIPTION</h3>
+            <p>{{ticket.description}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>ASSIGNED DEVELOPER</h3>
+            <p>{{ticket.user?.userName || "Unassingned" | titlecase}}</p>
+          </div>
+          <div class="box">
+            <h3>SUBMISSION DATE</h3>
+            <p>{{ticket.submissionDate | date: "dd-mm-yy"}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>PROJECT</h3>
+            <p>{{ticket.project.title | titlecase}}</p>
+          </div>
+          <div class="box">
+            <h3>TICKET PRIORITY</h3>
+            <p>{{ticket.priority| titlecase}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>STATUS</h3>
+            <p>{{ticket.status | titlecase}}</p>
+          </div>
+          <div class="box">
+            <h3>TICKET CATEGORY</h3>
+            <p>{{ticket.category | titlecase}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>CREATED</h3>
+            <p>{{ticket.created | date: "dd-mm-yy"}}</p>
+          </div>
+          <div class="box">
+            <h3>LAST UPDATED</h3>
+            <p>{{ticket.updated | date: "dd-mm-yy"}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>DEVELOPER PASSED</h3>
+            <p>
+              <mat-icon aria-hidden="false" *ngIf="ticket.isDeveloperPassed" color="accent" >done</mat-icon>
+              <mat-icon aria-hidden="false" *ngIf="!ticket.isDeveloperPassed" color="warn" >cancel</mat-icon>
+            </p>
+          </div>
+          <div class="box">
+            <h3>MANAGER REVIEWED</h3>
+            <p>
+              <mat-icon aria-hidden="false" *ngIf="ticket.isManagerPassed" color="accent" >done</mat-icon>
+              <mat-icon aria-hidden="false" *ngIf="!ticket.isManagerPassed" color="warn" >cancel</mat-icon>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <app-comment [comments] = "ticket.comments"></app-comment>
+      </div>
+    </div>
+    <div class="right-nav">
+      <button mat-flat-button color="warn">Edit</button>
+      <button mat-flat-button color="accent">Pass</button>
+      <button mat-flat-button color="primary">Approve</button>
+      <button mat-flat-button color="warn">Archived</button>
+    </div>
+  </div>
+</div>

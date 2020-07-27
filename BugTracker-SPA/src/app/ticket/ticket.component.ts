@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Ticket } from '../_models/Ticket';
 import { Sort } from '@angular/material/sort';
 import { TicketService } from '../_services/ticket.service';
+import { TicketRes } from '../_models/TicketRes';
 
 @Component({
   selector: 'app-ticket',
@@ -12,17 +13,9 @@ import { TicketService } from '../_services/ticket.service';
 })
 export class TicketComponent implements OnInit {
 
-  ticketParams: any = { pageIndex: 0, pageSize: 9};
-  displayedArchivedColumns: string[] = [
-    'id',
-    'title',
-    'projectName',
-    'submissionDate',
-    'category',
-    'Action',
-  ];
   ticketRes: any;
-  archivedTickets: Ticket[];
+  archivedTicketRes: TicketRes;
+  archivedTicketParams: any = {isArchived: false, pageIndex: 0, pageSize: 8, orderBy: 'idasc', filter: ''};
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService) { }
 
@@ -30,28 +23,13 @@ export class TicketComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.ticketRes = data.ticketRes;
     });
-    this.ticketParams.isArchived = true;
     this.loadArchivedTickets();
   }
 
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
-    this.ticketParams.filter = filterValue;
-    this.loadArchivedTickets();
-  }
-
-  sortData(sort: Sort) {
-    if (sort.active) {
-      this.ticketParams.orderBy = (sort.active + sort.direction);
-      this.loadArchivedTickets();
-    }
-  }
   loadArchivedTickets() {
-    this.ticketService.getTickets(this.ticketParams).subscribe(
+    this.ticketService.getTickets(this.archivedTicketParams).subscribe(
       (data) => {
-        this.archivedTickets = data.ticketsForReturn;
+        this.archivedTicketRes = data;
       },
       (error) => {}
     );

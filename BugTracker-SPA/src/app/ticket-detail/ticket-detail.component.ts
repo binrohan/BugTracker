@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Ticket } from '../_models/Ticket';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketDetailComponent implements OnInit {
 
-  constructor() { }
+  ticket: Ticket;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.ticket = data.ticket;
+    });
+    console.log(this.ticket.description);
   }
 
 }

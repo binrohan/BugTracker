@@ -24,6 +24,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -50,6 +51,9 @@ import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
 import { TicketFormComponent } from './ticket-form/ticket-form.component';
 import { TicketsResolver } from './_resolvers/ticket.resolver';
 import { TicketListComponent } from './ticket-list/ticket-list.component';
+import { TicketListArchivedComponent } from './ticket-list-archived/ticket-list-archived.component';
+import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
+import { CommentComponent } from './comment/comment.component';
 
 
 export function tokenGetter() {
@@ -71,7 +75,9 @@ export function tokenGetter() {
       UserDetailsComponent,
       SnackbarMessageComponent,
       TicketFormComponent,
-      TicketListComponent
+      TicketListComponent,
+      TicketListArchivedComponent,
+      CommentComponent
    ],
    imports: [
       BrowserModule,
@@ -98,6 +104,7 @@ export function tokenGetter() {
       MatDatepickerModule,
       MatNativeDateModule,
       MatSelectModule,
+      MatCardModule,
 
 
       JwtModule.forRoot({
@@ -117,6 +124,7 @@ export function tokenGetter() {
       UserDetailsResolver,
       ProjectDetailsResolver,
       TicketsResolver,
+      TicketDetailsResolver,
       AuthGuard,
       PreventUnsavedChanges
    ],
