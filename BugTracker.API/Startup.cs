@@ -84,8 +84,8 @@ namespace BugTracker.API
             services.AddAuthorization(options => 
             {
                 options.AddPolicy("RequiredAdminRole", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("Manager", policy => policy.RequireRole("Admin, Manager"));
-                options.AddPolicy("Developer", policy => policy.RequireRole("Admin, Developer, Manager"));
+                options.AddPolicy("ManagerAndAdmin", policy => policy.RequireRole("Admin", "Manager"));
+                options.AddPolicy("Developer", policy => policy.RequireRole("Admin", "Developer", "Manager"));
             });
 
 

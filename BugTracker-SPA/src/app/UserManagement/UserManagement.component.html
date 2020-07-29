@@ -8,12 +8,6 @@
     </mat-form-field>
     <div class="mat-elevation-z8">
       <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="users" class="mat-elevation-z8">
-      
-          <!-- Position Column -->
-          <ng-container matColumnDef="No.">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header="No." > No. </th>
-              <td mat-cell *matCellDef="let element"> {{ i }} </td>
-            </ng-container>
   
           <!-- Position Column -->
           <ng-container matColumnDef="Name">

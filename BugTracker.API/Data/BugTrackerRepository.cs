@@ -106,15 +106,70 @@ namespace BugTracker.API.Data
             return project;
         }
 
-        public async Task<IEnumerable<Project>> GetProjects(bool isArchived)
+        public async Task<IEnumerable<Project>> GetProjects(ProjectParams projectParams)
         {
-            var projects = await _context.Projects.Include(p => p.Tickets).ToListAsync();
-            if(isArchived)
-                projects = projects.Where(p => p.isArchived == true).ToList();
-            if(!isArchived)
-                projects = projects.Where(p => p.isArchived == false).ToList();
+            var projects =  _context.Projects.Include(p => p.Tickets).AsQueryable();
 
-            return projects;
+            if(!string.IsNullOrEmpty(projectParams.StateBy))
+            {
+                switch (projectParams.StateBy)
+                {
+                    case "active":
+                        projects = projects.Where(p => p.isArchived == false);
+                        break;
+                    case "archived":
+                        projects = projects.Where(p => p.isArchived == true);
+                        break;
+                    default:
+                        projects = projects.Where(p => p.isArchived == false);
+                        break;
+                }
+            }
+
+            if(!string.IsNullOrEmpty(projectParams.Filter))
+            {
+                projects = projects.Where(p => p.Title.Contains(projectParams.Filter));
+            }
+
+            projectParams.Length = projects.Count();
+
+            if(!string.IsNullOrEmpty(projectParams.OrderBy))
+            {
+                switch (projectParams.OrderBy)  
+                {
+                    case "Titleasc":
+                        projects = projects.OrderBy(p => p.Title);
+                        break;
+                    case "Titledesc":
+                        projects = projects.OrderByDescending(p => p.Title);
+                        break;
+                        case "Startedasc":
+                        projects = projects.OrderBy(p => p.StartTime);
+                        break;
+                    case "Starteddesc":
+                        projects = projects.OrderByDescending(p => p.StartTime);
+                        break;
+                        case "Deadlineasc":
+                        projects = projects.OrderBy(p => p.DeadTime);
+                        break;
+                    case "Deadlinedesc":
+                        projects = projects.OrderByDescending(p => p.DeadTime);
+                        break;
+                        case "Ticketsasc":
+                        projects = projects.OrderBy(p => p.Tickets.Count);
+                        break;
+                    case "Ticketsdesc":
+                        projects = projects.OrderByDescending(p => p.Tickets.Count);
+                        break;
+                    default:
+                        projects = projects.OrderBy(p => p.Id);
+                        break;
+                }
+            }
+
+             projects = projects.Skip(projectParams.PageIndex*projectParams.PageSize).Take(projectParams.PageSize).Select(p => p);
+
+            return await projects.ToListAsync();
         }
 
         public async Task<Ticket> GetTicket(int id)

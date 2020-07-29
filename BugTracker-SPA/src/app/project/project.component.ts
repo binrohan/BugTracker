@@ -7,6 +7,8 @@ import { ProjectService } from '../_services/project.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
 import { SnackbarService } from '../_services/snackbar.service';
+import { AdminService } from '../_services/admin.service';
+import { ProjectRes } from '../_models/ProjectRes';
 
 @Component({
   selector: 'app-project',
@@ -24,30 +26,58 @@ export class ProjectComponent implements OnInit {
     'Action',
   ];
   projects: Project[];
-  archivedProject: Project[];
+  archivedProjects: Project[];
+  length: number;
+  archivedLength: number;
+  projectRes: ProjectRes;
+  archivedProjectRes: ProjectRes;
   isArchived = true;
   projectForm: FormGroup;
   newProject: Project;
+
+  pageSizeOptions: number[] = [5, 9, 15];
+  pageIndex = 0;
+  pagesize = 9;
+
+  projectParams: any = { pageSize: this.pagesize, pageIndex: this.pageIndex, filter: '' , orderBy: 'Starteddesc', stateBy: 'active'};
+  archivedProjectParams: any = { pageSize: this.pagesize, pageIndex: this.pageIndex, filter: '' , orderBy: 'Starteddesc', stateBy: 'archived'};
+
+
   constructor(
     private route: ActivatedRoute,
-    private projectService: ProjectService,
+    private adminService: AdminService,
     private fb: FormBuilder,
     private authService: AuthService,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private projectService: ProjectService
   ) {}
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
-      this.projects = data.projects;
+      this.projectRes = data.projectRes;
+      this.projects = this.projectRes.projects;
+      this.length = this.projectRes.length;
     });
-    this.getArchivedProject();
+    this.loadArchivedProjects();
     this.createProjectForm();
   }
 
-  getArchivedProject() {
-    this.projectService.getProjects(this.isArchived).subscribe(
+  loadArchivedProjects() {
+    this.adminService.getProjects(this.archivedProjectParams).subscribe(
       (data) => {
-        this.archivedProject = data;
+      this.archivedProjectRes = data;
+      this.archivedProjects = this.projectRes.projects;
+      this.archivedLength = this.projectRes.length;
+      },
+      (error) => {}
+    );
+  }
+  loadProjects() {
+    this.adminService.getProjects(this.projectParams).subscribe(
+      (data) => {
+      this.projectRes = data;
+      this.projects = this.projectRes.projects;
+      this.length = this.projectRes.length;
       },
       (error) => {}
     );
@@ -63,8 +93,9 @@ export class ProjectComponent implements OnInit {
       }, err => {
         this.snackbar.Success('Error');
       }, () => {
-        this.projectService.getProjects(false).subscribe( data => {
-          this.projects = data;
+        this.adminService.getProjects(this.projectParams).subscribe( data => {
+          this.projects = data.projects;
+          this.length = data.length;
         });
       });
     }
@@ -79,15 +110,29 @@ export class ProjectComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
+    const filterValue = (event.target as HTMLInputElement).value;
     // this.users.filter = filterValue.trim().toLowerCase();
+    this.projectParams.filter = filterValue;
+    this.loadProjects();
   }
 
   sortData(sort: Sort) {
-    // const data = this.desserts.slice();
-    // if (!sort.active || sort.direction === '') {
-    //   this.sortedData = data;
-    //   return;
-    // }
+    if (sort.active) {
+      this.projectParams.orderBy = (sort.active + sort.direction);
+      console.log(this.projectParams.orderBy);
+      this.loadProjects();
+    }
   }
+
+  paginating(e){
+    console.log(e);
+    this.pagesize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+
+    this.projectParams.pageSize = this.pagesize;
+    this.projectParams.pageIndex = this.pageIndex;
+
+    this.loadProjects();
+  }
+
 }

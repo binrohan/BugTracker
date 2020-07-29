@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BugTracker.API.Data;
 using BugTracker.API.Dtos;
+using BugTracker.API.Helpers;
 using BugTracker.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,15 +41,17 @@ namespace BugTracker.API.Controllers
             return Ok(projectToReturn);
         }
 
-        [HttpGet("list/{isArchived}")]
-        public async Task<IActionResult> GetProjects(bool isArchived)
+        [Authorize(Policy = "RequiredAdminRole")]
+        [HttpGet("projects")]
+        public async Task<IActionResult> GetProjects(ProjectParams projectParams)
         {
-            var projects = await _repo.GetProjects(isArchived);
-            var projectsForReturn = _mapper.Map<IEnumerable<ProjectShortDto>>(projects);
+            var projectsFromRepo = await _repo.GetProjects(projectParams);
+            var projects = _mapper.Map<IEnumerable<ProjectShortDto>>(projectsFromRepo);
 
-            return Ok(projectsForReturn);
+            return Ok(new {projects, projectParams.Length});
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPost("{id}/add")]
         public async Task<IActionResult> AddProject(string id, ProjectToCreateDto projectToCreate)
         {
@@ -67,6 +71,7 @@ namespace BugTracker.API.Controllers
             throw new Exception("Project can't created");
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProject(int id, ProjectForUpdateDto projectForUpdate)
         {
@@ -85,6 +90,7 @@ namespace BugTracker.API.Controllers
             throw new Exception($"updating project {id} failed to update");
         }
 
+        [Authorize(Policy = "ManagerAndAdmin")]
         [HttpPut("{id}/assign")]
         public async Task<IActionResult> AssignUsers(int id, AssignedUsersDto assignedUsers)
         {

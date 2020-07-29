@@ -5,6 +5,7 @@ using AutoMapper;
 using BugTracker.API.Data;
 using BugTracker.API.Dtos;
 using BugTracker.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugTracker.API.Controllers {
@@ -28,6 +29,7 @@ namespace BugTracker.API.Controllers {
             return Ok(categoriesToReturn);
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPost("cate")]
         public async Task<IActionResult> SetCategory(CategoryToReturn categoryToCreate)
         {
@@ -38,6 +40,7 @@ namespace BugTracker.API.Controllers {
             throw new Exception ("Can not be created"); 
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpDelete("cate/{id}")]
         public async Task<IActionResult> RemoveCategory(int id)
         {
@@ -57,6 +60,7 @@ namespace BugTracker.API.Controllers {
             return Ok(statusesToReturn);
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPost("sta")]
         public async Task<IActionResult> SetStatus(StatusToReturn statusToCreate)
         {
@@ -67,6 +71,7 @@ namespace BugTracker.API.Controllers {
             throw new Exception ("Can not be created"); 
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpDelete("sta/{id}")]
         public async Task<IActionResult> RemoveStatus(int id)
         {
@@ -86,6 +91,7 @@ namespace BugTracker.API.Controllers {
             return Ok(prioritiesToReturn);
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPost("pri")]
         public async Task<IActionResult> SetPriority(PriorityToReturn priorityToCreate)
         {
@@ -95,6 +101,8 @@ namespace BugTracker.API.Controllers {
                 return NoContent();
             throw new Exception ("Can not be created"); 
         }
+
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpDelete("pri/{id}")]
         public async Task<IActionResult> RemovePriority(int id)
         {

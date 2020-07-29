@@ -36,8 +36,9 @@ namespace BugTracker.API.Controllers
         [Authorize(Policy = "RequiredAdminRole")]
         [HttpDelete("removeUser/{id}")]
         public async Task<IActionResult> RemoveUser(string id){
-
             var userFromRepo =  await _userManager.FindByIdAsync(id);
+            if(userFromRepo.Tickets != null || userFromRepo.project != null)
+                BadRequest("User been assigned to job");
 
             _repo.Delete(userFromRepo);
 
@@ -85,6 +86,30 @@ namespace BugTracker.API.Controllers
                 user.Roles = roles;
             }
             return Ok( new {users, userParams.Length});
+        }
+
+        [Authorize(Policy = "RequiredAdminRole")]
+        [HttpGet("list")]
+        public async Task<IActionResult> GetTickets([FromQuery]TicketParams ticketParams)
+        {
+            int pageSize = ticketParams.PageSize;
+            int pageIndex = ticketParams.pageIndex;
+            
+            var tickets = await _repo.GetTickets(ticketParams);
+
+            var ticketsForReturn =  _mapper.Map<IEnumerable<TicketShortDto>>(tickets);
+
+            return Ok(new {ticketsForReturn, ticketParams.Length }  );
+        }
+
+        [Authorize(Policy = "RequiredAdminRole")]
+        [HttpGet("projects")]
+        public async Task<IActionResult> GetProjects([FromQuery]ProjectParams projectParams)
+        {
+            var projectsFromRepo = await _repo.GetProjects(projectParams);
+            var projects = _mapper.Map<IEnumerable<ProjectShortDto>>(projectsFromRepo);
+
+            return Ok(new {projects, projectParams.Length});
         }
     }
 }

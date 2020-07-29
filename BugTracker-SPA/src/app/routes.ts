@@ -44,7 +44,7 @@ export const appRoutes: Routes = [
       {
         path: 'projects',
         component: ProjectComponent,
-        resolve: { projects: ProjectsResolver }
+        resolve: { projectRes: ProjectsResolver }
       },
       {
         path: 'project/:id',

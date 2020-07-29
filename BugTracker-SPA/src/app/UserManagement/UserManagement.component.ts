@@ -17,7 +17,6 @@ import { UserRes } from '../_models/UserRes';
 })
 export class UserManagementComponent implements OnInit {
   displayedColumns: string[] = [
-    'No.',
     'Name',
     'Email',
     'Phone',
@@ -68,6 +67,7 @@ export class UserManagementComponent implements OnInit {
     this.userService.getUsers(this.userParams).subscribe(
       (data) => {
         this.users = data.users;
+        this.length = data.length;
       },
       (error) => {}
     );

@@ -16,7 +16,7 @@ namespace BugTracker.API.Data
 
 
         Task<Project> GetProject(int id);
-        Task<IEnumerable<Project>> GetProjects(bool isArchived);
+        Task<IEnumerable<Project>> GetProjects(ProjectParams projectParams);
 
         Task<Ticket> GetTicket(int id);
         Task<IEnumerable<Ticket>> GetTickets(TicketParams ticketParams);

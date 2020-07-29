@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../_models/User';
 import { AdminService } from '../_services/admin.service';
 import { SnackbarService } from '../_services/snackbar.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormControlName } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { ProjectService } from '../_services/project.service';
@@ -10,6 +10,7 @@ import { Project } from '../_models/Project';
 import { UserService } from '../_services/user.service';
 import { TicketService } from '../_services/ticket.service';
 import { Ticket } from '../_models/Ticket';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-user-details',
@@ -50,7 +51,8 @@ export class UserDetailsComponent implements OnInit {
     private snackbar: SnackbarService,
     private projectService: ProjectService,
     private userService: UserService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -136,12 +138,35 @@ export class UserDetailsComponent implements OnInit {
   }
 
   unassignTicket(id: number){
-    this.ticketService.assignTicket(id, {userId: this.user.id, toRemove: true}).subscribe(() => {
+    this.ticketService.assignTicket(id, {userId: null}).subscribe(() => {
       this.snackbar.Success('Ticket unassigned from user');
+      this.userService.getUser(this.user.id).subscribe( data => {
+        this.tickets = data.tickets;
+      });
     }, error => {
       this.snackbar.Success('Ticket unssigning failed');
     });
   }
+
+  deleteUser(){
+    if (this.user.tickets.length > 0){
+      this.snackbar.Success('Unassign user from ticket');
+      return false;
+    }
+    if (this.user.project != null){
+      this.snackbar.Success('Unassign user from project');
+      return false;
+    }
+    if (confirm('Are you sure?')) {
+      this.adminService.removeUser(this.user.id).subscribe(() => {
+        this.snackbar.Success('User Removed');
+        this.router.navigate(['users']);
+      }, error => {
+        this.snackbar.Success('Problem during remove user');
+      });
+    }
+  }
+
   applyFilter($event){
 
   }

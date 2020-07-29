@@ -7,6 +7,7 @@ using BugTracker.API.Data;
 using BugTracker.API.Dtos;
 using BugTracker.API.Helpers;
 using BugTracker.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugTracker.API.Controllers {
@@ -41,7 +42,7 @@ namespace BugTracker.API.Controllers {
 
             return Ok(new {ticketsForReturn, ticketParams.Length }  );
         }
-
+        [Authorize(Policy = "ManagerAndAdmin")]
         [HttpPost]
         public async Task<IActionResult> AddTicket(TicketToCreateDto ticketToCreate)
         {
@@ -77,6 +78,7 @@ namespace BugTracker.API.Controllers {
             throw new Exception("Ticket can't created");
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPut("update/{ticketId}")]
         public async Task<IActionResult> UpdateTicket(int ticketId, TicketToUpdateDto ticketToUpdate)
         {          
@@ -109,6 +111,7 @@ namespace BugTracker.API.Controllers {
             throw new Exception("Cant be updated the ticket");
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPut("assign/{ticketId}")]
         public async Task<IActionResult> AssignUser(int ticketId, TicketAssignUserDto ticketAssignUser)
         {

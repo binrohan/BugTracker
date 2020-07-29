@@ -5,14 +5,15 @@ import { Observable, of } from 'rxjs';
 import { SnackbarService } from '../_services/snackbar.service';
 import { ProjectService } from '../_services/project.service';
 import { catchError } from 'rxjs/operators';
+import { AdminService } from '../_services/admin.service';
 
 @Injectable()
 export class ProjectsResolver implements Resolve<Project>{
-
-    constructor(private projectService: ProjectService, private snackbar: SnackbarService, private router: Router) {}
+    projectParams: any = { pageSize: 9, pageIndex: 0, filter: '' , orderBy: 'Starteddesc', stateBy: 'active'};
+    constructor(private adminService: AdminService, private snackbar: SnackbarService, private router: Router) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Project> {
-        return this.projectService.getProjects(false).pipe(
+        return this.adminService.getProjects(this.projectParams).pipe(
             catchError(error => {
                 this.snackbar.Success('Problem retrieving your data');
                 this.router.navigate(['/dashboard']);
