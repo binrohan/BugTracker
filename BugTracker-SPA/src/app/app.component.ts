@@ -46,6 +46,10 @@ export class AppComponent implements OnInit{
     this.router.navigate(['']);
   }
 
+  loggedIn() {
+    return this.authService.loggedIn();
+  }
+
 }
 
 
