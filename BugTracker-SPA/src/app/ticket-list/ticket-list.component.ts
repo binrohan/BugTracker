@@ -3,6 +3,7 @@ import { Sort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { Ticket } from '../_models/Ticket';
 import { TicketService } from '../_services/ticket.service';
+import { TicketRes } from '../_models/TicketRes';
 
 @Component({
   selector: 'app-ticket-list',
@@ -11,7 +12,7 @@ import { TicketService } from '../_services/ticket.service';
 })
 export class TicketListComponent implements OnInit {
 
-  @Input() ticketRes: any;
+  @Input() ticketRes: TicketRes;
   tickets: Ticket[];
 
   displayedColumns: string[] = [
@@ -31,7 +32,6 @@ export class TicketListComponent implements OnInit {
   pageIndex = 0;
   length: number;
   pagesize = 9;
-  previousPageIndex: number;
   ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '' };
 
 

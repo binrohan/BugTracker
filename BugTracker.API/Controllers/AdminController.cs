@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BugTracker.API.Data;
 using BugTracker.API.Dtos;
+using BugTracker.API.Helpers;
 using BugTracker.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +33,7 @@ namespace BugTracker.API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpDelete("removeUser/{id}")]
         public async Task<IActionResult> RemoveUser(string id){
 
@@ -44,6 +47,7 @@ namespace BugTracker.API.Controllers
             throw new Exception (userFromRepo.UserName+" unable to remove");
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPost("editRoles/{uId}")]
         public async Task<IActionResult> EditRoles(string uId, RoleEditDto roleEdit)
         {
@@ -65,6 +69,22 @@ namespace BugTracker.API.Controllers
                 return BadRequest("Failed to remove the roles");
 
             return Ok(await _userManager.GetRolesAsync(user));
+        }
+
+        [Authorize(Policy = "RequiredAdminRole")]
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
+        {
+            var usersFromRepo = await _repo.GetUsers(userParams);
+            var users =  _mapper.Map<IEnumerable<UserShortDto>>(usersFromRepo);
+
+            foreach (var user in users)
+            {
+                var userTemp = await _userManager.FindByEmailAsync(user.Email);
+                var roles = await _userManager.GetRolesAsync(userTemp);
+                user.Roles = roles;
+            }
+            return Ok( new {users, userParams.Length});
         }
     }
 }

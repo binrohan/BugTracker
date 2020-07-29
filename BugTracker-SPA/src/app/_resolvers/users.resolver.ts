@@ -14,6 +14,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class UsersResolver implements Resolve<User> {
+  userParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'all'};
   constructor(
     private userService: UserService,
     private snackbar: SnackbarService,
@@ -25,7 +26,7 @@ export class UsersResolver implements Resolve<User> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<User> {
-    return this.userService.getUsers().pipe(
+    return this.userService.getUsers(this.userParams).pipe(
       catchError((error) => {
         this.snackbar.Success('Problem retrieving your data');
         this.router.navigate(['/dashboard']);

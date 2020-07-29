@@ -38,7 +38,8 @@ export const appRoutes: Routes = [
       {
         path: 'users',
         component: UserManagementComponent,
-        resolve: { users: UsersResolver }
+        resolve: { users: UsersResolver },
+        data: {roles: ['Admin']}
       },
       {
         path: 'projects',

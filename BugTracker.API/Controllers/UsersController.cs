@@ -47,16 +47,16 @@ namespace BugTracker.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _repo.GetUsers(userParams);
-            var usersToReturn =  _mapper.Map<IEnumerable<UserShortDto>>(users);
+            var usersFromRepo = await _repo.GetUsers(userParams);
+            var users =  _mapper.Map<IEnumerable<UserShortDto>>(usersFromRepo);
 
-            foreach (var user in usersToReturn)
+            foreach (var user in users)
             {
                 var userTemp = await _userManager.FindByEmailAsync(user.Email);
                 var roles = await _userManager.GetRolesAsync(userTemp);
                 user.Roles = roles;
             }
-            return Ok(usersToReturn);
+            return Ok( new {users, userParams.Length});
         }
 
 

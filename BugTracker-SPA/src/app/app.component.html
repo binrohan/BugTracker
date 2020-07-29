@@ -8,7 +8,7 @@
       <mat-list role="list">
         <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a></mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/users']" routerLinkActive="router-link-active" >User Management</a></mat-list-item>
+        <mat-list-item  role="listitem" *appHasRole="['Admin']" ><a mat-stroked-button color="primary" [routerLink]="['/users']" routerLinkActive="router-link-active" >User Management</a></mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/projects']" routerLinkActive="router-link-active" >Projects</a></mat-list-item>
         <mat-divider></mat-divider>

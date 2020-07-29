@@ -89,9 +89,8 @@ namespace BugTracker.API.Data
                 }
             }
             
-            
-            
-            
+            userParams.Length = users.Count();
+            users = users.Skip(userParams.pageSize*userParams.pageIndex).Take(userParams.pageSize);
             
             return await users.ToListAsync();
         }
@@ -144,11 +143,6 @@ namespace BugTracker.API.Data
                                 .Include(t => t.project)
                                 .AsQueryable();
 
-            // if (!string.IsNullOrEmpty(query.name))
-            // {
-            //     var ids = query.name.Split(',');
-            //     data = data.Where(c => c.Name != null && ids.Contains(c.Name)));
-            // }
             int length = 0;
             foreach (var ticket in tickets){ length++;}
 

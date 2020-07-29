@@ -55,6 +55,7 @@ import { TicketListArchivedComponent } from './ticket-list-archived/ticket-list-
 import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
 import { CommentComponent } from './comment/comment.component';
 import { TicketEditComponent } from './ticket-edit/ticket-edit.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 
 export function tokenGetter() {
@@ -79,7 +80,8 @@ export function tokenGetter() {
       TicketListComponent,
       TicketListArchivedComponent,
       CommentComponent,
-      TicketEditComponent
+      TicketEditComponent,
+      HasRoleDirective
    ],
    imports: [
       BrowserModule,

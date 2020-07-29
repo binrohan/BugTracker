@@ -61,25 +61,6 @@ namespace BugTracker.API
            builder.AddSignInManager<SignInManager<User>>();
 
 
-
-
-
-            // services.AddDbContext<DataContext>(options =>  
-            //     options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
-            // services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-            //     .AddEntityFrameworkStores<DataContext>();
-
-            // services.Configure<IdentityOptions>(options =>
-            // {
-            //     // Default Password settings.
-            //     options.Password.RequireDigit = false;
-            //     options.Password.RequireLowercase = false;
-            //     options.Password.RequireNonAlphanumeric = false;
-            //     options.Password.RequireUppercase = false;
-            //     options.Password.RequiredLength = 4;
-            //     options.Password.RequiredUniqueChars = 0;
-            // });
             services.Configure<IdentityOptions>(options =>
             {
                 // Default User settings.
@@ -99,6 +80,14 @@ namespace BugTracker.API
                         ValidateAudience = false
                     };
                 });
+            
+            services.AddAuthorization(options => 
+            {
+                options.AddPolicy("RequiredAdminRole", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("Manager", policy => policy.RequireRole("Admin, Manager"));
+                options.AddPolicy("Developer", policy => policy.RequireRole("Admin, Developer, Manager"));
+            });
+
 
             services.AddMvc(options =>
             {

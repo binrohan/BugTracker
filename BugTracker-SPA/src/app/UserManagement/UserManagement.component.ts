@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Sort } from '@angular/material/sort';
 import { AuthService } from '../_services/auth.service';
+import { UserRes } from '../_models/UserRes';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -24,7 +25,12 @@ export class UserManagementComponent implements OnInit {
     'Action',
   ];
   i = 0;
-  userParams: any = { filter: '' };
+  pageSizeOptions: number[] = [5, 9, 15];
+  pageIndex = 0;
+  length: number;
+  pagesize = 9;
+  userParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'all'};
+  userRes: UserRes;
   users: User[];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -37,7 +43,10 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
-      this.users = data.users;
+      this.userRes = data.users;
+      this.users = this.userRes.users;
+      this.length = this.userRes.length;
+      console.log(this.userRes);
     });
   }
 
@@ -48,11 +57,6 @@ export class UserManagementComponent implements OnInit {
   }
 
   sortData(sort: Sort) {
-    // const data = this.desserts.slice();
-    // if (!sort.active || sort.direction === '') {
-    //   this.sortedData = data;
-    //   return;
-    // }
     if (sort.active) {
       this.userParams.orderBy = (sort.active + sort.direction);
       console.log(this.userParams.orderBy);
@@ -63,25 +67,20 @@ export class UserManagementComponent implements OnInit {
   loadUsers() {
     this.userService.getUsers(this.userParams).subscribe(
       (data) => {
-        this.users = data;
+        this.users = data.users;
       },
       (error) => {}
     );
   }
 
-  // this.sortedData = data.sort((a, b) => {
-  //     const isAsc = sort.direction === 'asc';
-  //     switch (sort.active) {
-  //       case 'name': return compare(a.name, b.name, isAsc);
-  //       case 'calories': return compare(a.calories, b.calories, isAsc);
-  //       case 'fat': return compare(a.fat, b.fat, isAsc);
-  //       case 'carbs': return compare(a.carbs, b.carbs, isAsc);
-  //       case 'protein': return compare(a.protein, b.protein, isAsc);
-  //       default: return 0;
-  //     }
-  //   });
+  paginating(e){
+    console.log(e);
+    this.pagesize = e.pageSize;
+    this.pageIndex = e.pageIndex;
 
-  // function compare(a: number | string, b: number | string, isAsc: boolean) {
-  //     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  //   }
+    this.userParams.pageSize = this.pagesize;
+    this.userParams.pageIndex = this.pageIndex;
+
+    this.loadUsers();
+  }
 }
