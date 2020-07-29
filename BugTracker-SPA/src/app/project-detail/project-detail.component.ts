@@ -19,7 +19,10 @@ export class ProjectDetailComponent implements OnInit {
   availableUsers: User[];
   newUsersId: any[] = [];
   managerId: string;
-  userParams: any = {};
+
+
+  userParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'free'};
+
 
   constructor(
     private route: ActivatedRoute,
@@ -39,8 +42,7 @@ export class ProjectDetailComponent implements OnInit {
   getUsers() {
     this.userService.getUsers(this.userParams).subscribe(
       (data) => {
-        this.availableUsers = data;
-        console.log(this.availableUsers);
+        this.availableUsers = data.users;
       },
       (error) => {
         console.log('error');
