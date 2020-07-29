@@ -21,13 +21,13 @@ namespace BugTracker.API.Helpers
                     opt.MapFrom(src => src.Priority.TicketPriority))
                 .ForMember(dest => dest.ProjectName, opt => 
                     opt.MapFrom(src => src.project.Title));
-            CreateMap<Ticket, TicketsForDetailed>()
-                .ForMember(dest => dest.Category, opt =>
-                    opt.MapFrom(src => src.Category.TicketCategory))
-                .ForMember(dest => dest.Status, opt =>
-                    opt.MapFrom(src => src.Status.TicketStatus))
-                .ForMember(dest => dest.Priority, opt =>
-                    opt.MapFrom(src => src.Priority.TicketPriority));
+            CreateMap<Ticket, TicketsForDetailed>();
+                // .ForMember(dest => dest.Category, opt =>
+                //     opt.MapFrom(src => src.Category.TicketCategory))
+                // .ForMember(dest => dest.Status, opt =>
+                //     opt.MapFrom(src => src.Status.TicketStatus));
+                // .ForMember(dest => dest.Priority, opt =>
+                //     opt.MapFrom(src => src.Priority.TicketPriority));
             CreateMap<TicketToCreateDto, Ticket>();
             CreateMap<TicketToUpdateDto, Ticket>();
 
@@ -40,10 +40,11 @@ namespace BugTracker.API.Helpers
 
             CreateMap<Comment, CommentForTicketDto>();
             CreateMap<Comment, CommentsToReturn>()
-                .ForMember(dest => dest.UserId, opt => 
+                .ForMember(dest => dest.commenterId, opt => 
                     opt.MapFrom(src => src.Commenter.Id))
                 .ForMember(dest => dest.UserName, opt =>
                     opt.MapFrom(src => src.Commenter.UserName));
+            CreateMap<CommentToCreateDto, Comment>();
 
             CreateMap<Category, CategoryToReturn>().ReverseMap();
             CreateMap<Status, StatusToReturn>().ReverseMap();

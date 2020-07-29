@@ -1,4 +1,5 @@
 using System;
+using BugTracker.API.Models;
 
 namespace BugTracker.API.Dtos
 {
@@ -9,6 +10,6 @@ namespace BugTracker.API.Dtos
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public string UserName { get; set; }
-        public string UserId { get; set; }
+        public string commenterId { get; set; }
     }
 }

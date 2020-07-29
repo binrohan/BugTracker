@@ -13,7 +13,7 @@ namespace BugTracker.API.Dtos
         public bool isDeveloperPassed { get; set; }
         public bool isManagerPassed { get; set; }
 
-        
+        public string UserId { get; set; }
         public int CategoryId { get; set; }
         public int PriorityId { get; set; }
         public int StatusId { get; set; }

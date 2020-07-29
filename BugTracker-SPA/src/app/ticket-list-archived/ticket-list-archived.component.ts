@@ -29,7 +29,7 @@ export class TicketListArchivedComponent implements OnInit {
   length: number;
   pagesize = 8;
   previousPageIndex: number;
-  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', isArchived: false };
+  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', isArchived: true };
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService) { }
 
@@ -39,6 +39,7 @@ export class TicketListArchivedComponent implements OnInit {
     // });
     this.tickets = this.ticketRes.ticketsForReturn;
     this.length = this.ticketRes.length;
+    console.log(this.ticketRes);
     this.loadArchivedTickets();
   }
 

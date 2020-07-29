@@ -50,7 +50,7 @@ namespace BugTracker.API.Controllers {
                 var userFromRepo = await _repo.GetUser(ticketToCreate.userId, false);
                 if(userFromRepo == null)
                     return BadRequest();
-                if(userFromRepo.project.Id != ticketToCreate.CategoryId)
+                if(userFromRepo.project.Id != ticketToCreate.projectId)
                     return BadRequest();
             }
 
@@ -85,6 +85,15 @@ namespace BugTracker.API.Controllers {
             if(ticketFromRepo.isArchived)
                 BadRequest("Ticket is Archived");
             
+            if(ticketToUpdate.UserId == null)
+            {
+                ticketFromRepo.User = null;
+            }
+            else if(ticketToUpdate.UserId != null)
+            {
+                ticketFromRepo.User = await _repo.GetUser(ticketToUpdate.UserId, false);
+            }
+
 
             ticketFromRepo.Status = await _repo.GetStatus(ticketToUpdate.StatusId);
             ticketFromRepo.Category = await _repo.GetCategory(ticketToUpdate.CategoryId);
@@ -102,16 +111,14 @@ namespace BugTracker.API.Controllers {
 
         [HttpPut("assign/{ticketId}")]
         public async Task<IActionResult> AssignUser(int ticketId, TicketAssignUserDto ticketAssignUser)
-        {Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        {
             var ticketFromRepo = await _repo.GetTicket(ticketId);
-            if(ticketAssignUser.toRemove)
+            if(ticketAssignUser.UserId == null)
             {
                 ticketFromRepo.User = null;
             }
-            else if(!ticketAssignUser.toRemove)
+            else if(ticketAssignUser.UserId != null)
             {
-                if(ticketFromRepo.User != null)
-                    return BadRequest();
                 ticketFromRepo.User = await _repo.GetUser(ticketAssignUser.UserId, false);
             }
             if(await _repo.SaveAll())

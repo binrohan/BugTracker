@@ -54,6 +54,7 @@ import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { TicketListArchivedComponent } from './ticket-list-archived/ticket-list-archived.component';
 import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
 import { CommentComponent } from './comment/comment.component';
+import { TicketEditComponent } from './ticket-edit/ticket-edit.component';
 
 
 export function tokenGetter() {
@@ -77,7 +78,8 @@ export function tokenGetter() {
       TicketFormComponent,
       TicketListComponent,
       TicketListArchivedComponent,
-      CommentComponent
+      CommentComponent,
+      TicketEditComponent
    ],
    imports: [
       BrowserModule,

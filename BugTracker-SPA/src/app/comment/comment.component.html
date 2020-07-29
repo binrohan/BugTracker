@@ -13,7 +13,7 @@
           <!-- Position Column -->
           <ng-container matColumnDef="commenter">
             <th mat-header-cell *matHeaderCellDef  mat-sort-header="commenter"> Commenter </th>
-            <td mat-cell *matCellDef="let element"> {{element.commenter}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
           </ng-container>
         
           <!-- Name Column -->
@@ -46,14 +46,14 @@
         <mat-paginator [pageSizeOptions]="pageSizeOptions" (page) = "paginating($event)" [pageSize] = "pagesize" [length]="length" showFirstLastButtons></mat-paginator>
     </div>
   </div>
-  <div class="comments">
+  <div *ngIf="!disableComments" class="comments">
   <h2>Add a Comment</h2>
-    <form>
+    <form [formGroup]="commentForm" (ngSubmit) = "commentPost()">
       <mat-form-field class="example-full-width">
         <mat-label>Leave a comment</mat-label>
-        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+        <textarea required formControlName="content" matInput placeholder="Ex. It makes me feel..."></textarea>
       </mat-form-field>
-      <button type="submit" mat-flat-button color="primary">Comment</button>
+      <button [disabled]="!commentForm.valid" class="cmt-post form-submit" type="submit" mat-flat-button color="primary">Comment</button>
     </form>
   </div>
 </div>

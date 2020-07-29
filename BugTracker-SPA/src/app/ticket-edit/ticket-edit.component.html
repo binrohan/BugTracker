@@ -1,0 +1,128 @@
+<div class="whole">
+  <form [formGroup]="ticketEditForm" (ngSubmit)="updateTicket()">
+  <div class="container">
+    <div class="content">
+      <div>
+        <div class="banner">
+          <p>Edit ticket #{{ticket.id}}</p>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>TITLE</h3>
+            <mat-form-field class="example-full-width">
+              <input matInput 
+              formControlName="title"
+              />
+            </mat-form-field>
+          </div>
+          <div class="box">
+            <h3>DESCRIPTION</h3>
+            <mat-form-field class="example-full-width">
+              <textarea matInput
+              formControlName="description"
+              >
+              </textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>ASSIGNED DEVELOPER</h3>
+            <mat-form-field>
+              <select matNativeControl
+              formControlName="userId"
+              >
+              <option value="">_Blank_</option>
+                <option *ngFor="let user of users" value="{{user.id}}">{{ user.userName}}</option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class="box">
+            <h3>SUBMISSION DATE</h3>
+            <mat-form-field color="accent">
+              <input matInput [matDatepicker]="picker1" 
+              formControlName="submissionDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>PROJECT</h3>
+            <p>{{ticket.project.title | titlecase}}</p>
+          </div>
+          <div class="box">
+            <h3>TICKET PRIORITY</h3>
+            <mat-form-field>
+              <select matNativeControl
+              formControlName="priorityId"
+              >
+                <option *ngFor="let pri of priorities" value="{{pri.id}}"   >{{pri.ticketPriority}}</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>STATUS</h3>
+            <mat-form-field>  
+              <select
+              matNativeControl
+              formControlName="statusId"
+              >
+                <option *ngFor="let sta of statuses" value="{{sta.id}}">{{sta.ticketStatus}}</option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class="box">
+            <h3>TICKET CATEGORY</h3>
+            <mat-form-field>
+              <select
+              matNativeControl
+              formControlName="categoryId"
+              >
+                <option *ngFor="let cate of categories" value="{{cate.id}}">{{cate.ticketCategory}}</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>CREATED</h3>
+            <p>{{ticket.created | date: "dd-mm-yyyy"}}</p>
+          </div>
+          <div class="box">
+            <h3>LAST UPDATED</h3>
+            <p>{{ticket.updated | date: "dd-mm-yyyy"}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>DEVELOPER PASSED</h3>
+            <p>
+              <mat-icon aria-hidden="false" *ngIf="ticket.isDeveloperPassed" color="accent" >done</mat-icon>
+              <mat-icon aria-hidden="false" *ngIf="!ticket.isDeveloperPassed" color="warn" >cancel</mat-icon>
+            </p>
+          </div>
+          <div class="box">
+            <h3>MANAGER REVIEWED</h3>
+            <p>
+              <mat-icon aria-hidden="false" *ngIf="ticket.isManagerPassed" color="accent" >done</mat-icon>
+              <mat-icon aria-hidden="false" *ngIf="!ticket.isManagerPassed" color="warn" >cancel</mat-icon>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-nav">
+      <button mat-flat-button color="warn" type="submit" class="class-submit" [disabled]="!ticketEditForm.dirty">Update Ticket</button>
+      <button mat-flat-button color="warn" type="button" [routerLink]="['/ticket/', ticket.id]">Cancel</button>
+    </div>
+  </div>
+</form>
+</div>

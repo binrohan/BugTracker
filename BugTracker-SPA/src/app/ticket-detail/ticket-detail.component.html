@@ -32,17 +32,17 @@
           </div>
           <div class="box">
             <h3>TICKET PRIORITY</h3>
-            <p>{{ticket.priority| titlecase}}</p>
+            <p>{{ticket.priority? ticket.priority.ticketPriority :"Not Set"}}</p>
           </div>
         </div>
         <div class="row info">
           <div class="box">
             <h3>STATUS</h3>
-            <p>{{ticket.status | titlecase}}</p>
+            <p>{{ticket.status? ticket.status.ticketStatus : "Not Set"}}</p>
           </div>
           <div class="box">
             <h3>TICKET CATEGORY</h3>
-            <p>{{ticket.category | titlecase}}</p>
+            <p>{{ticket.category? ticket.category.ticketCategory : "Not Set"}}</p>
           </div>
         </div>
         <div class="row info">
@@ -73,14 +73,14 @@
         </div>
       </div>
       <div>
-        <app-comment [comments] = "ticket.comments"></app-comment>
+        <app-comment [comments] = "comments" [ticketId] = "ticket.id" [length]="length" [disableComments]="ticket.isArchived"></app-comment>
       </div>
     </div>
-    <div class="right-nav">
-      <button mat-flat-button color="warn">Edit</button>
-      <button mat-flat-button color="accent">Pass</button>
-      <button mat-flat-button color="primary">Approve</button>
-      <button mat-flat-button color="warn">Archived</button>
+    <div *ngIf="!ticket.isArchived" class="right-nav">
+      <button mat-flat-button color="warn" [disabled]="ticket.isArchived" [routerLink]="['/ticket/edit/', ticket.id]">Edit</button>
+      <button mat-flat-button color="accent" (click)="passTicket()" [disabled]="ticket.isDeveloperPassed">Pass</button>
+      <button mat-flat-button color="primary" [disabled]="!isDeveloperPassed || ticket.isManagerPassed" (click)="approveTicket()">Approve</button>
+      <button mat-flat-button color="warn" [disabled]="ticket.isArchived" (click)="archiveTicket()">Archived</button>
     </div>
   </div>
 </div>

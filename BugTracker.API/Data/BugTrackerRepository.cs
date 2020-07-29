@@ -291,7 +291,9 @@ namespace BugTracker.API.Data
 
         public async Task<IEnumerable<Comment>> GetComments(int ticketId, CommentParams commentParams)
         {
-            var comments = _context.Comments.Where(c => c.Ticket.Id == ticketId && c.IsDeleted == false).AsQueryable();
+            var comments = _context.Comments.Where(c => c.Ticket.Id == ticketId && c.IsDeleted == false)
+                                            .Include(c => c.Commenter)    
+                                            .AsQueryable();
 
             int length = comments.Count();
             

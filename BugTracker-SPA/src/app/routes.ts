@@ -18,6 +18,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { TicketsResolver } from './_resolvers/ticket.resolver';
 import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
+import { TicketEditComponent } from './ticket-edit/ticket-edit.component';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -55,6 +56,11 @@ export const appRoutes: Routes = [
       {
         path: 'ticket/:id',
         component: TicketDetailComponent,
+        resolve: {ticket: TicketDetailsResolver}
+       },
+       {
+        path: 'ticket/edit/:id',
+        component: TicketEditComponent,
         resolve: {ticket: TicketDetailsResolver}
        },
       {

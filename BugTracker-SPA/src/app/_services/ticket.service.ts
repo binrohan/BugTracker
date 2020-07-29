@@ -42,7 +42,7 @@ export class TicketService {
     return this.http.post(this.baseUrl + 'tickets', ticket);
   }
 
-  updateTicket(id: number, ticket: Ticket){
+  updateTicket(id: number, ticket: {}){
     return this.http.put(this.baseUrl + 'tickets/update/' + id, ticket);
   }
 

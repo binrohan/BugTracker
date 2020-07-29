@@ -20,10 +20,10 @@ namespace BugTracker.API.Controllers {
         }
 
         [HttpGet("{ticketId}")]
-        public async Task<IActionResult> GetComments(int ticketId, CommentParams commentParams)
+        public async Task<IActionResult> GetComments(int ticketId, [FromQuery]CommentParams commentParams)
         {
             var commentsFromRepo = await _repo.GetComments(ticketId, commentParams);
-            var comments = _mapper.Map<IEnumerable<CommentsToReturn>>(commentParams);
+            var comments = _mapper.Map<IEnumerable<CommentsToReturn>>(commentsFromRepo);
 
             return Ok( new { comments, commentParams.Length });
         }
@@ -32,8 +32,9 @@ namespace BugTracker.API.Controllers {
         public async Task<IActionResult> AddComment(CommentToCreateDto commentToCreate)
         {
             var commentForAdd =  _mapper.Map<Comment>(commentToCreate);
-            commentForAdd.Commenter = await _repo.GetUser(commentToCreate.CommenterId, false);
             commentForAdd.Ticket = await _repo.GetTicket(commentToCreate.TicketId);
+            commentForAdd.Commenter = await _repo.GetUser(commentToCreate.CommenterId, false);
+            commentForAdd.Updated = commentToCreate.Created;
 
             _repo.Add(commentForAdd);
 

@@ -42,8 +42,7 @@ export class TicketFormComponent implements OnInit {
     private ticketService: TicketService,
     private assistService: AssistService,
     private projectService: ProjectService,
-    private snackbar: SnackbarService,
-    private userService: UserService
+    private snackbar: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -56,7 +55,7 @@ export class TicketFormComponent implements OnInit {
       description: ['', Validators.required],
       submissionDate: ['', Validators.required],
       projectId: ['', Validators.required],
-      userId: [''],
+      userId: [],
       categoryId: ['', Validators.required],
       priorityId: ['', Validators.required],
       statusId: ['', Validators.required],

@@ -8,6 +8,8 @@ export interface Comment {
     created: Date;
     updated: Date;
     isDeleted: boolean;
-    commenter: User;
+    commenterId: string;
+    userName: string;
     ticket: Ticket;
+    ticketId: number;
 }
