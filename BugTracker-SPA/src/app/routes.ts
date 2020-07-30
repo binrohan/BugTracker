@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserManagementComponent } from './UserManagement/UserManagement.component';
-import { ProjectComponent } from './project/project.component';
-import { TicketComponent } from './ticket/ticket.component';
+import { ProjectComponent } from './projects/project/project.component';
+import { TicketComponent } from './tickets/ticket/ticket.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -14,11 +14,11 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
 import { TicketsResolver } from './_resolvers/ticket.resolver';
-import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
+import { TicketDetailComponent } from './tickets/ticket-detail/ticket-detail.component';
 import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
-import { TicketEditComponent } from './ticket-edit/ticket-edit.component';
+import { TicketEditComponent } from './tickets/ticket-edit/ticket-edit.component';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },

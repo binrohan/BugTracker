@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
-import { Ticket } from '../_models/Ticket';
-import { TicketService } from '../_services/ticket.service';
-import { TicketRes } from '../_models/TicketRes';
+import { Ticket } from '../../_models/Ticket';
+import { TicketService } from '../../_services/ticket.service';
+import { TicketRes } from '../../_models/TicketRes';
 
 @Component({
   selector: 'app-ticket-list',

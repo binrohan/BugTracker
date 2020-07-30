@@ -5,17 +5,17 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { TicketService } from '../_services/ticket.service';
-import { AssistService } from '../_services/assist.service';
-import { ProjectService } from '../_services/project.service';
-import { SnackbarService } from '../_services/snackbar.service';
-import { Category } from '../_models/Category';
-import { Project } from '../_models/Project';
-import { Status } from '../_models/Status';
-import { Priority } from '../_models/Priority';
-import { User } from '../_models/User';
-import { UserService } from '../_services/user.service';
-import { Ticket } from '../_models/Ticket';
+import { TicketService } from '../../_services/ticket.service';
+import { AssistService } from '../../_services/assist.service';
+import { ProjectService } from '../../_services/project.service';
+import { SnackbarService } from '../../_services/snackbar.service';
+import { Category } from '../../_models/Category';
+import { Project } from '../../_models/Project';
+import { Status } from '../../_models/Status';
+import { Priority } from '../../_models/Priority';
+import { User } from '../../_models/User';
+import { UserService } from '../../_services/user.service';
+import { Ticket } from '../../_models/Ticket';
 
 @Component({
   selector: 'app-ticket-form',

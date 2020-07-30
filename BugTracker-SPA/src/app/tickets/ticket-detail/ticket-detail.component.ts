@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Ticket } from '../_models/Ticket';
-import { CommentService } from '../_services/comment.service';
-import { CommentRes } from '../_models/CommentRes';
-import { SnackbarService } from '../_services/snackbar.service';
-import { TicketService } from '../_services/ticket.service';
+import { Ticket } from '../../_models/Ticket';
+import { CommentService } from '../../_services/comment.service';
+import { CommentRes } from '../../_models/CommentRes';
+import { SnackbarService } from '../../_services/snackbar.service';
+import { TicketService } from '../../_services/ticket.service';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -19,7 +19,10 @@ export class TicketDetailComponent implements OnInit {
   isDeveloperPassed: boolean;
 
 
-  constructor(private route: ActivatedRoute, private commentService: CommentService, private snackbar: SnackbarService, private ticketService: TicketService) { }
+  constructor(private route: ActivatedRoute,
+              private commentService: CommentService,
+              private snackbar: SnackbarService,
+              private ticketService: TicketService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {

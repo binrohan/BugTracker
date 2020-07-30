@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Sort } from '@angular/material/sort';
-import { Ticket } from '../_models/Ticket';
-import { AuthService } from '../_services/auth.service';
+import { Ticket } from '../../_models/Ticket';
+import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { TicketService } from '../_services/ticket.service';
+import { TicketService } from '../../_services/ticket.service';
 
 @Component({
   selector: 'app-ticket-list-archived',

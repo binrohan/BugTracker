@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Ticket } from '../_models/Ticket';
-import { TicketService } from '../_services/ticket.service';
+import { Ticket } from '../../_models/Ticket';
+import { TicketService } from '../../_services/ticket.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from '../_models/User';
-import { ProjectService } from '../_services/project.service';
-import { Project } from '../_models/Project';
-import { AssistService } from '../_services/assist.service';
-import { Category } from '../_models/Category';
-import { Status } from '../_models/Status';
-import { Priority } from '../_models/Priority';
-import { SnackbarService } from '../_services/snackbar.service';
+import { User } from '../../_models/User';
+import { ProjectService } from '../../_services/project.service';
+import { Project } from '../../_models/Project';
+import { AssistService } from '../../_services/assist.service';
+import { Category } from '../../_models/Category';
+import { Status } from '../../_models/Status';
+import { Priority } from '../../_models/Priority';
+import { SnackbarService } from '../../_services/snackbar.service';
 
 @Component({
   selector: 'app-ticket-edit',

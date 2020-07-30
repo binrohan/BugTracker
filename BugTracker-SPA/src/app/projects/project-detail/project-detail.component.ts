@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from '../_models/Project';
-import { User } from '../_models/User';
+import { Project } from '../../_models/Project';
+import { User } from '../../_models/User';
 import { Sort } from '@angular/material/sort';
-import { UserService } from '../_services/user.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-project-detail',

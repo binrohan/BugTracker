@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { Ticket } from '../_models/Ticket';
+import { Ticket } from '../../_models/Ticket';
 import { Sort } from '@angular/material/sort';
-import { TicketService } from '../_services/ticket.service';
-import { TicketRes } from '../_models/TicketRes';
+import { TicketService } from '../../_services/ticket.service';
+import { TicketRes } from '../../_models/TicketRes';
 
 @Component({
   selector: 'app-ticket',

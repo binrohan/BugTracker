@@ -31,11 +31,10 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserManagementComponent } from './UserManagement/UserManagement.component';
-import { ProjectComponent } from './project/project.component';
-import { TicketComponent } from './ticket/ticket.component';
+import { TicketComponent } from './tickets/ticket/ticket.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { TicketDetailComponent } from './tickets/ticket-detail/ticket-detail.component';
+import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
 import { appRoutes } from './routes';
 import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.component';
 import { ProfileResolver } from './_resolvers/profile.resolver';
@@ -48,14 +47,19 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
-import { TicketFormComponent } from './ticket-form/ticket-form.component';
+import { TicketFormComponent } from './tickets/ticket-form/ticket-form.component';
 import { TicketsResolver } from './_resolvers/ticket.resolver';
-import { TicketListComponent } from './ticket-list/ticket-list.component';
-import { TicketListArchivedComponent } from './ticket-list-archived/ticket-list-archived.component';
+import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
+import { TicketListArchivedComponent } from './tickets/ticket-list-archived/ticket-list-archived.component';
 import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
 import { CommentComponent } from './comment/comment.component';
-import { TicketEditComponent } from './ticket-edit/ticket-edit.component';
+import { TicketEditComponent } from './tickets/ticket-edit/ticket-edit.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
+import { ProjectTableComponent } from './projects/project-table/project-table.component';
+import { ProjectArchivedTableComponent } from './projects/project-archived-table/project-archived-table.component';
+import { ProjectFormComponent } from './projects/project-form/project-form.component';
+import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
+import { ProjectComponent } from './projects/project/project.component';
 
 
 export function tokenGetter() {
@@ -81,6 +85,10 @@ export function tokenGetter() {
       TicketListArchivedComponent,
       CommentComponent,
       TicketEditComponent,
+      ProjectTableComponent,
+      ProjectArchivedTableComponent,
+      ProjectFormComponent,
+      ProjectEditComponent,
       HasRoleDirective
    ],
    imports: [

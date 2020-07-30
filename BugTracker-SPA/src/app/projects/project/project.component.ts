@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from '../_models/Project';
+import { Project } from '../../_models/Project';
 import { Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { ProjectService } from '../_services/project.service';
+import { ProjectService } from '../../_services/project.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../_services/auth.service';
-import { SnackbarService } from '../_services/snackbar.service';
-import { AdminService } from '../_services/admin.service';
-import { ProjectRes } from '../_models/ProjectRes';
+import { AuthService } from '../../_services/auth.service';
+import { SnackbarService } from '../../_services/snackbar.service';
+import { AdminService } from '../../_services/admin.service';
+import { ProjectRes } from '../../_models/ProjectRes';
 
 @Component({
   selector: 'app-project',
