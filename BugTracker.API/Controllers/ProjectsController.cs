@@ -52,12 +52,9 @@ namespace BugTracker.API.Controllers
         }
 
         [Authorize(Policy = "RequiredAdminRole")]
-        [HttpPost("{id}/add")]
-        public async Task<IActionResult> AddProject(string id, ProjectToCreateDto projectToCreate)
+        [HttpPost("add")]
+        public async Task<IActionResult> AddProject(ProjectToCreateDto projectToCreate)
         {
-            if (!id.Equals((User.FindFirst(ClaimTypes.NameIdentifier)).Value))
-                return Unauthorized();
-
             var newProject = _mapper.Map<Project>(projectToCreate);
 
             _repo.Add(newProject);

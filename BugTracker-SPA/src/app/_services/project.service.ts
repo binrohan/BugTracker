@@ -17,8 +17,8 @@ export class ProjectService {
   getProject(id: any): Observable<Project> {
     return this.http.get<Project>(this.baseUrl + 'projects/' + id);
   }
-  addProject(id: any, project: Project) {
-    return this.http.post(this.baseUrl + 'projects/' + id + '/add', project);
+  addProject(project: Project) {
+    return this.http.post(this.baseUrl + 'projects/add', project);
   }
   assignUsers(id: number, users: {}){
     return this.http.put(this.baseUrl + 'projects/' + id + '/assign', users);

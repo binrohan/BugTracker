@@ -25,7 +25,7 @@ export class AdminService {
 
     if (projectParams != null){
       params = params.append('orderBy', projectParams.orderBy);
-      params = params.append('stateBy', projectParams.isArchived);
+      params = params.append('stateBy', projectParams.stateBy);
       params = params.append('filter', projectParams.filter);
       params = params.append('pageSize', projectParams.pageSize);
       params = params.append('pageIndex', projectParams.pageIndex);

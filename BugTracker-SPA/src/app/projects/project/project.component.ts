@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '../../_models/Project';
 import { Sort } from '@angular/material/sort';
@@ -9,6 +9,7 @@ import { AuthService } from '../../_services/auth.service';
 import { SnackbarService } from '../../_services/snackbar.service';
 import { AdminService } from '../../_services/admin.service';
 import { ProjectRes } from '../../_models/ProjectRes';
+import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-project',
@@ -16,6 +17,7 @@ import { ProjectRes } from '../../_models/ProjectRes';
   styleUrls: ['./project.component.css'],
 })
 export class ProjectComponent implements OnInit {
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = [
     'Id',
@@ -88,7 +90,7 @@ export class ProjectComponent implements OnInit {
       this.newProject = Object.assign({}, this.projectForm.value);
       console.log(this.newProject);
       const id = this.authService.decodedToken.nameid;
-      this.projectService.addProject(id, this.newProject).subscribe(() => {
+      this.projectService.addProject(this.newProject).subscribe(() => {
         this.snackbar.Success('Project Added');
       }, err => {
         this.snackbar.Success('Error');
@@ -134,5 +136,4 @@ export class ProjectComponent implements OnInit {
 
     this.loadProjects();
   }
-
 }

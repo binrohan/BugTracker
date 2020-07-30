@@ -1,3 +1,38 @@
-<p>
-  project-form works!
-</p>
+<div>
+  <h2>Create new project</h2>
+  <div class="info-block">
+    <form [formGroup]="projectForm" (ngSubmit)="addProject()">
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput required formControlName="title" />
+      </mat-form-field>
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>DeadLine</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker1"
+          required
+          formControlName="deadTime"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        class="form-submit"
+        type="submit"
+        [disabled]="!projectForm.valid"
+      >
+        Save
+      </button>
+    </form>
+  </div>
+</div>

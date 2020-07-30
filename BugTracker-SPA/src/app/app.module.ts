@@ -60,6 +60,7 @@ import { ProjectArchivedTableComponent } from './projects/project-archived-table
 import { ProjectFormComponent } from './projects/project-form/project-form.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { ProjectComponent } from './projects/project/project.component';
+import { DataService } from './_services/data.service';
 
 
 export function tokenGetter() {
@@ -138,7 +139,8 @@ export function tokenGetter() {
       TicketsResolver,
       TicketDetailsResolver,
       AuthGuard,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      DataService
    ],
    bootstrap: [
       AppComponent
