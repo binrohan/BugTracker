@@ -63,6 +63,10 @@ import { ProjectComponent } from './projects/project/project.component';
 import { DataService } from './_services/data.service';
 import { UserTicketsComponent } from './user-profile/user-tickets/user-tickets.component';
 import { UserTicketsResolver } from './_resolvers/user-tickets.resolver';
+import { ProjectsArchivedTableResolver } from './_resolvers/project-archived-table.resolver';
+import { ProjectBasicComponent } from './projects/project-basic/project-basic.component';
+import { ProjectUsersComponent } from './projects/project-users/project-users.component';
+import { ProjectTicketsComponent } from './projects/project-tickets/project-tickets.component';
 
 
 export function tokenGetter() {
@@ -92,6 +96,9 @@ export function tokenGetter() {
       ProjectArchivedTableComponent,
       ProjectFormComponent,
       ProjectEditComponent,
+      ProjectBasicComponent,
+      ProjectUsersComponent,
+      ProjectTicketsComponent,
       UserTicketsComponent,
       HasRoleDirective
    ],
@@ -142,6 +149,7 @@ export function tokenGetter() {
       TicketsResolver,
       TicketDetailsResolver,
       UserTicketsResolver,
+      ProjectsArchivedTableResolver,
       AuthGuard,
       PreventUnsavedChanges,
       DataService

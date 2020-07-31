@@ -60,7 +60,6 @@ export class UserTicketsComponent implements OnInit {
     }
   }
   loadTickets() {
-
     this.ticketService.getUserTickets(this.userId, this.ticketParams).subscribe(
       data => {
         this.ticketRes = data;

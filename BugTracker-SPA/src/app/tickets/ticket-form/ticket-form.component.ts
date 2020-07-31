@@ -26,7 +26,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 export class TicketFormComponent implements OnInit {
   @Input() projectIdFromParent: number;
   @Input() userIdFromParent: number;
-  @Output() closeform = new EventEmitter<boolean>();
+
   ticketForm: FormGroup;
 
   projects: Project[];
@@ -68,6 +68,8 @@ export class TicketFormComponent implements OnInit {
       this.ticket = Object.assign({}, this.ticketForm.value);
       this.ticketService.addTicket(this.ticket).subscribe(() => {
         this.snackbar.Success('New ticket added');
+        this.ticketForm.markAsUntouched();
+        this.ticketForm.markAsPristine();
       }, error => {
         this.snackbar.Success('Error in adding ticket');
       });
@@ -105,7 +107,6 @@ export class TicketFormComponent implements OnInit {
   }
 
   resetOrsendToParent() {
-    this.closeform.emit(false);
     this.ticketForm.reset();
   }
 }

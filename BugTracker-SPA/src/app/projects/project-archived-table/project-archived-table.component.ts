@@ -4,6 +4,7 @@ import { ProjectRes } from 'src/app/_models/ProjectRes';
 import { AdminService } from 'src/app/_services/admin.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { Sort } from '@angular/material/sort';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project-archived-table',
@@ -30,10 +31,13 @@ export class ProjectArchivedTableComponent implements OnInit {
   projectRes: ProjectRes;
 
   constructor(private adminService: AdminService,
-              private snackbar: SnackbarService) { }
+              private snackbar: SnackbarService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadProjects();
+    this.route.data.subscribe((data) => {
+      this.projectRes = data.projectArchivedRes;
+    });
   }
 
   loadProjects() {

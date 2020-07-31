@@ -34,6 +34,8 @@ export class UserDetailsComponent implements OnInit {
 
   displayedProjectColumns: string[] = [
     'Title',
+    'Started',
+    'Tickets',
     'Action'
   ];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -92,7 +94,7 @@ export class UserDetailsComponent implements OnInit {
 
   getProjects() {
     this.adminService.getProjects(this.projectParams).subscribe((data) => {
-      this.projectRes = data;
+      this.projectRes = data;console.log(this.projectRes);
     });
     this.showList = true;
   }

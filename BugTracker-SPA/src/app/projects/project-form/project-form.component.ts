@@ -38,6 +38,8 @@ export class ProjectFormComponent implements OnInit {
       this.newProject = Object.assign({}, this.projectForm.value);
       this.projectService.addProject(this.newProject).subscribe(() => {
         this.snackbar.Success('Project Added');
+        this.projectForm.reset();
+        this.projectForm.markAsUntouched();
         this.reloadProjectTable();
       }, err => {
         this.snackbar.Success('Failed to add project');

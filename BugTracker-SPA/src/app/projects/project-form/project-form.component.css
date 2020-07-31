@@ -1,0 +1,17 @@
+.row{
+    width: 100%;
+}
+.block-container{
+    display: flex;
+    justify-content: space-between;
+}
+.block{
+    width: 49%;
+}
+form{
+    margin-top: 20px;
+}
+mat-form-field{
+    width: 100%;
+}
+
