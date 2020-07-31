@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../_models/User';
 import { AdminService } from '../_services/admin.service';
 import { SnackbarService } from '../_services/snackbar.service';
@@ -10,7 +10,9 @@ import { Project } from '../_models/Project';
 import { UserService } from '../_services/user.service';
 import { TicketService } from '../_services/ticket.service';
 import { Ticket } from '../_models/Ticket';
-import { Route } from '@angular/compiler/src/core';
+import { ProjectRes } from '../_models/ProjectRes';
+import { MatPaginator } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-details',
@@ -24,26 +26,21 @@ export class UserDetailsComponent implements OnInit {
   isRoleChanged = false;
   isFree: boolean;
   userRoles: any[];
-  projects: Project[];
-  tickets: Ticket[];
+  projectRes: ProjectRes;
+
   userId: string[] = [];
   showList = false;
   showTicketForm = false;
-  displayedColumns: string[] = [
-    'Title',
-    'Category',
-    'Status',
-    'Priority',
-    'Passed',
-    'Mgr Approved',
-    'Submission',
-    'Action'
-  ];
+
   displayedProjectColumns: string[] = [
-    'ID',
     'Title',
     'Action'
   ];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  pageSizeOptions: number[] = [5, 9, 15];
+  pageIndex = 0;
+  pagesize = 5;
+  projectParams: any = { pageSize: this.pagesize, pageIndex: this.pageIndex, filter: '' , orderBy: 'Starteddesc', stateBy: 'active'};
 
   constructor(
     private route: ActivatedRoute,
@@ -59,8 +56,10 @@ export class UserDetailsComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.user = data.user;
     });
+    this.route.data.subscribe((data) => {
+      this.projectRes = data.projectRes;
+    });
     this.roles = this.user.roles;
-    this.tickets = this.user.tickets;
     if (this.user.project != null){
       this.isFree = false;
     } else {
@@ -92,14 +91,10 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getProjects() {
-    this.projectService.getProjects(false).subscribe((data) => {
-      this.projects = data;
+    this.adminService.getProjects(this.projectParams).subscribe((data) => {
+      this.projectRes = data;
     });
     this.showList = true;
-  }
-
-  getTickets(){
-    // Must impletement in future
   }
 
   assignProject(id: number){
@@ -137,17 +132,6 @@ export class UserDetailsComponent implements OnInit {
     this.showList = false;
   }
 
-  unassignTicket(id: number){
-    this.ticketService.assignTicket(id, {userId: null}).subscribe(() => {
-      this.snackbar.Success('Ticket unassigned from user');
-      this.userService.getUser(this.user.id).subscribe( data => {
-        this.tickets = data.tickets;
-      });
-    }, error => {
-      this.snackbar.Success('Ticket unssigning failed');
-    });
-  }
-
   deleteUser(){
     if (this.user.tickets.length > 0){
       this.snackbar.Success('Unassign user from ticket');
@@ -167,10 +151,30 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-  applyFilter($event){
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    // this.users.filter = filterValue.trim().toLowerCase();
+    console.log(filterValue);
+    this.projectParams.filter = filterValue;
+    this.getProjects();
   }
-  sortData($event){
 
+  sortData(sort: Sort) {
+    if (sort.active) {
+      this.projectParams.orderBy = (sort.active + sort.direction);
+      console.log(this.projectParams.orderBy);
+      this.getProjects();
+    }
+  }
+
+  paginating(e){
+    console.log(e);
+    this.pagesize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+
+    this.projectParams.pageSize = this.pagesize;
+    this.projectParams.pageIndex = this.pageIndex;
+
+    this.getProjects();
   }
 }

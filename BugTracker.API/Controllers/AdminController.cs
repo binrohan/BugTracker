@@ -89,17 +89,17 @@ namespace BugTracker.API.Controllers
         }
 
         [Authorize(Policy = "RequiredAdminRole")]
-        [HttpGet("list")]
+        [HttpGet("tickets")]
         public async Task<IActionResult> GetTickets([FromQuery]TicketParams ticketParams)
         {
             int pageSize = ticketParams.PageSize;
             int pageIndex = ticketParams.pageIndex;
             
-            var tickets = await _repo.GetTickets(ticketParams);
+            var ticketsFromRepo = await _repo.GetTickets(ticketParams);
 
-            var ticketsForReturn =  _mapper.Map<IEnumerable<TicketShortDto>>(tickets);
+            var tickets =  _mapper.Map<IEnumerable<TicketShortDto>>(ticketsFromRepo);
 
-            return Ok(new {ticketsForReturn, ticketParams.Length }  );
+            return Ok(new {tickets, ticketParams.Length }  );
         }
 
         [Authorize(Policy = "RequiredAdminRole")]

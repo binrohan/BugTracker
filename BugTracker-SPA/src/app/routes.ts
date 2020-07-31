@@ -19,6 +19,7 @@ import { TicketsResolver } from './_resolvers/ticket.resolver';
 import { TicketDetailComponent } from './tickets/ticket-detail/ticket-detail.component';
 import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
 import { TicketEditComponent } from './tickets/ticket-edit/ticket-edit.component';
+import { UserTicketsResolver } from './_resolvers/user-tickets.resolver';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -34,7 +35,10 @@ export const appRoutes: Routes = [
         path: 'dashboard',
         component: DashboardComponent
       },
-      { path: 'user/:id', component: UserDetailsComponent, resolve: {user: UserDetailsResolver} },
+      { path: 'user/:id',
+        component: UserDetailsComponent,
+        resolve: {user: UserDetailsResolver, ticketRes: UserTicketsResolver, projectRes: ProjectsResolver }
+      },
       {
         path: 'users',
         component: UserManagementComponent,

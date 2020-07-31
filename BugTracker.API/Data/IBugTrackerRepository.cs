@@ -18,8 +18,11 @@ namespace BugTracker.API.Data
         Task<Project> GetProject(int id);
         Task<IEnumerable<Project>> GetProjects(ProjectParams projectParams);
 
+
         Task<Ticket> GetTicket(int id);
         Task<IEnumerable<Ticket>> GetTickets(TicketParams ticketParams);
+        Task<IEnumerable<Ticket>> GetUserTickets(string id, TicketParams ticketParams);
+
 
         Task<Comment> GetComment(int id);
         Task<IEnumerable<Comment>> GetComments(int ticketId, CommentParams commentParams);

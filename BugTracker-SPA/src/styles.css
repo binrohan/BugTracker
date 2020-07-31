@@ -74,6 +74,8 @@ form mat-form-field,
 
 .whole {
   padding: 70px 25px 25px 25px;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 

@@ -4,6 +4,7 @@ import { Ticket } from '../../_models/Ticket';
 import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { TicketService } from '../../_services/ticket.service';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-ticket-list-archived',
@@ -31,7 +32,8 @@ export class TicketListArchivedComponent implements OnInit {
   previousPageIndex: number;
   ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', isArchived: true };
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService,
+              private adminService: AdminService) { }
 
   ngOnInit() {
     // this.route.data.subscribe((data) => {
@@ -58,9 +60,9 @@ export class TicketListArchivedComponent implements OnInit {
     }
   }
   loadArchivedTickets() {
-    this.ticketService.getTickets(this.ticketParams).subscribe(
+    this.adminService.getTickets(this.ticketParams).subscribe(
       (data) => {
-        this.tickets = data.ticketsForReturn;
+        this.tickets = data.tickets;
       },
       (error) => {}
     );

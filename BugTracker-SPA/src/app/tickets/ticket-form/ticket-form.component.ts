@@ -16,6 +16,7 @@ import { Priority } from '../../_models/Priority';
 import { User } from '../../_models/User';
 import { UserService } from '../../_services/user.service';
 import { Ticket } from '../../_models/Ticket';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-ticket-form',
@@ -42,7 +43,8 @@ export class TicketFormComponent implements OnInit {
     private ticketService: TicketService,
     private assistService: AssistService,
     private projectService: ProjectService,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private adminService: AdminService
   ) {}
 
   ngOnInit() {
@@ -87,8 +89,8 @@ export class TicketFormComponent implements OnInit {
     }, error => {
       this.snackbar.Success('Failed Cate');
   });
-    this.projectService.getProjects(false).subscribe((data) => {
-      this.projects = data;
+    this.adminService.getProjects({pageIndex: 0, filter: '' , orderBy: 'Starteddesc', stateBy: 'active'}).subscribe((data) => {
+      this.projects = data.projects;
       }, error => {
         this.snackbar.Success('Failed Cate');
     });

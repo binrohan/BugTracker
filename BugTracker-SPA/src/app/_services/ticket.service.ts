@@ -18,7 +18,7 @@ export class TicketService {
     return this.http.get<Ticket>(this.baseUrl + 'tickets/' + id);
   }
 
-  getTickets(ticketParams?): Observable<TicketRes>{
+  getUserTickets(id: string, ticketParams?): Observable<TicketRes>{
 
     let params = new HttpParams();
 
@@ -30,7 +30,7 @@ export class TicketService {
       params = params.append('pageIndex', ticketParams.pageIndex);
     }
 
-    return this.http.get<TicketRes>(this.baseUrl + 'tickets/list', {observe: 'response', params})
+    return this.http.get<TicketRes>(this.baseUrl + 'tickets/' + id + '/list', {observe: 'response', params})
       .pipe(
         map((res) => {
           return res.body;

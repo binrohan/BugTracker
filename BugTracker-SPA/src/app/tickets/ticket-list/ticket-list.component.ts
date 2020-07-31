@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Ticket } from '../../_models/Ticket';
 import { TicketService } from '../../_services/ticket.service';
 import { TicketRes } from '../../_models/TicketRes';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -36,11 +37,12 @@ export class TicketListComponent implements OnInit {
 
 
 
-  constructor(private ticketService: TicketService) { }
+  constructor(private ticketService: TicketService, private adminService: AdminService) { }
 
   ngOnInit() {
-    this.tickets = this.ticketRes.ticketsForReturn;
+    this.tickets = this.ticketRes.tickets;
     this.length = this.ticketRes.length;
+    console.log(this.tickets);
   }
 
   applyFilter(event: Event) {
@@ -59,9 +61,9 @@ export class TicketListComponent implements OnInit {
     }
   }
   loadTickets() {
-    this.ticketService.getTickets(this.ticketParams).subscribe(
+    this.adminService.getTickets(this.ticketParams).subscribe(
       (data) => {
-        this.tickets = data.ticketsForReturn;
+        this.tickets = data.tickets;
         this.length = data.length;
       },
       (error) => {}

@@ -30,18 +30,19 @@ namespace BugTracker.API.Controllers {
             return Ok(ticketToReturn);
         }
 
-        [HttpGet("list")]
-        public async Task<IActionResult> GetTickets([FromQuery]TicketParams ticketParams)
+        [HttpGet("{id}/list")]
+        public async Task<IActionResult> GetUserTickets(string id, [FromQuery]TicketParams ticketParams)
         {
             int pageSize = ticketParams.PageSize;
             int pageIndex = ticketParams.pageIndex;
             
-            var tickets = await _repo.GetTickets(ticketParams);
+            var ticketsFromRepo = await _repo.GetUserTickets(id, ticketParams);
 
-            var ticketsForReturn =  _mapper.Map<IEnumerable<TicketShortDto>>(tickets);
+            var tickets =  _mapper.Map<IEnumerable<TicketShortDto>>(ticketsFromRepo);
 
-            return Ok(new {ticketsForReturn, ticketParams.Length }  );
+            return Ok(new {tickets, ticketParams.Length }  );
         }
+
         [Authorize(Policy = "ManagerAndAdmin")]
         [HttpPost]
         public async Task<IActionResult> AddTicket(TicketToCreateDto ticketToCreate)
