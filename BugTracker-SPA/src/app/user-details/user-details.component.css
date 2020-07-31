@@ -1,4 +1,122 @@
+h2{
+  margin: 0;
+}
+h3{
+margin-bottom: 4px;
+}
+p{
+margin: 0;
+}
 
+.row {
+width: 100%;
+margin: 0 auto;
+}
+.break-space {
+margin-bottom: 10px;
+}
+
+
+
+.container {
+display: grid;
+grid-template-columns: auto minmax(150px, 20%);
+}
+.content {
+
+}
+.right-nav {
+padding-left: 20px;
+border-left: 1px solid #3f51b58e;
+margin-left: 20px;
+}
+.right-nav button {
+width: 100%;
+margin-bottom: 10px;
+}
+.banner{
+font-size: 22px;
+font-weight: 100;
+padding: 12px;
+background-color:  rgb(252, 99, 176);
+color: whitesmoke;
+border: 1px solid pink;
+box-shadow: 0px 0px 10px 2px rgba(218, 218, 218, 0.94);
+}
+.sec-nav{
+  display: flex;
+  justify-content: flex-end;
+}
+a{
+  font-size: 14px;
+  margin-top: 5px;
+  padding: 0 15px;
+  text-decoration: underline;
+  transition: color 500ms;
+  color: rgb(36, 36, 250);
+}
+a:hover{
+  cursor: pointer;
+  color: rgb(89, 89, 255);
+}
+.info{
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+padding-bottom: 10px;
+background-color: whitesmoke;
+border-bottom: 1px solid rgb(201, 201, 201);
+}
+.info:last-child{
+border: none;
+}
+.box{
+width: 50%;
+}
+.box>*{
+padding-left: 10px;
+}
+.box>p{
+font-weight: lighter;
+}
+.role{
+  display: inline;
+  padding-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 * {
   margin: 0;
   box-sizing: border-box;
@@ -52,38 +170,16 @@ p {
   background-color: rgb(255, 255, 255);
   min-width: 250px;
 }
-.ad-pro-list{
-    width: 100%;
-}
-.ad-pro-list > h2 {
-  text-align: left;
-}
-.project-place{
-    width: 31%;
-}
-.ticket-place {
-  width: 67%;
-  padding-right: 10px;
-}
 .table-holder{
-    margin: 30px 0;
+  width: 100%;
+  margin: 30px 0;
 }
-
-.column {
-  width: 33.333333%;
-  padding: 10px 30px;
-  background-color: rgb(255, 255, 255);
-  border-top: 1px solid rgb(235, 235, 235);
-  border-bottom: 1px solid rgb(235, 235, 235);
-  display: flex;
-  align-items: center;
+.project-table{
+  width: 100%;
 }
-
-
-
-.example-margin {
+/* .example-margin {
   margin: 0 12px;
-}
+}*/
 
 table {
   width: 100%;
@@ -97,3 +193,7 @@ table {
 .mat-sort-header-container {
   align-items: center;
 }
+
+app-user-tickets{
+  width: 100%;
+} 

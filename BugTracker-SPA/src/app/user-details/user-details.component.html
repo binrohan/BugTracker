@@ -1,50 +1,76 @@
 <div class="whole">
-  <h1>
-    User Profile
-  </h1>
   <div class="container">
     <div class="content">
-      <div class="info-block black-border">
-        <h2>Basic</h2>
-        <h3>Name</h3>
-        <p>{{ user.userName }}</p>
-        <h3>Gender</h3>
-        <p>{{ user.gender }}</p>
-        <h3>Join Date</h3>
-        <p>{{ user.joined | date: "dd:mm:yyyy" }}</p>
-      </div>
-      <div class="info-block black-border">
-        <h2>Contact</h2>
-        <h3>Email</h3>
-        <p>{{ user.email }}</p>
-        <h3>Phone Number</h3>
-        <p>{{ user.phone }}</p>
-        <h3>Address</h3>
-        <p>{{ user.adrs_Local }}</p>
-      </div>
-      <div class="info-block black-border">
-        <h2>Work</h2>
-        <h3>Role</h3>
-        <form #testform="ngForm">
-          <div *ngFor="let role of allRoles">
-            <input type="checkbox" #checkboxValue (change)='onSelect($event, checkboxValue)' id="{{role}}" class="form-control" name="vehicle1" value="{{role}}" [checked] = "roles.includes(role)" >
-            <label for="{{role}}">{{role}}</label>
+      <div>
+        <div class="banner">
+          <p>Details for User</p>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>Name</h3>
+            <p>{{user.userName | titlecase}}</p>
           </div>
-        </form>
-        <h3>Project</h3>
-        <p>{{ user.project?.title || "N/A" }}</p>
-        <h3>
-          Assinged Tickets: <span>{{ user.tickets.length }}</span>
-        </h3>
-      </div>
-      <div class="info-block black-border">
-        <h2>About</h2>
-        <p>{{ user.description }}</p>
+          <div class="box">
+            <h3>ABOUT</h3>
+            <p>{{user.description || "N/A"}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>GENDER</h3>
+            <p>{{ user.gender || "N/A"}}</p>
+          </div>
+          <div class="box">
+            <h3>JOINED DATE</h3>
+            <p>{{user.joined | date: "dd-mm-yy"  || "N/A"}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>EMAIL</h3>
+            <p>{{user.email || "N/A"}}</p>
+          </div>
+          <div class="box">
+            <h3>PHONE NUMBER</h3>
+            <p>{{user.phone || "N/A"}}</p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>ADDRESS</h3>
+            <p>{{user.adrs_Local || "N/A"}}</p>
+          </div>
+          <div class="box">
+            <h3>ROLE</h3>
+            <form #testform="ngForm">
+              <div *ngFor="let role of allRoles" class="role">
+                <input type="checkbox" #checkboxValue (change)='onSelect($event, checkboxValue)' id="{{role}}" class="form-control" name="vehicle1" value="{{role}}" [checked] = "roles.includes(role)" >
+                <label for="{{role}}">{{role}}</label>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="box">
+            <h3>PROJECT</h3>
+            <p>{{user.project?.title || "N/A"}}</p>
+          </div>
+          <div class="box">
+            <h3>TICKET ASSIGNED</h3>
+            <p>{{user.tickets.length}}</p>
+          </div>
+        </div>
       </div>
       <div class="row table-holder">
         <app-user-tickets [userId]="user.id" *ngIf="user.tickets.length>0"></app-user-tickets>
         <div class="project-table" *ngIf="showList">
-          <h2>List of Project <span><button mat-button color="warn" (click) = "closeProjectList()">Cancel</button></span></h2>
+          <div class="banner">
+            <p>Active Projects</p>
+          </div>
+          <div class="sec-nav">
+            <a [routerLink]="['/projects']">Create new project</a>
+            <a (click)="closeProjectList()">close</a>
+          </div>
           <mat-form-field>
             <mat-label>Filter</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>

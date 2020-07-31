@@ -1,5 +1,10 @@
 <div>
-  <h2>Tickets</h2>
+  <div class="banner">
+    <p>List of Assign Tickets</p>
+  </div>
+  <div class="sec-nav">
+    <a [routerLink]="['/tickets']">List of tickets</a>
+  </div>
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>

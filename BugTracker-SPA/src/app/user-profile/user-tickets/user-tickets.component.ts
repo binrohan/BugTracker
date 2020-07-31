@@ -81,12 +81,14 @@ export class UserTicketsComponent implements OnInit {
   }
 
   unassignTicket(id: number){
-    this.ticketService.assignTicket(id, {userId: null}).subscribe(() => {
-      this.snackbar.Success('Ticket unassigned from user');
-      this.loadTickets();
-    }, error => {
-      this.snackbar.Success('Ticket unssigning failed');
-    });
+    const sure = confirm('You are about to unassign user form ticket\n Are you sure?');
+    if (sure){
+      this.ticketService.assignTicket(id, {userId: null}).subscribe(() => {
+        this.snackbar.Success('Ticket unassigned from user');
+        this.loadTickets();
+      }, error => {
+        this.snackbar.Success('Ticket unssigning failed');
+      });
+    }
   }
-
 }
