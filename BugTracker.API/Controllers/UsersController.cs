@@ -59,6 +59,20 @@ namespace BugTracker.API.Controllers
             return Ok( new {users, userParams.Length});
         }
 
+        [HttpGet("{id}/project")]
+        public async Task<IActionResult> GetProjectUsers(int id, [FromQuery]UserParams userParams)
+        {
+            var usersFromRepo = await _repo.GetProjectUsers(id, userParams);
+            var users =  _mapper.Map<IEnumerable<UserShortDto>>(usersFromRepo);
+
+            foreach (var user in users)
+            {
+                var userTemp = await _userManager.FindByEmailAsync(user.Email);
+                var roles = await _userManager.GetRolesAsync(userTemp);
+                user.Roles = roles;
+            }
+            return Ok( new {users, userParams.Length});
+        }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(string id, UserToUpdateDto userToUpdate)

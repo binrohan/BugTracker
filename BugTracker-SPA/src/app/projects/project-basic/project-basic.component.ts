@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Project } from 'src/app/_models/Project';
 
 @Component({
   selector: 'app-project-basic',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectBasicComponent implements OnInit {
 
-  constructor() { }
+  projectBasic: Project;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.data.subscribe((data) => {
+      this.projectBasic = data.project;
+    });
   }
 
 }

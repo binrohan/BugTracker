@@ -67,6 +67,8 @@ import { ProjectsArchivedTableResolver } from './_resolvers/project-archived-tab
 import { ProjectBasicComponent } from './projects/project-basic/project-basic.component';
 import { ProjectUsersComponent } from './projects/project-users/project-users.component';
 import { ProjectTicketsComponent } from './projects/project-tickets/project-tickets.component';
+import { ProjectTicketsResolver } from './_resolvers/project-tickets.resolver';
+import { ProjectUsersResolver } from './_resolvers/project-users.resolver';
 
 
 export function tokenGetter() {
@@ -150,6 +152,8 @@ export function tokenGetter() {
       TicketDetailsResolver,
       UserTicketsResolver,
       ProjectsArchivedTableResolver,
+      ProjectTicketsResolver,
+      ProjectUsersResolver,
       AuthGuard,
       PreventUnsavedChanges,
       DataService

@@ -30,7 +30,7 @@ export class TicketListArchivedComponent implements OnInit {
   length: number;
   pagesize = 8;
   previousPageIndex: number;
-  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', isArchived: true };
+  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: true };
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService,
               private adminService: AdminService) { }

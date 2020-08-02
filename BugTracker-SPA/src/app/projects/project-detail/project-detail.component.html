@@ -1,8 +1,9 @@
 <div class="whole">
   <mat-tab-group mat-align-tabs="end" color = "accent" backgroundColor = "accent" dynamicHeight>
-    <mat-tab label="Basic and Assinged Users">
+    <mat-tab label="Info">
       <ng-template matTabContent>
-        <div class="banner">
+        <app-project-basic></app-project-basic>
+        <!-- <div class="banner">
           <p>Basic information</p>
         </div>
         <div>
@@ -35,35 +36,35 @@
                 <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="project.users" class="mat-elevation-z8">
                 
                     <!-- Position Column -->
-                    <ng-container matColumnDef="No.">
+                    <!-- <ng-container matColumnDef="No.">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header="No." > No. </th>
                         <td mat-cell *matCellDef="let element"> {{ i }} </td>
                       </ng-container>
-            
+             -->
                     <!-- Position Column -->
-                    <ng-container matColumnDef="Name">
+                    <!-- <ng-container matColumnDef="Name">
                       <th mat-header-cell *matHeaderCellDef  mat-sort-header="Name"> Name </th>
                       <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
-                    </ng-container>
+                    </ng-container> -->
                   
                   
                     <!-- Symbol Column -->
-                    <ng-container matColumnDef="Roles">
+                    <!-- <ng-container matColumnDef="Roles">
                       <th mat-header-cell *matHeaderCellDef> Roles </th>
                       <td mat-cell *matCellDef="let element"> {{element.roles}} </td>
-                    </ng-container>
+                    </ng-container> -->
           
                     <!-- Symbol Column -->
-                    <ng-container matColumnDef="Action">
+                    <!-- <ng-container matColumnDef="Action">
                         <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
                         <td mat-cell *matCellDef="let element"><button mat-button color="accent" [routerLink] = "['/user/', element.id]" >Edit Roles</button></td>
-                      </ng-container>
+                      </ng-container> -->
                   
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
                   
                     <!-- Row shown when there is no matching data. -->
-                    <tr class="mat-row" *matNoDataRow>
+                    <!-- <tr class="mat-row" *matNoDataRow>
                       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
                     </tr>
                   </table>
@@ -92,10 +93,19 @@
             </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </ng-template>
     </mat-tab>
-    <mat-tab label="Second">Ticket</mat-tab>
+    <mat-tab label="Personnel">
+      <ng-template matTabContent>
+        <app-project-users></app-project-users>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Tickets">
+      <ng-template matTabContent>
+        <app-project-tickets></app-project-tickets>
+      </ng-template>
+    </mat-tab>
   </mat-tab-group>
   
   

@@ -33,6 +33,7 @@ namespace BugTracker.API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
+        //User Segment
         public async Task<User> GetUser(string id, bool isCurrentUser)
         {
             var user = await _context.Users
@@ -42,6 +43,56 @@ namespace BugTracker.API.Data
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
+        }
+
+        public async Task<IEnumerable<User>> GetProjectUsers(int id, UserParams userParams)
+        {
+            var users = _context.Users.Where(u => u.project.Id == id).AsQueryable();
+            if(!string.IsNullOrEmpty(userParams.Filter))
+            {
+                users = users.Where(t => t.UserName.Contains(userParams.Filter));
+            }
+
+
+            if(!string.IsNullOrEmpty(userParams.StateBy))
+            {
+                switch(userParams.StateBy)
+                {
+                    case "free":
+                        users = users.Where(u => u.project == null);
+                        break;
+                    case "assigned":
+                        users = users.Where(u => u.project != null);
+                        break;
+                }
+            }
+            
+            if(!string.IsNullOrEmpty(userParams.OrderBy))
+            {
+                switch(userParams.OrderBy)
+                {
+                    case "Namedesc":
+                        users = users.OrderByDescending(u => u.UserName);
+                        break;
+                    case "Nameasc":
+                        users = users.OrderBy(u => u.UserName);
+                        break;
+                    case "Emailasc":
+                        users = users.OrderBy(u => u.Email);
+                        break;
+                    case "Emaildesc":
+                        users = users.OrderByDescending(u => u.Email);
+                        break;
+                    default:
+                        users = users.OrderBy(u => u.Id);
+                        break;
+                }
+            }
+            
+            userParams.Length = users.Count();
+            users = users.Skip(userParams.pageSize*userParams.pageIndex).Take(userParams.pageSize);
+            
+            return await users.ToListAsync();
         }
 
         public async Task<IEnumerable<User>> GetUsers(UserParams userParams)
@@ -96,7 +147,7 @@ namespace BugTracker.API.Data
         }
 
 
-
+        // Project Segments
         public async Task<Project> GetProject(int id)
         {
             var query = _context.Projects.Include(p => p.Tickets).Include(p => p.Users).ThenInclude(u => u.UserRoles).AsQueryable();
@@ -119,6 +170,8 @@ namespace BugTracker.API.Data
                         break;
                     case "archived":
                         projects = projects.Where(p => p.isArchived == true);
+                        break;
+                    case "all":
                         break;
                     default:
                         projects = projects.Where(p => p.isArchived == false);
@@ -172,6 +225,9 @@ namespace BugTracker.API.Data
             return await projects.ToListAsync();
         }
 
+
+
+        // Ticket Segment
         public async Task<Ticket> GetTicket(int id)
         {
             var ticket = await _context.Tickets
@@ -187,7 +243,6 @@ namespace BugTracker.API.Data
             return ticket;
         }
 
-        // This function will remove later
         public async Task<IEnumerable<Ticket>> GetTickets(TicketParams ticketParams)
         {
             var tickets =    _context.Tickets
@@ -281,6 +336,88 @@ namespace BugTracker.API.Data
             return await tickets.ToListAsync();
         }
 
+        public async Task<IEnumerable<Ticket>> GetProjectTickets(int id, TicketParams ticketParams)
+        {
+            var tickets =  _context.Tickets.Where(t => t.project.Id == id).AsQueryable();
+
+            if(!string.IsNullOrEmpty(ticketParams.Filter))
+            {
+                tickets = tickets.Where(t => t.Title.Contains(ticketParams.Filter));
+            }
+            
+
+            if(!string.IsNullOrEmpty(ticketParams.IsArchived))
+            {
+                switch(ticketParams.IsArchived)
+                {
+                    case "true":
+                        tickets = tickets.Where(t => t.isArchived);
+                        break;
+                    default:
+                        tickets = tickets.Where(t => !t.isArchived);
+                        break;
+                }
+            }
+            
+            ticketParams.Length = tickets.Count();
+
+            if(!string.IsNullOrEmpty(ticketParams.OrderBy))
+            {
+                switch(ticketParams.OrderBy)
+                {
+                    case "idasc":
+                        tickets = tickets.OrderBy(t => t.Id);
+                        break;
+                    case "iddesc":
+                        tickets = tickets.OrderByDescending(t => t.Id);
+                        break;
+                    case "titleasc":
+                        tickets = tickets.OrderBy(t => t.Title);
+                        break;
+                    case "titledesc":
+                        tickets = tickets.OrderByDescending(t => t.Title);
+                        break;
+                    case "projectNameasc":
+                        tickets = tickets.OrderBy(t => t.project.Title);
+                        break;
+                    case "projectNamedesc":
+                        tickets = tickets.OrderByDescending(t => t.project.Title);
+                        break;
+                    case "submissionDateasc":
+                        tickets = tickets.OrderBy(t => t.SubmissionDate);
+                        break;
+                    case "submissionDatedesc":
+                        tickets = tickets.OrderByDescending(t => t.SubmissionDate);
+                        break;
+                    case "categoryasc":
+                        tickets = tickets.OrderBy(t => t.Category.TicketCategory);
+                        break;
+                    case "categorydesc":
+                        tickets = tickets.OrderByDescending(t => t.Category.TicketCategory);
+                        break;
+                    case "priorityasc":
+                        tickets = tickets.OrderBy(t => t.Priority.TicketPriority);
+                        break;
+                    case "prioritydesc":
+                        tickets = tickets.OrderByDescending(t => t.Priority.TicketPriority);
+                        break;
+                    
+                    case "statusasc":
+                        tickets = tickets.OrderBy(t => t.Status.TicketStatus);
+                        break;
+                    case "statusdesc":
+                        tickets = tickets.OrderByDescending(t => t.Status.TicketStatus);
+                        break;
+                    default:
+                        tickets = tickets.OrderBy(t => t.Id);
+                        break;
+                }
+            }
+            
+            tickets = tickets.Skip(ticketParams.pageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
+
+            return await tickets.ToListAsync();
+        }
 
         public async Task<IEnumerable<Ticket>> GetUserTickets(string id,TicketParams ticketParams)
         {
@@ -302,7 +439,7 @@ namespace BugTracker.API.Data
                 tickets = tickets.Where(t => t.Title.Contains(ticketParams.Filter));
             }
             
-            ticketParams.Length = tickets.Count();
+            
 
             if(!string.IsNullOrEmpty(ticketParams.IsArchived))
             {
@@ -317,7 +454,7 @@ namespace BugTracker.API.Data
                 }
             }
             
-
+            ticketParams.Length = tickets.Count();
 
             if(!string.IsNullOrEmpty(ticketParams.OrderBy))
             {
@@ -377,6 +514,8 @@ namespace BugTracker.API.Data
             return await  tickets.ToListAsync();
             
         }
+
+
 
         public async Task<IEnumerable<Category>> GetCategories()
         {

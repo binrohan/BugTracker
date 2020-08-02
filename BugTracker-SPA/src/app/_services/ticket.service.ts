@@ -24,13 +24,55 @@ export class TicketService {
 
     if (ticketParams != null){
       params = params.append('orderBy', ticketParams.orderBy);
-      params = params.append('isArchived', ticketParams.isArchived);
+      params = params.append('stateBy', ticketParams.stateBy);
       params = params.append('filter', ticketParams.filter);
       params = params.append('pageSize', ticketParams.pageSize);
       params = params.append('pageIndex', ticketParams.pageIndex);
     }
 
-    return this.http.get<TicketRes>(this.baseUrl + 'tickets/' + id + '/list', {observe: 'response', params})
+    return this.http.get<TicketRes>(this.baseUrl + 'tickets/' + id + '/user', {observe: 'response', params})
+      .pipe(
+        map((res) => {
+          return res.body;
+        })
+      );
+  }
+
+  getTickets(ticketParams?): Observable<TicketRes>{
+
+    let params = new HttpParams();
+
+    if (ticketParams != null){
+      params = params.append('orderBy', ticketParams.orderBy);
+      params = params.append('stateBy', ticketParams.stateBy);
+      params = params.append('filter', ticketParams.filter);
+      params = params.append('pageSize', ticketParams.pageSize);
+      params = params.append('pageIndex', ticketParams.pageIndex);
+      params = params.append('userId', ticketParams.userId);
+      params = params.append('projectId', ticketParams.projectId);
+    }
+
+    return this.http.get<TicketRes>(this.baseUrl + 'tickets/user', {observe: 'response', params})
+      .pipe(
+        map((res) => {
+          return res.body;
+        })
+      );
+  }
+
+  getProjectTickets(id: number, ticketParams?): Observable<TicketRes>{
+
+    let params = new HttpParams();
+
+    if (ticketParams != null){
+      params = params.append('orderBy', ticketParams.orderBy);
+      params = params.append('stateBy', ticketParams.stateBy);
+      params = params.append('filter', ticketParams.filter);
+      params = params.append('pageSize', ticketParams.pageSize);
+      params = params.append('pageIndex', ticketParams.pageIndex);
+    }
+
+    return this.http.get<TicketRes>(this.baseUrl + 'tickets/' + id + '/project', {observe: 'response', params})
       .pipe(
         map((res) => {
           return res.body;

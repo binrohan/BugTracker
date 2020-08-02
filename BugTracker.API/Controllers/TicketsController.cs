@@ -30,7 +30,7 @@ namespace BugTracker.API.Controllers {
             return Ok(ticketToReturn);
         }
 
-        [HttpGet("{id}/list")]
+        [HttpGet("{id}/user")]
         public async Task<IActionResult> GetUserTickets(string id, [FromQuery]TicketParams ticketParams)
         {
             int pageSize = ticketParams.PageSize;
@@ -42,6 +42,17 @@ namespace BugTracker.API.Controllers {
 
             return Ok(new {tickets, ticketParams.Length }  );
         }
+        
+        [HttpGet("{id}/project")]
+        public async Task<IActionResult> GetProjectTickets(int id, [FromQuery]TicketParams ticketParams)
+        {
+            var ticketsFromRepo = await _repo.GetProjectTickets(id, ticketParams);
+
+            var tickets =  _mapper.Map<IEnumerable<TicketShortDto>>(ticketsFromRepo);
+
+            return Ok(new {tickets, ticketParams.Length }  );
+        }
+
 
         [Authorize(Policy = "ManagerAndAdmin")]
         [HttpPost]
@@ -79,7 +90,7 @@ namespace BugTracker.API.Controllers {
             throw new Exception("Ticket can't created");
         }
 
-        [Authorize(Policy = "RequiredAdminRole")]
+        [Authorize(Policy = "ManagerAndAdmin")]
         [HttpPut("update/{ticketId}")]
         public async Task<IActionResult> UpdateTicket(int ticketId, TicketToUpdateDto ticketToUpdate)
         {          
@@ -130,6 +141,10 @@ namespace BugTracker.API.Controllers {
             
             throw new Exception("User handle for ticket failed");
         }
+
+
+
+
 
 
         [HttpGet("cate/{cId}")]

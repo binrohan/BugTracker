@@ -4,6 +4,7 @@ import { Project } from '../../_models/Project';
 import { User } from '../../_models/User';
 import { Sort } from '@angular/material/sort';
 import { UserService } from '../../_services/user.service';
+import { Ticket } from 'src/app/_models/Ticket';
 
 @Component({
   selector: 'app-project-detail',
@@ -11,6 +12,28 @@ import { UserService } from '../../_services/user.service';
   styleUrls: ['./project-detail.component.css'],
 })
 export class ProjectDetailComponent implements OnInit {
+
+
+  projectBasic: any = {};
+  tickets: Ticket[];
+  users: User[];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   displayedColumns: string[] = ['No.', 'Name', 'Roles', 'Action'];
   project: Project;

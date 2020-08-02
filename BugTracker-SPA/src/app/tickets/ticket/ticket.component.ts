@@ -16,7 +16,7 @@ export class TicketComponent implements OnInit {
 
   ticketRes: any;
   archivedTicketRes: TicketRes;
-  archivedTicketParams: any = {isArchived: false, pageIndex: 0, pageSize: 8, orderBy: 'idasc', filter: ''};
+  archivedTicketParams: any = {stateBy: false, pageIndex: 0, pageSize: 8, orderBy: 'idasc', filter: ''};
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService,
               private adminService: AdminService) { }
