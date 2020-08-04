@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterContentInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/_models/Project';
 
@@ -9,6 +9,8 @@ import { Project } from 'src/app/_models/Project';
 })
 export class ProjectBasicComponent implements OnInit {
 
+  @Output() projectId =  new EventEmitter<any>();
+
   projectBasic: Project;
 
   constructor(private route: ActivatedRoute) { }
@@ -16,7 +18,9 @@ export class ProjectBasicComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.projectBasic = data.project;
+      this.projectId.emit(this.projectBasic.id);
     });
   }
+
 
 }

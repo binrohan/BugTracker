@@ -18,6 +18,8 @@ import { EventEmitter } from 'protractor';
 })
 export class ProjectComponent implements OnInit {
 
+  projectId: number;
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = [
     'Id',

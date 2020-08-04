@@ -23,6 +23,7 @@ import { UserTicketsResolver } from './_resolvers/user-tickets.resolver';
 import { ProjectsArchivedTableResolver } from './_resolvers/project-archived-table.resolver';
 import { ProjectTicketsResolver } from './_resolvers/project-tickets.resolver';
 import { ProjectUsersResolver } from './_resolvers/project-users.resolver';
+import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -57,6 +58,11 @@ export const appRoutes: Routes = [
         path: 'project/:id',
         component: ProjectDetailComponent,
         resolve: { project: ProjectDetailsResolver, ticketRes: ProjectTicketsResolver, userRes: ProjectUsersResolver }
+      },
+      {
+        path: 'project/edit/:id',
+        component: ProjectEditComponent,
+        resolve: { project: ProjectDetailsResolver }
       },
       { path: 'tickets', component: TicketComponent,
         resolve: {ticketRes: TicketsResolver}

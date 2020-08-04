@@ -12,6 +12,10 @@ namespace BugTracker.API.Dtos
         public DateTime StartTime { get; set; } 
         public DateTime DeadTime { get; set; }
         public bool isArchived { get; set; }
+
+        public int TicketCount { get; set; }
+
+
         public ICollection<TicketShortDto> Tickets { get; set; }
         public ICollection<UserShortDto> Users { get; set; }
     }

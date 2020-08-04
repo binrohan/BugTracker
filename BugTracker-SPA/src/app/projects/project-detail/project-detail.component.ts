@@ -14,9 +14,9 @@ import { Ticket } from 'src/app/_models/Ticket';
 export class ProjectDetailComponent implements OnInit {
 
 
-  projectBasic: any = {};
-  tickets: Ticket[];
-  users: User[];
+
+  step = 0;
+  projectId: number;
 
 
 
@@ -29,19 +29,10 @@ export class ProjectDetailComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-  displayedColumns: string[] = ['No.', 'Name', 'Roles', 'Action'];
   project: Project;
-  i = 0;
-  assignedUsers: any[];
   availableUsers: User[];
   newUsersId: any[] = [];
-  managerId: string;
+
 
 
   userParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'free'};
@@ -56,9 +47,6 @@ export class ProjectDetailComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.project = data.project;
     });
-    this.assignedUsers = this.project.users;
-    this.userParams.stateBy = 'free';
-    this.userParams.orderBy = 'Nameasc';
     this.getUsers();
   }
 
@@ -86,25 +74,20 @@ export class ProjectDetailComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-  applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // this.users.filter = filterValue.trim().toLowerCase();
+  setStep(index: number) {
+    this.step = index;
   }
 
-  sortData(sort: Sort) {
-    // const data = this.desserts.slice();
-    // if (!sort.active || sort.direction === '') {
-    //   this.sortedData = data;
-    //   return;
-    // }
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
+  setProjectId(e) {
+    this.projectId = e;
+    console.log(this.projectId);
   }
 }

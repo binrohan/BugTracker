@@ -47,7 +47,7 @@ namespace BugTracker.API.Data
 
         public async Task<IEnumerable<User>> GetProjectUsers(int id, UserParams userParams)
         {
-            var users = _context.Users.Where(u => u.project.Id == id).AsQueryable();
+            var users = _context.Users.Include(u => u.project).Where(u => u.project.Id == id).AsQueryable();
             if(!string.IsNullOrEmpty(userParams.Filter))
             {
                 users = users.Where(t => t.UserName.Contains(userParams.Filter));
@@ -253,8 +253,6 @@ namespace BugTracker.API.Data
                                 .Include(t => t.project)
                                 .AsQueryable();
 
-            int length = 0;
-            foreach (var ticket in tickets){ length++;}
 
             if(!string.IsNullOrEmpty(ticketParams.Filter))
             {
@@ -275,6 +273,8 @@ namespace BugTracker.API.Data
                 }
             }
             
+
+            ticketParams.Length = tickets.Count();
 
 
             if(!string.IsNullOrEmpty(ticketParams.OrderBy))
@@ -330,7 +330,6 @@ namespace BugTracker.API.Data
                 }
             }
             
-            ticketParams.Length = length;
             tickets = tickets.Skip(ticketParams.pageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
 
             return await tickets.ToListAsync();
@@ -338,7 +337,11 @@ namespace BugTracker.API.Data
 
         public async Task<IEnumerable<Ticket>> GetProjectTickets(int id, TicketParams ticketParams)
         {
-            var tickets =  _context.Tickets.Where(t => t.project.Id == id).AsQueryable();
+            var tickets =  _context.Tickets
+                                            .Include(t => t.Status)
+                                            .Include(t => t.Category)
+                                            .Include(t => t.Priority)
+                                            .Include(t => t.project).Where(t => t.project.Id == id).AsQueryable();
 
             if(!string.IsNullOrEmpty(ticketParams.Filter))
             {

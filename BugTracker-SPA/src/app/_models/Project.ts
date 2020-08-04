@@ -7,7 +7,7 @@ export interface Project {
     description: string;
     startTime: Date;
     deadTime: Date;
-    isAcrchived: boolean;
+    isArchived: boolean;
     ticketCount: number;
 
     tickets?: Ticket[];

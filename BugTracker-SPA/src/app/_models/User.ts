@@ -20,4 +20,6 @@ export interface User {
     tickets?: Ticket[];
     comments?: CommentPosted[];
     roles: string[];
+
+    projectId: number;
 }

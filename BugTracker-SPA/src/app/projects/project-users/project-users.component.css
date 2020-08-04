@@ -1,3 +1,23 @@
 .container{
     margin-top: 20px;
 }
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .mat-sort-header-container {
+    align-items: center;
+  }
+  
+  
+  
+  
+  /**  Override Default Style  **/
+  .extra-style{
+    padding: 0 20px;
+  }

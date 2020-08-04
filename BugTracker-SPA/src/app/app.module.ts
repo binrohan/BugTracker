@@ -25,6 +25,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -130,6 +131,7 @@ export function tokenGetter() {
       MatNativeDateModule,
       MatSelectModule,
       MatCardModule,
+      MatExpansionModule,
 
 
       JwtModule.forRoot({

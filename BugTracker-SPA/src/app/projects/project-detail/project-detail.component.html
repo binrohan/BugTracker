@@ -1,114 +1,102 @@
 <div class="whole">
-  <mat-tab-group mat-align-tabs="end" color = "accent" backgroundColor = "accent" dynamicHeight>
-    <mat-tab label="Info">
-      <ng-template matTabContent>
-        <app-project-basic></app-project-basic>
-        <!-- <div class="banner">
-          <p>Basic information</p>
-        </div>
-        <div>
-          <div class="row">
-            <div class="basic">
-              <h3>Title: {{project.title}}</h3>
-              <h3>Description: </h3>
-              <p>{{project.description}}</p>
-            </div>
-            <div class="date">
-              <h3>Started: {{project.startTime}}</h3>
-              <h3>Deadline: {{project.deadTime}}</h3>
-            </div>
-            <div class="nav">
-              <button mat-raised-button mat-button>Edit</button>
-              <button mat-raised-button mat-button color="primary">Save</button>
-              <button mat-raised-button mat-button color="warn">Archive</button>
-              <button mat-raised-button mat-button color="accent">Add Ticket</button>
-              <button mat-raised-button mat-button color="primary">Assign User</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="user">
-              <h3>Assigned Users</h3>
-              <mat-form-field>
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-              </mat-form-field>
-              <div class="mat-elevation-z8">
-                <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="project.users" class="mat-elevation-z8">
-                
-                    <!-- Position Column -->
-                    <!-- <ng-container matColumnDef="No.">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header="No." > No. </th>
-                        <td mat-cell *matCellDef="let element"> {{ i }} </td>
-                      </ng-container>
-             -->
-                    <!-- Position Column -->
-                    <!-- <ng-container matColumnDef="Name">
-                      <th mat-header-cell *matHeaderCellDef  mat-sort-header="Name"> Name </th>
-                      <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
-                    </ng-container> -->
-                  
-                  
-                    <!-- Symbol Column -->
-                    <!-- <ng-container matColumnDef="Roles">
-                      <th mat-header-cell *matHeaderCellDef> Roles </th>
-                      <td mat-cell *matCellDef="let element"> {{element.roles}} </td>
-                    </ng-container> -->
-          
-                    <!-- Symbol Column -->
-                    <!-- <ng-container matColumnDef="Action">
-                        <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
-                        <td mat-cell *matCellDef="let element"><button mat-button color="accent" [routerLink] = "['/user/', element.id]" >Edit Roles</button></td>
-                      </ng-container> -->
-                  
-                    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
-                  
-                    <!-- Row shown when there is no matching data. -->
-                    <!-- <tr class="mat-row" *matNoDataRow>
-                      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                    </tr>
-                  </table>
-                  <p *ngIf="project.users.length==0">No user assigned yet</p>
-                  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div>
-            <h4>Developers</h4>
-            <div *ngFor="let user of availableUsers">
-              <div *ngIf="user.roles.includes('Developer')">
-                <input type="checkbox" #checkboxValue (change)="onSelect($event, checkboxValue.value)"  id="{{user.userName}}" class="form-control" name="vehicle1" value="{{user.id}}" />
-                <label for="{{user.userName}}">{{user.userName}} <span *ngFor="let role of user.roles">{{role}}</span> </label>
-            </div>
-            </div>
-          </div>
-          <div>
-            <h4>Managers</h4>
-            <div *ngFor="let user of availableUsers">
-              <div *ngIf="user.roles.includes('Manager')">
-                <input type="checkbox" #checkboxValue (change)="onSelect($event, checkboxValue)"  id="{{user.userName}}" class="form-control" name="vehicle1" value="{{user.id}}" />
-                <label for="{{user.userName}}">{{user.userName}} <span *ngFor="let role of user.roles">{{role}}</span> </label>
-            </div>
-            </div>
-          </div>
-        </div> -->
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Personnel">
-      <ng-template matTabContent>
-        <app-project-users></app-project-users>
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Tickets">
-      <ng-template matTabContent>
-        <app-project-tickets></app-project-tickets>
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
-  
-  
-  
+  <mat-accordion class="example-headers-align">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Information
+      </mat-panel-title>
+      <mat-panel-description>
+        Basic Information of The Project
+        <mat-icon>assignment</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
+    <app-project-basic (projectId)="setProjectId($event)"></app-project-basic>
+
+    <mat-action-row>
+      <button mat-button color="primary" [routerLink]="['/tickets']">Go to tickets</button>
+      <button mat-button color="primary" [routerLink]="['/projects']">Go to project</button>
+      <button mat-button color="warn">Archived</button>
+      <button mat-button color="accent" [routerLink]="['/project/edit/', projectId]">Edit</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personnel
+      </mat-panel-title>
+      <mat-panel-description>
+        List of Personnel Assigned in this Project
+        <mat-icon>supervised_user_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <app-project-users></app-project-users>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add Personal 
+      </mat-panel-title>
+      <mat-panel-description>
+        List of Personnel Assigned in this Project
+        <mat-icon>add</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <app-project-users></app-project-users>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Tickets
+      </mat-panel-title>
+      <mat-panel-description>
+        List of Active Tickets 
+        <mat-icon>assignment_late</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <app-project-tickets [state]="'active'"></app-project-tickets>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">End</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Archived Tickets
+      </mat-panel-title>
+      <mat-panel-description>
+        List of Archived Tickets of The Project
+        <mat-icon>assignment_turned_in</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <app-project-tickets [state]="'archived'"></app-project-tickets>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">End</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+</mat-accordion>
 </div>
