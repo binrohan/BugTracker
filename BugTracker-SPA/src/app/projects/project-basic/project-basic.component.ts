@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, AfterContentInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/_models/Project';
+import { ProjectService } from 'src/app/_services/project.service';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
   selector: 'app-project-basic',
@@ -9,18 +11,24 @@ import { Project } from 'src/app/_models/Project';
 })
 export class ProjectBasicComponent implements OnInit {
 
-  @Output() projectId =  new EventEmitter<any>();
+  
 
   projectBasic: Project;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private projectService: ProjectService,
+              private snackbar: SnackbarService) { }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.projectBasic = data.project;
-      this.projectId.emit(this.projectBasic.id);
     });
   }
 
-
+  archivedProject(){
+    this.projectService.archiveProject(this.projectBasic.id).subscribe(() => {
+      this.snackbar.Success('Project Successfully Archived');
+    }, error => {
+      this.snackbar.Success('Failed to archive the project');
+    });
+  }
 }

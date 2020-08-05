@@ -12,6 +12,7 @@ import { ProjectRes } from '../_models/ProjectRes';
 export class ProjectService {
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
+
   getProjects(projectParams?): Observable<ProjectRes>{
     let params = new HttpParams();
 
@@ -33,13 +34,24 @@ export class ProjectService {
         })
       );
   }
+
   getProject(id: any): Observable<Project> {
     return this.http.get<Project>(this.baseUrl + 'projects/' + id);
   }
+
   addProject(project: Project) {
     return this.http.post(this.baseUrl + 'projects/add', project);
   }
+
   assignUsers(id: number, users: {}){
     return this.http.put(this.baseUrl + 'projects/' + id + '/assign', users);
+  }
+
+  archiveProject(id: number){
+    return this.http.put(this.baseUrl + 'projects/archive/' + id, {});
+  }
+
+  updateProject(id: number, updateProject: {}){
+    return this.http.put(this.baseUrl + 'projects/' + id, updateProject);
   }
 }

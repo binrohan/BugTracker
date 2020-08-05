@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '../../_models/Project';
 import { User } from '../../_models/User';
 import { Sort } from '@angular/material/sort';
 import { UserService } from '../../_services/user.service';
 import { Ticket } from 'src/app/_models/Ticket';
+import { FreeUsersComponent } from 'src/app/free-users/free-users.component';
+import { FreeUsersResolver } from 'src/app/_resolvers/free-users.resolver';
+import { ProjectTicketsComponent } from '../project-tickets/project-tickets.component';
+import { ProjectBasicComponent } from '../project-basic/project-basic.component';
+import { ProjectUsersComponent } from '../project-users/project-users.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -13,66 +18,20 @@ import { Ticket } from 'src/app/_models/Ticket';
 })
 export class ProjectDetailComponent implements OnInit {
 
-
+  @ViewChild(FreeUsersComponent) assignUser: FreeUsersComponent;
+  @ViewChild(ProjectUsersComponent) ProjectUsers: ProjectUsersComponent;
+  @ViewChild(ProjectBasicComponent) projectBasic: ProjectBasicComponent;
 
   step = 0;
   projectId: number;
 
-
-
-
-
-
-
-
-
-
-
-
-  project: Project;
-  availableUsers: User[];
-  newUsersId: any[] = [];
-
-
-
-  userParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'free'};
-
-
   constructor(
-    private route: ActivatedRoute,
-    private userService: UserService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data) => {
-      this.project = data.project;
-    });
-    this.getUsers();
+    this.projectId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
   }
-
-  getUsers() {
-    this.userService.getUsers(this.userParams).subscribe(
-      (data) => {
-        this.availableUsers = data.users;
-      },
-      (error) => {
-        console.log('error');
-      }
-    );
-  }
-
-  onSelect( el, id: string) {
-    if (!this.newUsersId.includes(id)){
-      this.newUsersId.push(id);
-    } else if (this.newUsersId.includes(id)) {
-      const i = this.newUsersId.indexOf(id);
-      this.newUsersId.splice(i, 1);
-    }
-  }
-
-  onRemove(e, username: string) {}
-
-
 
   setStep(index: number) {
     this.step = index;
@@ -86,8 +45,20 @@ export class ProjectDetailComponent implements OnInit {
     this.step--;
   }
 
-  setProjectId(e) {
-    this.projectId = e;
-    console.log(this.projectId);
+  addPersonnel(){
+    this.step = 2;
+  }
+
+  assignUsers() {
+    this.assignUser.assignUsers();
+  }
+  loadFreeUsers(){
+    this.assignUser.loadUsers();
+  }
+  archiveProject(){
+    this.projectBasic.archivedProject();
+  }
+  loadUsers(){console.log('bbbb');
+    this.ProjectUsers.loadUsers();
   }
 }

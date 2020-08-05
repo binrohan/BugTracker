@@ -24,6 +24,8 @@ import { ProjectsArchivedTableResolver } from './_resolvers/project-archived-tab
 import { ProjectTicketsResolver } from './_resolvers/project-tickets.resolver';
 import { ProjectUsersResolver } from './_resolvers/project-users.resolver';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
+import { FreeUsersResolver } from './_resolvers/free-users.resolver';
+import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-tickets.resolver';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -57,7 +59,8 @@ export const appRoutes: Routes = [
       {
         path: 'project/:id',
         component: ProjectDetailComponent,
-        resolve: { project: ProjectDetailsResolver, ticketRes: ProjectTicketsResolver, userRes: ProjectUsersResolver }
+        // tslint:disable-next-line: max-line-length
+        resolve: { project: ProjectDetailsResolver, ticketRes: ProjectTicketsResolver, userRes: ProjectUsersResolver, freeRes: FreeUsersResolver, archivedTicketRes: ProjectArchivedTicketsResolver }
       },
       {
         path: 'project/edit/:id',

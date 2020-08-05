@@ -28,7 +28,9 @@ export class TicketEditComponent implements OnInit {
   statuses: Status;
   priorities: Priority[];
 
-  constructor(private route: ActivatedRoute, private ticketService: TicketService, private fb: FormBuilder,
+  constructor(private route: ActivatedRoute,
+              private ticketService: TicketService,
+              private fb: FormBuilder,
               private projectService: ProjectService,
               private assistService: AssistService,
               private snackbar: SnackbarService) { }

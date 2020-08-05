@@ -260,12 +260,18 @@ namespace BugTracker.API.Data
             }
             
 
-            if(!string.IsNullOrEmpty(ticketParams.IsArchived))
+            if(!string.IsNullOrEmpty(ticketParams.StateBy))
             {
-                switch(ticketParams.IsArchived)
+                switch(ticketParams.StateBy)
                 {
-                    case "true":
+                    case "archived":
                         tickets = tickets.Where(t => t.isArchived);
+                        break;
+                    case "active":
+                        tickets = tickets.Where(t => !t.isArchived);
+                        break;
+                    case "all":
+                        tickets = tickets.Where(t => !t.isArchived || t.isArchived);
                         break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
@@ -330,7 +336,7 @@ namespace BugTracker.API.Data
                 }
             }
             
-            tickets = tickets.Skip(ticketParams.pageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
+            tickets = tickets.Skip(ticketParams.PageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
 
             return await tickets.ToListAsync();
         }
@@ -349,12 +355,18 @@ namespace BugTracker.API.Data
             }
             
 
-            if(!string.IsNullOrEmpty(ticketParams.IsArchived))
+            if(!string.IsNullOrEmpty(ticketParams.StateBy))
             {
-                switch(ticketParams.IsArchived)
+                switch(ticketParams.StateBy)
                 {
-                    case "true":
+                    case "archived":
                         tickets = tickets.Where(t => t.isArchived);
+                        break;
+                    case "active":
+                        tickets = tickets.Where(t => !t.isArchived);
+                        break;
+                    case "all":
+                        tickets = tickets.Where(t => !t.isArchived || t.isArchived);
                         break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
@@ -417,7 +429,7 @@ namespace BugTracker.API.Data
                 }
             }
             
-            tickets = tickets.Skip(ticketParams.pageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
+            tickets = tickets.Skip(ticketParams.PageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
 
             return await tickets.ToListAsync();
         }
@@ -444,12 +456,18 @@ namespace BugTracker.API.Data
             
             
 
-            if(!string.IsNullOrEmpty(ticketParams.IsArchived))
+            if(!string.IsNullOrEmpty(ticketParams.StateBy))
             {
-                switch(ticketParams.IsArchived)
+                switch(ticketParams.StateBy)
                 {
-                    case "true":
+                    case "archived":
                         tickets = tickets.Where(t => t.isArchived);
+                        break;
+                    case "active":
+                        tickets = tickets.Where(t => !t.isArchived);
+                        break;
+                    case "all":
+                        tickets = tickets.Where(t => !t.isArchived || t.isArchived);
                         break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
@@ -512,7 +530,7 @@ namespace BugTracker.API.Data
                 }
             }
 
-            tickets = tickets.Skip(ticketParams.pageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
+            tickets = tickets.Skip(ticketParams.PageIndex*ticketParams.PageSize).Take(ticketParams.PageSize).Select(t => t);
 
             return await  tickets.ToListAsync();
             

@@ -7,6 +7,7 @@ import { Sort } from '@angular/material/sort';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { BehaviorSubject } from 'rxjs';
 import { __values } from 'tslib';
+import { ProjectService } from 'src/app/_services/project.service';
 
 @Component({
   selector: 'app-project-users',
@@ -16,7 +17,7 @@ import { __values } from 'tslib';
 export class ProjectUsersComponent implements OnInit {
 
   userRes: UserRes;
-  @Input() projectId: number;
+  projectId: number;
 
   displayedColumns: string[] = [
     'Name',
@@ -27,17 +28,18 @@ export class ProjectUsersComponent implements OnInit {
   ];
   pageSizeOptions: number[] = [5, 9, 15];
   pageIndex = 0;
-  pagesize = 9;
-  userParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'all'};
+  pagesize = 5;
+  userParams: any = {pageSize: 5, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'all'};
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private snackbar: SnackbarService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private snackbar: SnackbarService,
+              private projectService: ProjectService) { }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.userRes = data.userRes;
-      this.projectId = this.userRes.users.pop().projectId;
+      console.log( data.userRes);
     });
   }
 
@@ -55,8 +57,8 @@ export class ProjectUsersComponent implements OnInit {
     }
   }
 
-  loadUsers() {
-    this.userService.getProjectUsers(this.projectId, this.userParams).subscribe(
+  loadUsers() {console.log('aaaa');
+    this.userService.getProjectUsers(parseInt(this.route.snapshot.paramMap.get('id'), 10), this.userParams).subscribe(
       (data) => {
         this.userRes = data;
       },
@@ -74,6 +76,17 @@ export class ProjectUsersComponent implements OnInit {
     this.userParams.pageSize = this.pagesize;
     this.userParams.pageIndex = this.pageIndex;
 
+    this.loadUsers();
+  }
+
+  onRemove(userId: number) {
+    this.projectService.assignUsers(parseInt(this.route.snapshot.paramMap.get('id'), 10), { userId: [userId] }).subscribe(() => {
+      this.snackbar.Success('User Removed');
+    }, error => {
+      this.snackbar.Success('Failed to Reload User');
+    }, () => {
+      this.loadUsers();
+    });
     this.loadUsers();
   }
 

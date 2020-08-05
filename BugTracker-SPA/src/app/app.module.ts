@@ -68,8 +68,12 @@ import { ProjectsArchivedTableResolver } from './_resolvers/project-archived-tab
 import { ProjectBasicComponent } from './projects/project-basic/project-basic.component';
 import { ProjectUsersComponent } from './projects/project-users/project-users.component';
 import { ProjectTicketsComponent } from './projects/project-tickets/project-tickets.component';
+import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-tickets.resolver';
 import { ProjectTicketsResolver } from './_resolvers/project-tickets.resolver';
 import { ProjectUsersResolver } from './_resolvers/project-users.resolver';
+import { FreeUsersComponent } from './free-users/free-users.component';
+import { FreeUsersResolver } from './_resolvers/free-users.resolver';
+import { ProjectArchivedTicketsComponent } from './projects/project-archived-tickets/project-archived-tickets.component';
 
 
 export function tokenGetter() {
@@ -102,7 +106,9 @@ export function tokenGetter() {
       ProjectBasicComponent,
       ProjectUsersComponent,
       ProjectTicketsComponent,
+      ProjectArchivedTicketsComponent,
       UserTicketsComponent,
+      FreeUsersComponent,
       HasRoleDirective
    ],
    imports: [
@@ -158,6 +164,8 @@ export function tokenGetter() {
       ProjectUsersResolver,
       AuthGuard,
       PreventUnsavedChanges,
+      FreeUsersResolver,
+      ProjectArchivedTicketsResolver,
       DataService
    ],
    bootstrap: [

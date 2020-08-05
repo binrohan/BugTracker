@@ -93,7 +93,7 @@ namespace BugTracker.API.Controllers
         public async Task<IActionResult> GetTickets([FromQuery]TicketParams ticketParams)
         {
             int pageSize = ticketParams.PageSize;
-            int pageIndex = ticketParams.pageIndex;
+            int pageIndex = ticketParams.PageIndex;
             
             var ticketsFromRepo = await _repo.GetTickets(ticketParams);
 

@@ -1,22 +1,18 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Ticket } from 'src/app/_models/Ticket';
-import { TicketRes } from 'src/app/_models/TicketRes';
-import { Sort } from '@angular/material/sort';
-import { User } from 'src/app/_models/User';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
+import { TicketRes } from 'src/app/_models/TicketRes';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
-import { UserService } from 'src/app/_services/user.service';
-import { AuthService } from 'src/app/_services/auth.service';
 import { TicketService } from 'src/app/_services/ticket.service';
+import { AuthService } from 'src/app/_services/auth.service';
+import { Sort } from '@angular/material/sort';
 
 @Component({
-  selector: 'app-project-tickets',
-  templateUrl: './project-tickets.component.html',
-  styleUrls: ['./project-tickets.component.css']
+  selector: 'app-project-archived-tickets',
+  templateUrl: './project-archived-tickets.component.html',
+  styleUrls: ['./project-archived-tickets.component.css']
 })
-export class ProjectTicketsComponent implements OnInit {
-
+export class ProjectArchivedTicketsComponent implements OnInit {
   ticketRes: TicketRes;
 
   displayedColumns: string[] = [
@@ -45,8 +41,9 @@ export class ProjectTicketsComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
-      this.ticketRes = data.ticketRes;
+      this.ticketRes = data.archivedTicketRes;
     });
+    console.log(this.ticketRes);
   }
 
   applyFilter(event: Event) {

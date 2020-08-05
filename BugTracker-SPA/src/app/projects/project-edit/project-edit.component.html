@@ -1,5 +1,48 @@
 <div class="whole">
-  <p>
-    project-edit works!
-  </p>
+  <form [formGroup]="projectEditForm" (ngSubmit)="updateProject()">
+    <div class="container">
+      <div class="content">
+        <div>
+          <div class="banner">
+            <p>Edit Project #{{ project.id }}</p>
+          </div>
+          <div class="row info">
+            <div class="box">
+              <h3>TITLE</h3>
+              <mat-form-field class="example-quarter-width">
+                <input matInput formControlName="title" />
+              </mat-form-field>
+            </div>
+            <div class="box">
+              <h3>SUBMISSION DATE</h3>
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  [matDatepicker]="picker1"
+                  formControlName="deadline"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row info">
+            <div class="box long">
+              <h3>DESCRIPTION</h3>
+              <mat-form-field class="example-full-width">
+                <textarea matInput formControlName="description"> </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-nav">
+        <button mat-flat-button color="warn" type="submit" class="class-submit" [disabled]="!projectEditForm.dirty">Update Ticket</button>
+        <button mat-flat-button color="warn" type="button" [routerLink]="['/project/', project.id]">Cancel</button>
+      </div>
+    </div>
+  </form>
 </div>

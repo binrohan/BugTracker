@@ -11,18 +11,17 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <app-project-basic (projectId)="setProjectId($event)"></app-project-basic>
+    <app-project-basic></app-project-basic>
 
     <mat-action-row>
-      <button mat-button color="primary" [routerLink]="['/tickets']">Go to tickets</button>
-      <button mat-button color="primary" [routerLink]="['/projects']">Go to project</button>
+      <button mat-button color="primary" [routerLink]="['/projects']">List of projects</button>
       <button mat-button color="warn">Archived</button>
       <button mat-button color="accent" [routerLink]="['/project/edit/', projectId]">Edit</button>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1);  loadUsers()" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Personnel
@@ -36,15 +35,17 @@
     <app-project-users></app-project-users>
 
     <mat-action-row>
+      <button mat-button color="accent" (click)="addPersonnel()">Add person</button>
+      <button mat-button color="primary" [routerLink]="['/users']">Go to users</button>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 2" (click)="loadFreeUsers()" (opened)="setStep(2)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Add Personal 
+        Add Person
       </mat-panel-title>
       <mat-panel-description>
         List of Personnel Assigned in this Project
@@ -52,9 +53,11 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <app-project-users></app-project-users>
+    <app-free-users></app-free-users>
 
     <mat-action-row>
+      <button mat-button color="primary" (click)="assignUsers()">Add Users</button>
+      <button mat-button color="accent" [routerLink]="['/users']">Go to User Management</button>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
@@ -71,9 +74,10 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <app-project-tickets [state]="'active'"></app-project-tickets>
+    <app-project-tickets></app-project-tickets>
 
     <mat-action-row>
+      <button mat-button color="primary" [routerLink]="['/tickets']">List of tickets</button>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="primary" (click)="nextStep()">End</button>
     </mat-action-row>
@@ -90,9 +94,10 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <app-project-tickets [state]="'archived'"></app-project-tickets>
+    <app-project-archived-tickets></app-project-archived-tickets>
 
     <mat-action-row>
+      <button mat-button color="primary" [routerLink]="['/tickets']">List of tickets</button>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="primary" (click)="nextStep()">End</button>
     </mat-action-row>

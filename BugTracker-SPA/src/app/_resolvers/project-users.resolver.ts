@@ -15,7 +15,7 @@ import { UserRes } from '../_models/UserRes';
 
 @Injectable()
 export class ProjectUsersResolver implements Resolve<UserRes> {
-  userParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'all'};
+  userParams: any = {pageSize: 5, pageIndex: 0, filter: '', orderBy: 'Nameasc'};
   constructor(
     private userService: UserService,
     private snackbar: SnackbarService,
@@ -36,3 +36,6 @@ export class ProjectUsersResolver implements Resolve<UserRes> {
     );
   }
 }
+
+
+/// What hell is happening?

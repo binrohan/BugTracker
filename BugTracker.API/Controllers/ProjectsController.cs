@@ -72,12 +72,12 @@ namespace BugTracker.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProject(int id, ProjectForUpdateDto projectForUpdate)
         {
-            var projectFormRepo = await _repo.GetProject(id);
+            var projectFromRepo = await _repo.GetProject(id);
 
-            if (projectFormRepo.isArchived)
+            if (projectFromRepo.isArchived)
                 BadRequest("Project is Archived");
 
-            _mapper.Map(projectForUpdate, projectFormRepo);
+            _mapper.Map(projectForUpdate, projectFromRepo);
 
             if (await _repo.SaveAll())
             {
@@ -87,6 +87,32 @@ namespace BugTracker.API.Controllers
             throw new Exception($"updating project {id} failed to update");
         }
 
+        [Authorize(Policy = "RequiredAdminRole")]
+        [HttpPut("archive/{id}")]
+        public async Task<IActionResult> ArchiveProject(int id)
+        {
+            var projectFromRepo = await _repo.GetProject(id);
+
+            if (projectFromRepo.isArchived)
+                BadRequest("Project is Archived");
+
+            foreach (var ticket in projectFromRepo.Tickets)
+            {
+                if(!ticket.isArchived)
+                    BadRequest("Project has ticket to resolve");
+            }
+
+            projectFromRepo.Users = null;
+
+            if (await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            throw new Exception($"updating project {id} failed to archive");
+        }
+
+
         [Authorize(Policy = "ManagerAndAdmin")]
         [HttpPut("{id}/assign")]
         public async Task<IActionResult> AssignUsers(int id, AssignedUsersDto assignedUsers)
@@ -94,14 +120,6 @@ namespace BugTracker.API.Controllers
             var projectFromRepo = await _repo.GetProject(id);
             if (projectFromRepo.isArchived)
                 return BadRequest("Project is Archived");
-
-
-            // if(projectFromRepo.isManagerAssinged)
-            //     return BadRequest("Manager Already Assinged");
-            
-            // var managerFromRepo = await _repo.GetUser(assignedUsers.ManagerId, false);
-            // managerFromRepo.project = projectFromRepo;
-            // projectFromRepo.isManagerAssinged = true;
 
 
             foreach (var userId in assignedUsers.userId)
