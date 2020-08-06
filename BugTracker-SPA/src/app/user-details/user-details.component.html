@@ -68,7 +68,7 @@
             <p>Active Projects</p>
           </div>
           <div class="sec-nav">
-            <a [routerLink]="['/projects']">Create new project</a>
+            <a [routerLink]="['/projects/1']">Create new project</a>
             <a (click)="closeProjectList()">close</a>
           </div>
           <mat-form-field>
@@ -119,7 +119,7 @@
       <button [disabled]="!isRoleChanged" mat-raised-button color="primary" (click)="updateUserRole()" >Save</button>
       <button [disabled]="!isFree" mat-raised-button color="primary" (click)="getProjects()">Assign to a project</button>
       <button [disabled]="isFree" mat-raised-button color="warn" (click)="removeProject(user.project.id)" >Remove from project</button>
-      <button [disabled]="isFree" mat-raised-button color="accent" [routerLink] = "['/tickets']">Issue a ticket</button>
+      <button [disabled]="isFree" mat-raised-button color="accent" [routerLink] = "['/tickets/1']">Issue a ticket</button>
       <button mat-raised-button color="warn" (click)="deleteUser()" >Delete Account</button>
     </div>
   </div>

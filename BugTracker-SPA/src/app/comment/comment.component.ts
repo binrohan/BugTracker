@@ -69,7 +69,6 @@ export class CommentComponent implements OnInit {
     this.commentService.getComments(this.ticketId, this.commentParams).subscribe( data => {
       this.comments = data.comments;
       this.length = data.length;
-      console.log(this.comments);
     });
   }
 
@@ -89,7 +88,7 @@ export class CommentComponent implements OnInit {
       this.newComment.created = new Date();
       this.newComment.ticketId = this.ticketId;
       this.newComment.commenterId = this.authService.decodedToken.nameid;
-      console.log(this.newComment);
+
       this.commentService.addComment(this.newComment).subscribe(() => {
         this.snackbar.Success('Comment Posted');
         this.commentForm.reset();

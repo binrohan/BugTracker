@@ -124,6 +124,75 @@ namespace BugTracker.API.Controllers {
         }
 
         [Authorize(Policy = "RequiredAdminRole")]
+        [HttpPut("archive/{ticketId}")]
+        public async Task<IActionResult> ArchiveTicket(int ticketId)
+        {          
+            var ticketFromRepo =await _repo.GetTicket(ticketId);
+ 
+            if(ticketFromRepo.isArchived)
+                BadRequest("Ticket is Archived");
+            
+            
+            ticketFromRepo.isArchived = true;
+            ticketFromRepo.User = null;
+            ticketFromRepo.Status = null;
+            ticketFromRepo.Priority = null;
+
+            
+            if(await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            throw new Exception("Cant be updated the ticket");
+        }
+
+        [Authorize(Policy = "Manager")]
+        [HttpPut("approve/{ticketId}")]
+        public async Task<IActionResult> ApproveTicket(int ticketId)
+        {          
+            var ticketFromRepo =await _repo.GetTicket(ticketId);
+ 
+            if(ticketFromRepo.isArchived)
+                BadRequest("Ticket is Archived");
+            
+            
+            ticketFromRepo.isManagerPassed = true;
+
+            
+            if(await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            throw new Exception("Cant be updated the ticket");
+        }
+
+
+        [Authorize(Policy = "Developer")]
+        [HttpPut("pass/{ticketId}")]
+        public async Task<IActionResult> PassTicket(int ticketId)
+        {          
+            var ticketFromRepo =await _repo.GetTicket(ticketId);
+ 
+            if(ticketFromRepo.isArchived)
+                BadRequest("Ticket is Archived");
+            
+            
+            ticketFromRepo.isDeveloperPassed = true;
+
+            
+            if(await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            throw new Exception("Cant be updated the ticket");
+        }
+
+
+
+        [Authorize(Policy = "RequiredAdminRole")]
         [HttpPut("assign/{ticketId}")]
         public async Task<IActionResult> AssignUser(int ticketId, TicketAssignUserDto ticketAssignUser)
         {

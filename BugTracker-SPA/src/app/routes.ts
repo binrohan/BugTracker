@@ -26,6 +26,7 @@ import { ProjectUsersResolver } from './_resolvers/project-users.resolver';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { FreeUsersResolver } from './_resolvers/free-users.resolver';
 import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-tickets.resolver';
+import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -52,7 +53,7 @@ export const appRoutes: Routes = [
         data: {roles: ['Admin']}
       },
       {
-        path: 'projects',
+        path: 'projects/:tab',
         component: ProjectComponent,
         resolve: { projectRes: ProjectsResolver, projectArchivedRes: ProjectsArchivedTableResolver }
       },
@@ -67,8 +68,8 @@ export const appRoutes: Routes = [
         component: ProjectEditComponent,
         resolve: { project: ProjectDetailsResolver }
       },
-      { path: 'tickets', component: TicketComponent,
-        resolve: {ticketRes: TicketsResolver}
+      { path: 'tickets/:tab', component: TicketComponent,
+        resolve: {ticketRes: TicketsResolver, archivedTicketRes: TicketsArchivedResolver}
       },
       {
         path: 'ticket/:id',

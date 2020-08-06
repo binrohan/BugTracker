@@ -74,6 +74,7 @@ import { ProjectUsersResolver } from './_resolvers/project-users.resolver';
 import { FreeUsersComponent } from './free-users/free-users.component';
 import { FreeUsersResolver } from './_resolvers/free-users.resolver';
 import { ProjectArchivedTicketsComponent } from './projects/project-archived-tickets/project-archived-tickets.component';
+import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 
 
 export function tokenGetter() {
@@ -166,6 +167,7 @@ export function tokenGetter() {
       PreventUnsavedChanges,
       FreeUsersResolver,
       ProjectArchivedTicketsResolver,
+      TicketsArchivedResolver,
       DataService
    ],
    bootstrap: [

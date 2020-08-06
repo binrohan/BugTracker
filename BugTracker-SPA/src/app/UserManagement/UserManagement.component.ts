@@ -45,7 +45,6 @@ export class UserManagementComponent implements OnInit {
       this.userRes = data.users;
       this.users = this.userRes.users;
       this.length = this.userRes.length;
-      console.log(this.userRes);
     });
   }
 
@@ -58,7 +57,6 @@ export class UserManagementComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.userParams.orderBy = (sort.active + sort.direction);
-      console.log(this.userParams.orderBy);
       this.loadUsers();
     }
   }
@@ -74,7 +72,6 @@ export class UserManagementComponent implements OnInit {
   }
 
   paginating(e){
-    console.log(e);
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 

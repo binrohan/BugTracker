@@ -58,7 +58,7 @@ export class ProjectDetailComponent implements OnInit {
   archiveProject(){
     this.projectBasic.archivedProject();
   }
-  loadUsers(){console.log('bbbb');
+  loadUsers(){
     this.ProjectUsers.loadUsers();
   }
 }

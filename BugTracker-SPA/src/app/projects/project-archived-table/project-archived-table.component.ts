@@ -60,7 +60,6 @@ export class ProjectArchivedTableComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.projectParams.orderBy = (sort.active + sort.direction);
-      console.log(this.projectParams.orderBy);
       this.loadProjects();
     }
   }

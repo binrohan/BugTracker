@@ -91,4 +91,16 @@ export class TicketService {
   assignTicket(id: number, user: {}){
     return this.http.put(this.baseUrl + 'tickets/assign/' + id, user);
   }
+
+  archiveTicket(id: number) {
+    return this.http.put(this.baseUrl + 'tickets/archive/' + id, {});
+  }
+
+  approveTicket(id: number) {
+    return this.http.put(this.baseUrl + 'tickets/approve/' + id, {});
+  }
+
+  passTicket(id: number) {
+    return this.http.put(this.baseUrl + 'tickets/pass/' + id, {});
+  }
 }

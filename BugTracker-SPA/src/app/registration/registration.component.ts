@@ -48,7 +48,7 @@ export class RegistrationComponent implements OnInit {
         this.snackbar.Success('Registration Successful');
       }, err => {
         this.snackbar.Success('Erro');
-      }, () => {console.log('asd');
+      }, () => {
                 this.authService.login(this.user).subscribe(() => {
           this.router.navigate(['/dashboard']);
         });

@@ -39,7 +39,6 @@ export class ProjectUsersComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.userRes = data.userRes;
-      console.log( data.userRes);
     });
   }
 
@@ -52,12 +51,11 @@ export class ProjectUsersComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.userParams.orderBy = (sort.active + sort.direction);
-      console.log(this.userParams.orderBy);
       this.loadUsers();
     }
   }
 
-  loadUsers() {console.log('aaaa');
+  loadUsers() {
     this.userService.getProjectUsers(parseInt(this.route.snapshot.paramMap.get('id'), 10), this.userParams).subscribe(
       (data) => {
         this.userRes = data;
@@ -69,7 +67,6 @@ export class ProjectUsersComponent implements OnInit {
   }
 
   paginating(e){
-    console.log(e);
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 

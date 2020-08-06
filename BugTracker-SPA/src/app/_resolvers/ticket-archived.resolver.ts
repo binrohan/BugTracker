@@ -13,8 +13,8 @@ import { catchError } from 'rxjs/operators';
 import { AdminService } from '../_services/admin.service';
 
 @Injectable()
-export class TicketsResolver implements Resolve<Ticket> {
-  ticketParams: any = { pageSize: 9, pageIndex: 0, filter: '' , stateBy: 'active'};
+export class TicketsArchivedResolver implements Resolve<Ticket> {
+  ticketParams: any = { pageSize: 9, pageIndex: 0, filter: '', stateBy: 'archived' };
   constructor(
     private adminService: AdminService,
     private snackbar: SnackbarService,

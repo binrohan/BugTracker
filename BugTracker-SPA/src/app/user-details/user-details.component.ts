@@ -94,7 +94,7 @@ export class UserDetailsComponent implements OnInit {
 
   getProjects() {
     this.adminService.getProjects(this.projectParams).subscribe((data) => {
-      this.projectRes = data;console.log(this.projectRes);
+      this.projectRes = data;
     });
     this.showList = true;
   }
@@ -155,8 +155,6 @@ export class UserDetailsComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    // this.users.filter = filterValue.trim().toLowerCase();
-    console.log(filterValue);
     this.projectParams.filter = filterValue;
     this.getProjects();
   }
@@ -164,13 +162,11 @@ export class UserDetailsComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.projectParams.orderBy = (sort.active + sort.direction);
-      console.log(this.projectParams.orderBy);
       this.getProjects();
     }
   }
 
   paginating(e){
-    console.log(e);
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 

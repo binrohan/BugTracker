@@ -48,7 +48,6 @@ export class FreeUsersComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.userParams.orderBy = (sort.active + sort.direction);
-      console.log(this.userParams.orderBy);
       this.loadUsers();
     }
   }
@@ -65,7 +64,6 @@ export class FreeUsersComponent implements OnInit {
   }
 
   paginating(e){
-    console.log(e);
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 

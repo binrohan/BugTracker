@@ -25,6 +25,13 @@ export class ProjectBasicComponent implements OnInit {
   }
 
   archivedProject(){
+    if (this.projectBasic.tickets.length > 0) {
+      this.snackbar.Success('First handle the Tickets');
+      return false;
+    }
+    if (!confirm('Are you sure?')) {
+      return false;
+    }
     this.projectService.archiveProject(this.projectBasic.id).subscribe(() => {
       this.snackbar.Success('Project Successfully Archived');
     }, error => {

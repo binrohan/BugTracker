@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Ticket } from '../../_models/Ticket';
 import { CommentService } from '../../_services/comment.service';
 import { CommentRes } from '../../_models/CommentRes';
@@ -22,7 +22,8 @@ export class TicketDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private commentService: CommentService,
               private snackbar: SnackbarService,
-              private ticketService: TicketService) { }
+              private ticketService: TicketService,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -40,39 +41,39 @@ export class TicketDetailComponent implements OnInit {
     });
   }
   passTicket(){
-    const ticket =  this.ticket;
-    ticket.isDeveloperPassed = true;
-
-    this.ticketService.updateTicket(this.ticket.id, ticket).subscribe(() => {
-      this.snackbar.Success('Ticket Passed to manager');
-      this.isDeveloperPassed = this.ticket.isDeveloperPassed;
-    }, error => {
-      this.snackbar.Success('Failed to pass');
-    });
+    if (confirm('Are you sure?')){
+      this.ticketService.passTicket(this.ticket.id).subscribe(() => {
+        this.snackbar.Success('Ticket Archived');
+      }, error => {
+        this.snackbar.Success('Failed to Archived');
+      }, () => {
+        this.router.navigate(['/tickets/2']);
+      });
+    }
   }
 
   approveTicket(){
-    if (this.ticket.isDeveloperPassed) {
-      const ticket =  this.ticket;
-      ticket.isManagerPassed = true;
-
-      this.ticketService.updateTicket(this.ticket.id, ticket).subscribe(() => {
-        this.snackbar.Success('Ticket Passed to admin');
+    if (confirm('Are you sure?')){
+      this.ticketService.approveTicket(this.ticket.id).subscribe(() => {
+        this.snackbar.Success('Ticket Archived');
       }, error => {
-        this.snackbar.Success('Failed to pass');
+        this.snackbar.Success('Failed to Archived');
+      }, () => {
+        this.router.navigate(['/tickets/2']);
       });
     }
   }
 
   archiveTicket(){
-    const ticket =  this.ticket;
-    ticket.isArchived = true;
-
-    this.ticketService.updateTicket(this.ticket.id, ticket).subscribe(() => {
-      this.snackbar.Success('Ticket Archived');
-    }, error => {
-      this.snackbar.Success('Failed to Archived');
-    });
+    if (confirm('Are you sure?')){
+      this.ticketService.archiveTicket(this.ticket.id).subscribe(() => {
+        this.snackbar.Success('Ticket Archived');
+      }, error => {
+        this.snackbar.Success('Failed to Archived');
+      }, () => {
+        this.router.navigate(['/tickets/2']);
+      });
+    }
   }
 
   reload(){

@@ -46,8 +46,6 @@ export class UserTicketsComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    // this.users.filter = filterValue.trim().toLowerCase();
-    console.log(filterValue);
     this.ticketParams.filter = filterValue;
     this.loadTickets();
   }
@@ -55,7 +53,6 @@ export class UserTicketsComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.ticketParams.orderBy = (sort.active + sort.direction);
-      console.log(this.ticketParams.orderBy);
       this.loadTickets();
     }
   }
@@ -69,7 +66,6 @@ export class UserTicketsComponent implements OnInit {
   }
 
   paginating(e){
-    console.log(e);
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 

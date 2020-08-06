@@ -1,10 +1,10 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from 'src/app/_services/project.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Project } from 'src/app/_models/Project';
-import { EventEmitter } from 'protractor';
 import { DataService } from 'src/app/_services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-form',
@@ -13,13 +13,15 @@ import { DataService } from 'src/app/_services/data.service';
 })
 export class ProjectFormComponent implements OnInit {
 
+  @Output() goToIndex = new EventEmitter<number>();
+
   projectForm: FormGroup;
   newProject: Project;
 
   constructor(private fb: FormBuilder,
               private snackbar: SnackbarService,
               private projectService: ProjectService,
-              private dataService: DataService) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.createProjectForm();
@@ -38,16 +40,11 @@ export class ProjectFormComponent implements OnInit {
       this.newProject = Object.assign({}, this.projectForm.value);
       this.projectService.addProject(this.newProject).subscribe(() => {
         this.snackbar.Success('Project Added');
-        this.projectForm.reset();
-        this.projectForm.markAsUntouched();
-        this.reloadProjectTable();
       }, err => {
         this.snackbar.Success('Failed to add project');
+      }, () => {
+        this.goToIndex.emit(0);
       });
     }
-  }
-
-  reloadProjectTable(){
-    this.dataService.onProjectFormButtonClick();
   }
 }

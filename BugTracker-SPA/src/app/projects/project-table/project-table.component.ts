@@ -25,9 +25,9 @@ export class ProjectTableComponent implements OnInit {
   ];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  pageSizeOptions: number[] = [5, 9, 15];
+  pageSizeOptions: number[] = [5, 10, 15];
   pageIndex = 0;
-  pagesize = 9;
+  pagesize = 10;
 
   projectParams: any = { pageSize: this.pagesize, pageIndex: this.pageIndex, filter: '' , orderBy: 'Starteddesc', stateBy: 'active'};
 
@@ -70,7 +70,6 @@ export class ProjectTableComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.projectParams.orderBy = (sort.active + sort.direction);
-      console.log(this.projectParams.orderBy);
       this.loadProjects();
     }
   }

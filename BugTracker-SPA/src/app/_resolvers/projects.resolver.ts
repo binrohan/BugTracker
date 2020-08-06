@@ -9,7 +9,7 @@ import { AdminService } from '../_services/admin.service';
 
 @Injectable()
 export class ProjectsResolver implements Resolve<Project>{
-    projectParams: any = { pageSize: 9, pageIndex: 0, filter: '' , orderBy: 'Starteddesc', stateBy: 'active'};
+    projectParams: any = { pageSize: 10, pageIndex: 0, filter: '' , orderBy: 'Starteddesc', stateBy: 'active'};
     constructor(private adminService: AdminService, private snackbar: SnackbarService, private router: Router) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Project> {

@@ -43,7 +43,6 @@ export class ProjectArchivedTicketsComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.ticketRes = data.archivedTicketRes;
     });
-    console.log(this.ticketRes);
   }
 
   applyFilter(event: Event) {
@@ -55,7 +54,6 @@ export class ProjectArchivedTicketsComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.ticketParams.orderBy = (sort.active + sort.direction);
-      console.log(this.ticketParams.orderBy);
       this.loadTickets();
     }
   }
@@ -72,7 +70,6 @@ export class ProjectArchivedTicketsComponent implements OnInit {
   }
 
   paginating(e){
-    console.log(e);
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 

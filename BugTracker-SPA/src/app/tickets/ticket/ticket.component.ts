@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Ticket } from '../../_models/Ticket';
@@ -6,6 +6,7 @@ import { Sort } from '@angular/material/sort';
 import { TicketService } from '../../_services/ticket.service';
 import { TicketRes } from '../../_models/TicketRes';
 import { AdminService } from 'src/app/_services/admin.service';
+import { TicketListComponent } from '../ticket-list/ticket-list.component';
 
 @Component({
   selector: 'app-ticket',
@@ -13,27 +14,18 @@ import { AdminService } from 'src/app/_services/admin.service';
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
+  tab = 0;
 
-  ticketRes: any;
-  archivedTicketRes: TicketRes;
-  archivedTicketParams: any = {stateBy: false, pageIndex: 0, pageSize: 8, orderBy: 'idasc', filter: ''};
+  @ViewChild(TicketListComponent) ticketList: TicketListComponent;
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService,
-              private adminService: AdminService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.data.subscribe((data) => {
-      this.ticketRes = data.ticketRes;
-    });console.log(this.ticketRes);
-    this.loadArchivedTickets();
+    this.tab = parseInt(this.route.snapshot.paramMap.get('tab'), 10);
   }
-
-  loadArchivedTickets() {
-    this.adminService.getTickets(this.archivedTicketParams).subscribe(
-      (data) => {
-        this.archivedTicketRes = data;
-      },
-      (error) => {}
-    );
+  test(){
+    if (this.tab === 0) {
+      this.ticketList.loadTickets();
+    }
   }
 }

@@ -58,7 +58,6 @@ export class ProjectTicketsComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.ticketParams.orderBy = (sort.active + sort.direction);
-      console.log(this.ticketParams.orderBy);
       this.loadTickets();
     }
   }
@@ -75,7 +74,6 @@ export class ProjectTicketsComponent implements OnInit {
   }
 
   paginating(e){
-    console.log(e);
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 

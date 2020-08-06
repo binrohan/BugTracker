@@ -5,6 +5,7 @@ import { Ticket } from '../../_models/Ticket';
 import { TicketService } from '../../_services/ticket.service';
 import { TicketRes } from '../../_models/TicketRes';
 import { AdminService } from 'src/app/_services/admin.service';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -13,8 +14,8 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class TicketListComponent implements OnInit {
 
-  @Input() ticketRes: TicketRes;
-  tickets: Ticket[];
+  ticketRes: TicketRes;
+
 
   displayedColumns: string[] = [
     'id',
@@ -33,22 +34,24 @@ export class TicketListComponent implements OnInit {
   pageIndex = 0;
   length: number;
   pagesize = 9;
-  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '' };
+  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: 'active'};
 
 
 
-  constructor(private ticketService: TicketService, private adminService: AdminService) { }
+  constructor(private ticketService: TicketService,
+              private route: ActivatedRoute,
+              private adminService: AdminService, private snackbar: SnackbarService) { }
 
   ngOnInit() {
-    this.tickets = this.ticketRes.tickets;
-    this.length = this.ticketRes.length;
-    console.log(this.tickets);
+    this.route.data.subscribe(data => {
+      this.ticketRes = data.ticketRes;console.log(this.ticketRes);
+    }, error => {
+      this.snackbar.Success('Failed to load data');
+    });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    // this.users.filter = filterValue.trim().toLowerCase();
-    console.log(filterValue);
     this.ticketParams.filter = filterValue;
     this.loadTickets();
   }
@@ -56,22 +59,21 @@ export class TicketListComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active) {
       this.ticketParams.orderBy = (sort.active + sort.direction);
-      console.log(this.ticketParams.orderBy);
       this.loadTickets();
     }
   }
   loadTickets() {
     this.adminService.getTickets(this.ticketParams).subscribe(
       (data) => {
-        this.tickets = data.tickets;
-        this.length = data.length;
+        this.ticketRes = data;
       },
-      (error) => {}
+      (error) => {
+        this.snackbar.Success('Failed to load data');
+      }
     );
   }
 
   paginating(e){
-    console.log(e);
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 

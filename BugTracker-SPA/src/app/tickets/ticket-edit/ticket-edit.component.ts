@@ -39,7 +39,6 @@ export class TicketEditComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.ticket = data.ticket;
     });
-    console.log(this.ticket);
     this.createEditTicketForm();
     this.loadData();
     this.getUsersForProject(this.ticket.project.id);

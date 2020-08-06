@@ -331,7 +331,7 @@ namespace BugTracker.API.Data
                         tickets = tickets.OrderByDescending(t => t.Status.TicketStatus);
                         break;
                     default:
-                        tickets = tickets.OrderBy(t => t.Id);
+                        tickets = tickets.OrderByDescending(t => t.Created);
                         break;
                 }
             }
@@ -424,7 +424,7 @@ namespace BugTracker.API.Data
                         tickets = tickets.OrderByDescending(t => t.Status.TicketStatus);
                         break;
                     default:
-                        tickets = tickets.OrderBy(t => t.Id);
+                        tickets = tickets.OrderByDescending(t => t.Created);
                         break;
                 }
             }
@@ -525,7 +525,7 @@ namespace BugTracker.API.Data
                         tickets = tickets.OrderByDescending(t => t.Status.TicketStatus);
                         break;
                     default:
-                        tickets = tickets.OrderBy(t => t.Id);
+                        tickets = tickets.OrderByDescending(t => t.Created);
                         break;
                 }
             }

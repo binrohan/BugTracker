@@ -5,6 +5,8 @@ import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { TicketService } from '../../_services/ticket.service';
 import { AdminService } from 'src/app/_services/admin.service';
+import { TicketRes } from 'src/app/_models/TicketRes';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
   selector: 'app-ticket-list-archived',
@@ -13,8 +15,8 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class TicketListArchivedComponent implements OnInit {
 
-  @Input() ticketRes: any;
-  tickets: Ticket[];
+  ticketRes: TicketRes;
+
 
   displayedArchivedColumns: string[] = [
     'id',
@@ -25,30 +27,28 @@ export class TicketListArchivedComponent implements OnInit {
     'Action',
   ];
 
-  pageSizeOptions: number[] = [5, 8, 15];
+  pageSizeOptions: number[] = [5, 10, 15];
   pageIndex = 0;
   length: number;
-  pagesize = 8;
+  pagesize = 10;
   previousPageIndex: number;
-  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: true };
+  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: 'archived' };
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService,
+  constructor(private snackbar: SnackbarService,
+              private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService,
               private adminService: AdminService) { }
 
   ngOnInit() {
-    // this.route.data.subscribe((data) => {
-    //   this.ticketRes = data.ticketRes;
-    // });
-    this.tickets = this.ticketRes.ticketsForReturn;
-    this.length = this.ticketRes.length;
-    console.log(this.ticketRes);
-    this.loadArchivedTickets();
+    this.route.data.subscribe(data => {
+      this.ticketRes = data.archivedTicketRes;
+    }, error => {
+      this.snackbar.Success('Failed to load data');
+    });
   }
 
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
     this.ticketParams.filter = filterValue;
     this.loadArchivedTickets();
   }
@@ -62,7 +62,7 @@ export class TicketListArchivedComponent implements OnInit {
   loadArchivedTickets() {
     this.adminService.getTickets(this.ticketParams).subscribe(
       (data) => {
-        this.tickets = data.tickets;
+        this.ticketRes = data;
       },
       (error) => {}
     );
