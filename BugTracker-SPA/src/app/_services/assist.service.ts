@@ -19,11 +19,35 @@ export class AssistService {
     return this.http.get<Category[]>(this.baseUrl + 'assist/cate');
   }
 
-  getSta(): Observable<Status> {
-    return this.http.get<Status>(this.baseUrl + 'assist/sta');
+  getSta(): Observable<Status[]> {
+    return this.http.get<Status[]>(this.baseUrl + 'assist/sta');
   }
 
   getPri(){
     return this.http.get<Priority[]>(this.baseUrl + 'assist/pri');
+  }
+
+  setSta(sta: {}) {
+    return this.http.post(this.baseUrl + 'assist/sta', sta);
+  }
+
+  setCate(cate: {}) {
+    return this.http.post(this.baseUrl + 'assist/cate', cate);
+  }
+
+  setPri(pri: {}) {
+    return this.http.post(this.baseUrl + 'assist/pri', pri);
+  }
+
+  removeCate(id: number) {
+    return this.http.delete(this.baseUrl + 'assist/cate/' + id);
+  }
+
+  removeSta(id: number) {
+    return this.http.delete(this.baseUrl + 'assist/sta/' + id);
+  }
+
+  removePri(id: number) {
+    return this.http.delete(this.baseUrl + 'assist/pri/' + id);
   }
 }

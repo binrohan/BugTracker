@@ -32,7 +32,7 @@ export class TicketFormComponent implements OnInit {
   projects: Project[];
   project: Project;
   categories: Category[];
-  statuses: Status;
+  statuses: Status[];
   priorities: Priority[];
   users: User[] = [];
   ticket: Ticket;

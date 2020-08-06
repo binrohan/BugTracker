@@ -25,7 +25,7 @@ export class TicketEditComponent implements OnInit {
   users: User[];
   project: Project;
   categories: Category[];
-  statuses: Status;
+  statuses: Status[];
   priorities: Priority[];
 
   constructor(private route: ActivatedRoute,

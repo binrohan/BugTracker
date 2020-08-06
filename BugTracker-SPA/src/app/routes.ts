@@ -27,6 +27,7 @@ import { ProjectEditComponent } from './projects/project-edit/project-edit.compo
 import { FreeUsersResolver } from './_resolvers/free-users.resolver';
 import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-tickets.resolver';
 import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
+import { SettingsComponent } from './settings/settings.component';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -86,6 +87,10 @@ export const appRoutes: Routes = [
         component: ProfileComponent,
         resolve: { user: ProfileResolver },
         canDeactivate: [PreventUnsavedChanges]
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
       }
     ],
   },

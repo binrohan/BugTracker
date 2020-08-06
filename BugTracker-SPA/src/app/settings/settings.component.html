@@ -1,0 +1,71 @@
+<div class="whole">
+  <div>
+    <div class="banner">
+      <p>Add or Delete scale words</p>
+    </div>
+
+    <div class="settings-container">
+      <div class="settings-card">
+        <h2>Categories</h2>
+        <ol>
+          <li *ngFor="let c of cate">
+            {{ c.ticketCategory }}
+            <button mat-button color="warn" (click)="RemoveCate(c.id)">
+              Remove
+            </button>
+          </li>
+        </ol>
+        <div>
+          <input type="text" #inputValueC placeholder="Add new value" />
+          <button
+            mat-button
+            color="primary"
+            (click)="addCate(inputValueC.value)"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      <div class="settings-card">
+        <h2>Priorities</h2>
+        <ol>
+          <li *ngFor="let p of pri">
+            {{ p.ticketPriority }}
+            <button mat-button color="warn" (click)="RemovePri(p.id)">
+              Remove
+            </button>
+          </li>
+        </ol>
+        <div>
+          <input type="text" #inputValueP placeholder="Add new value" /><button
+            mat-button
+            color="primary"
+            (click)="addPri(inputValueP.value)"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      <div class="settings-card">
+        <h2>Statuses</h2>
+        <ol>
+          <li *ngFor="let s of sta">
+            {{ s.ticketStatus }}
+            <button mat-button color="warn" (click)="RemoveSta(s.id)">
+              Remove
+            </button>
+          </li>
+        </ol>
+        <div>
+          <input type="text" #inputValueS placeholder="Add new value" /><button
+            mat-button
+            color="primary"
+            (click)="addSta(inputValueS.value)"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

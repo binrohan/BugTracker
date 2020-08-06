@@ -1,0 +1,23 @@
+.settings-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+}
+.settings-card{
+    min-width: 250px;
+}
+input{
+    height: 35px;
+    margin: 0 20px;
+    padding: 0 5px;
+    border: 0;
+    border-bottom: 1px solid rgb(173, 173, 173);
+    background-color: whitesmoke;
+}
+input:focus{
+    outline: none;
+    border-bottom: 1px solid rgb(106, 116, 255);
+}
+h2{
+    font-weight: lighter;
+}
