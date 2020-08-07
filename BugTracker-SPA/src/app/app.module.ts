@@ -76,6 +76,8 @@ import { FreeUsersResolver } from './_resolvers/free-users.resolver';
 import { ProjectArchivedTicketsComponent } from './projects/project-archived-tickets/project-archived-tickets.component';
 import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 import { SettingsComponent } from './settings/settings.component';
+import { TicketListApprovedComponent } from './tickets/ticket-list-approved/ticket-list-approved.component';
+import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
 
 
 export function tokenGetter() {
@@ -99,6 +101,7 @@ export function tokenGetter() {
       TicketFormComponent,
       TicketListComponent,
       TicketListArchivedComponent,
+      TicketListApprovedComponent,
       CommentComponent,
       TicketEditComponent,
       ProjectTableComponent,
@@ -170,6 +173,7 @@ export function tokenGetter() {
       FreeUsersResolver,
       ProjectArchivedTicketsResolver,
       TicketsArchivedResolver,
+      TicketsApprovedResolver,
       DataService
    ],
    bootstrap: [

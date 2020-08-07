@@ -28,6 +28,7 @@ import { FreeUsersResolver } from './_resolvers/free-users.resolver';
 import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-tickets.resolver';
 import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 import { SettingsComponent } from './settings/settings.component';
+import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -41,7 +42,8 @@ export const appRoutes: Routes = [
       { path: 'registration', component: RegistrationComponent },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        resolve: {ticketRes: TicketsApprovedResolver}
       },
       { path: 'user/:id',
         component: UserDetailsComponent,

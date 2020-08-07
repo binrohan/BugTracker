@@ -5,6 +5,8 @@ namespace BugTracker.API.Helpers
         public int ActiveTickets { get; set; }
         public int ArchivedTickets { get; set; }
         public int TotalTickets { get; set; }
+        public int PassedTickets { get; set; }
+        public int ApprovedTickets { get; set; }
 
         public int ActiveProjects { get; set; }
         public int ArchivedProjects { get; set; }

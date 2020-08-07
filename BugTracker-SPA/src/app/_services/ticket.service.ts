@@ -48,17 +48,17 @@ export class TicketService {
       params = params.append('filter', ticketParams.filter);
       params = params.append('pageSize', ticketParams.pageSize);
       params = params.append('pageIndex', ticketParams.pageIndex);
-      params = params.append('userId', ticketParams.userId);
-      params = params.append('projectId', ticketParams.projectId);
     }
 
-    return this.http.get<TicketRes>(this.baseUrl + 'tickets/user', {observe: 'response', params})
+    return this.http.get<TicketRes>(this.baseUrl + 'tickets', {observe: 'response', params})
       .pipe(
         map((res) => {
           return res.body;
         })
       );
   }
+
+
 
   getProjectTickets(id: number, ticketParams?): Observable<TicketRes>{
 

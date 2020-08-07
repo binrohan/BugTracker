@@ -22,8 +22,7 @@ export class CommentComponent implements OnInit {
   displayedColumns: string[] = [
     'commenter',
     'content',
-    'created',
-    'action'
+    'created'
   ];
 
 

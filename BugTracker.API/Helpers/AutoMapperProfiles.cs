@@ -22,7 +22,11 @@ namespace BugTracker.API.Helpers
                 .ForMember(dest => dest.Priority, opt =>
                     opt.MapFrom(src => src.Priority.TicketPriority))
                 .ForMember(dest => dest.ProjectName, opt => 
-                    opt.MapFrom(src => src.project.Title));
+                    opt.MapFrom(src => src.project.Title))
+                .ForMember(dest => dest.UserName, opt => 
+                    opt.MapFrom(src => src.User.UserName))
+                .ForMember(dest => dest.UserId, opt => 
+                    opt.MapFrom(src => src.User.Id));
             CreateMap<Ticket, TicketsForDetailed>();
             CreateMap<TicketToCreateDto, Ticket>();
             CreateMap<TicketToUpdateDto, Ticket>();
@@ -47,8 +51,14 @@ namespace BugTracker.API.Helpers
             CreateMap<Category, CategoryToReturn>()
                 .ForMember(dest => dest.TicketCounts, opt => 
                     opt.MapFrom(src => src.Tickets.Count));
-            CreateMap<Status, StatusToReturn>().ReverseMap();
-            CreateMap<Priority, PriorityToReturn>().ReverseMap();
+            CreateMap<StatusToReturn, Status>();
+            CreateMap<Status, StatusToReturn>()
+                .ForMember(dest => dest.TicketCounts, opt => 
+                    opt.MapFrom(src => src.Tickets.Count));
+            CreateMap<PriorityToReturn, Priority>();
+            CreateMap<Priority, PriorityToReturn>()
+                .ForMember(dest => dest.TicketCounts, opt => 
+                    opt.MapFrom(src => src.Tickets.Count));
 
             CreateMap<User, mockUser>();
             CreateMap<Project, ProjectForUpdateDto>();

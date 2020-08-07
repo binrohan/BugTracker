@@ -85,15 +85,15 @@
         <div class="sm-card">
           <div class="icon"><mat-icon>assignment_late</mat-icon></div>
           <div class="card-content">
-            <p class="card-number">{{counts.activeTickets}}</p>
-            <p class="card-title">Live Tickets</p>
+            <p class="card-number">{{counts.passedTickets}}</p>
+            <p class="card-title">Developer Passed</p>
           </div>
         </div>
         <div class="sm-card">
           <div class="icon"><mat-icon>assignment_turned_in</mat-icon></div>
           <div class="card-content">
-            <p class="card-number">{{counts.archivedTickets}}</p>
-            <p class="card-title">Resolved Tickets</p>
+            <p class="card-number">{{counts.approvedTickets}}</p>
+            <p class="card-title">Manager Passed</p>
           </div>
         </div>
       </div>
@@ -102,12 +102,50 @@
   <div class="d-row">
     <div class="type-container">
       <div class="type">
-        <div>Tickets By Category</div>
-        <div *ngFor="let c of cate">
-          <p class="card-number">{{c.ticketCounts}} &nbsp; {{(c.ticketCounts/counts.totalTickets)*100}}</p>
-          <p class="card-title">{{c.ticketCategory}}</p>
+        <div class="type-title">Tickets By Category</div>
+        <div *ngFor="let c of cate; let i = index">
+          <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
+            <div class="type-part">{{c.ticketCategory}}</div>
+            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+          </div>
+        </div>
+      </div>
+      <div class="type">
+        <div class="type-title">Tickets By Priority</div>
+        <div *ngFor="let c of pri; let i = index">
+          <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
+            <div class="type-part">{{c.ticketPriority}}</div>
+            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="type">
+        <div class="type-title">Tickets By Status</div>
+        <div *ngFor="let c of sta; let i = index">
+          <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
+            <div class="type-part">{{c.ticketStatus}}</div>
+            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  <div>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Approved Tickets
+          </mat-panel-title>
+          <mat-panel-description>
+            List of Tickets approved by manager waiting for your approved
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+        <app-ticket-list-approved></app-ticket-list-approved>
+
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>

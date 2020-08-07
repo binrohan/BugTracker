@@ -251,6 +251,7 @@ namespace BugTracker.API.Data
                                 .Include(t => t.Category)
                                 .Include(t => t.Priority)
                                 .Include(t => t.project)
+                                .Include(t => t.User)
                                 .AsQueryable();
 
 
@@ -272,6 +273,12 @@ namespace BugTracker.API.Data
                         break;
                     case "all":
                         tickets = tickets.Where(t => !t.isArchived || t.isArchived);
+                        break;
+                    case "approved":
+                        tickets = tickets.Where(t => !t.isArchived && t.isManagerPassed);
+                        break;
+                    case "passed":
+                        tickets = tickets.Where(t => !t.isArchived || t.isDeveloperPassed);
                         break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
@@ -347,6 +354,7 @@ namespace BugTracker.API.Data
                                             .Include(t => t.Status)
                                             .Include(t => t.Category)
                                             .Include(t => t.Priority)
+                                            .Include(t => t.User)
                                             .Include(t => t.project).Where(t => t.project.Id == id).AsQueryable();
 
             if(!string.IsNullOrEmpty(ticketParams.Filter))
@@ -558,7 +566,7 @@ namespace BugTracker.API.Data
 
         public async Task<IEnumerable<Status>> GetStatuses()
         {
-            var statuses = await _context.Statuses.ToListAsync();
+            var statuses = await _context.Statuses.Include(s => s.Tickets).ToListAsync();
 
             return statuses;
         }
@@ -574,7 +582,7 @@ namespace BugTracker.API.Data
 
         public async Task<IEnumerable<Priority>> GetPriorities()
         {
-            var priorites = await _context.Priorities.ToListAsync();
+            var priorites = await _context.Priorities.Include(p => p.Tickets).ToListAsync();
 
             return priorites;
         }
@@ -654,13 +662,15 @@ namespace BugTracker.API.Data
             counts.TotalTickets = tickets.Count();
             counts.ActiveTickets = tickets.Where(t => !t.isArchived).Count();
             counts.ArchivedTickets = tickets.Where(t => t.isArchived).Count();
+            counts.PassedTickets = tickets.Where(t => t.isDeveloperPassed && !t.isArchived).Count();
+            counts.ApprovedTickets = tickets.Where(t => t.isManagerPassed && !t.isArchived).Count();
 
             counts.TotalProjects = projects.Count();
             counts.ActiveProjects = projects.Where(p => !p.isArchived).Count();
             counts.ArchivedProjects = projects.Where(p => p.isArchived).Count();
 
-            counts.TotalUsers =       users.Count();
-            counts.FreeUsers =   users.Where(u => u.project == null).Count();
+            counts.TotalUsers = users.Count();
+            counts.FreeUsers = users.Where(u => u.project == null).Count();
             counts.BusyUsers = users.Where(u => u.project != null).Count();
 
             counts.Comments = comments.Count();

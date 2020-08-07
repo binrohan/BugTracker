@@ -15,9 +15,11 @@ export interface Ticket {
     isDeveloperPassed: boolean;
     isManagerPassed: boolean;
 
+    projectName: string;
     project: Project;
     projectId: number;
 
+    userName: string;
     user?: User;
     userId: number;
 
@@ -26,5 +28,5 @@ export interface Ticket {
     priority?: Priority;
     status?: Status;
 
-    projectName: string;
+
 }

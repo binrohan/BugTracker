@@ -40,10 +40,25 @@ h1{
 }
 
 
-.type{
+.type-container{
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
+}
+.type-title{
+    padding: 10px 10px;
+    background-color: wheat;
+}
+.type-part{
+    display: inline-block;
+    padding: 10px 10px;
+}
+.type-box{
+    display: flex;
+    justify-content: space-between;
+}
+.type-box{
+    background-color: thistle;
 }
 
 
@@ -59,4 +74,7 @@ mat-icon{
     height: 50px;
     width: 50px;
 }
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
 

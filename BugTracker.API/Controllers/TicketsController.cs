@@ -53,7 +53,6 @@ namespace BugTracker.API.Controllers {
             return Ok(new {tickets, ticketParams.Length }  );
         }
 
-
         [Authorize(Policy = "ManagerAndAdmin")]
         [HttpPost]
         public async Task<IActionResult> AddTicket(TicketToCreateDto ticketToCreate)

@@ -17,6 +17,10 @@ namespace BugTracker.API.Dtos
 
         public string ProjectName { get; set; }
         public int projectId { get; set; }
+
+        public string UserName { get; set; }
+        public string UserId { get; set; }
+
         public string Category { get; set; }
         public string Priority { get; set; }
         public string Status { get; set; }
