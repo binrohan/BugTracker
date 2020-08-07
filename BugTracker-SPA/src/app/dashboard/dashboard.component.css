@@ -1,0 +1,62 @@
+.d-row{
+    margin-bottom: 20px;
+}
+h1{
+    margin: 0;
+}
+.time{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sm-card-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+.sm-card{
+    background-color: hotpink;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 10px;
+}
+.sm-card p{
+    margin: 0;
+}
+.card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.card-number{
+    font-size: 25px;
+    font-weight: lighter;
+}
+.card-title{
+    font-weight: bold;
+}
+
+
+.type{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 20px;
+}
+
+
+
+
+
+
+
+
+
+mat-icon{
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+}
+

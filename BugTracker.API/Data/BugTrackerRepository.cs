@@ -641,5 +641,31 @@ namespace BugTracker.API.Data
 
             return await comments.ToListAsync();
         }
+
+        public async Task<Counts> Counting()
+        {
+            Counts counts = new Counts();
+
+            var tickets = await _context.Tickets.ToListAsync();
+            var projects = await _context.Projects.ToListAsync();
+            var users = await _context.Users.ToListAsync();
+            var comments = await _context.Comments.ToListAsync();
+            
+            counts.TotalTickets = tickets.Count();
+            counts.ActiveTickets = tickets.Where(t => !t.isArchived).Count();
+            counts.ArchivedTickets = tickets.Where(t => t.isArchived).Count();
+
+            counts.TotalProjects = projects.Count();
+            counts.ActiveProjects = projects.Where(p => !p.isArchived).Count();
+            counts.ArchivedProjects = projects.Where(p => p.isArchived).Count();
+
+            counts.TotalUsers =       users.Count();
+            counts.FreeUsers =   users.Where(u => u.project == null).Count();
+            counts.BusyUsers = users.Where(u => u.project != null).Count();
+
+            counts.Comments = comments.Count();
+
+            return counts;
+        }
     }
 }

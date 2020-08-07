@@ -35,5 +35,8 @@ namespace BugTracker.API.Data
         Task<Status> GetStatus(int id);
         Task<IEnumerable<Priority>> GetPriorities();
         Task<Priority> GetPriority(int id);
+
+
+        Task<Counts> Counting();
     }
 }

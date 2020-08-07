@@ -112,5 +112,12 @@ namespace BugTracker.API.Controllers {
                 return NoContent();
             throw new Exception ("Delete fail");
         }
+
+        [HttpGet("counts")]
+        public async Task<IActionResult> GetCounts()
+        {
+            var counts = await _repo.Counting();
+            return Ok(counts);
+        }
     }
 }

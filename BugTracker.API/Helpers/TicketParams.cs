@@ -9,5 +9,10 @@ namespace BugTracker.API.Helpers
         public int PageSize { get; set; }
         public int PageIndex { get; set; }
         public int Length { get; set; }
+
+        public TicketParams()
+        {
+            
+        }
     }
 }

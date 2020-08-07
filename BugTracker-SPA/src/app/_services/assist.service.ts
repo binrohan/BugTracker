@@ -50,4 +50,8 @@ export class AssistService {
   removePri(id: number) {
     return this.http.delete(this.baseUrl + 'assist/pri/' + id);
   }
+
+  getCounts(): Observable<any> {
+    return this.http.get(this.baseUrl + 'assist/counts');
+  }
 }
