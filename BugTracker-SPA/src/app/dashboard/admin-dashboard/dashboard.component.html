@@ -3,7 +3,7 @@
   <div class="time">
     <p>{{now | date: 'EEEE dd MMMM, yyyy'}} &nbsp; {{now | date: 'hh:mm'}}</p>
   </div>
-  <div class="d-row">
+  <div class="d-row common">Admin
     <div class="sm-card-container">
       <div class="sm-card">
         <div class="icon"><mat-icon>supervisor_account</mat-icon></div>
@@ -143,7 +143,33 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         
-        <app-ticket-list-approved></app-ticket-list-approved>
+        <app-ticket-list-approved *ngIf="true"></app-ticket-list-approved>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Approved Tickets
+          </mat-panel-title>
+          <mat-panel-description>
+            List of Tickets approved by manager waiting for your approved
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+        <p>There will be a Table listed Tickets Passed</p>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Approved Tickets
+          </mat-panel-title>
+          <mat-panel-description>
+            List of Tickets approved by manager waiting for your passed
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+        <p>There will a table listed Passed Tickets</p>
 
       </mat-expansion-panel>
     </mat-accordion>

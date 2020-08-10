@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/admin-dashboard/dashboard.component';
 import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.component';
 import { SnackbarService } from './_services/snackbar.service';
 import { AuthService } from './_services/auth.service';

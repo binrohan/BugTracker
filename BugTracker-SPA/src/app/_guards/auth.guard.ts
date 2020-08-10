@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router, private authService: AuthService, private snackbar: SnackbarService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        
+
         const roles = route.firstChild.data.roles as Array<string>;
         if (roles) {
             const match = this.authService.roleMatch(roles);

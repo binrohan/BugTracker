@@ -37,6 +37,6 @@ namespace BugTracker.API.Data
         Task<Priority> GetPriority(int id);
 
 
-        Task<Counts> Counting();
+        Task<Counts> Counting(IList<string> roles, string userId);
     }
 }

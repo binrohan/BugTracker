@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/admin-dashboard/dashboard.component';
 import { UserManagementComponent } from './UserManagement/UserManagement.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { TicketComponent } from './tickets/ticket/ticket.component';
@@ -29,6 +29,8 @@ import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-ti
 import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 import { SettingsComponent } from './settings/settings.component';
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
+import { ManagerDashboardComponent } from './dashboard/manager-dashboard/manager-dashboard.component';
+import { DeveloperDashboardComponent } from './dashboard/developer-dashboard/developer-dashboard.component';
 
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -44,6 +46,14 @@ export const appRoutes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         resolve: {ticketRes: TicketsApprovedResolver}
+      },
+      {
+        path: 'manager-dashboard',
+        component: ManagerDashboardComponent
+      },
+      {
+        path: 'developer-dashboard',
+        component: DeveloperDashboardComponent
       },
       { path: 'user/:id',
         component: UserDetailsComponent,

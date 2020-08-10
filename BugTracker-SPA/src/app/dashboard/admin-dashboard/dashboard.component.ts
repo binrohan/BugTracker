@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AssistService } from '../_services/assist.service';
-import { SnackbarService } from '../_services/snackbar.service';
-import { Category } from '../_models/Category';
-import { Priority } from '../_models/Priority';
-import { Status } from '../_models/Status';
+import { AssistService } from '../../_services/assist.service';
+import { SnackbarService } from '../../_services/snackbar.service';
+import { Category } from '../../_models/Category';
+import { Priority } from '../../_models/Priority';
+import { Status } from '../../_models/Status';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,15 +18,18 @@ export class DashboardComponent implements OnInit {
   cate: Category[];
   pri: Priority[];
   sta: Status[];
+  userId: string;
 
   constructor(private assistService: AssistService,
-              private snackbar: SnackbarService) {
+              private snackbar: SnackbarService,
+              private authService: AuthService) {
                 setInterval(() => {
                   this.now = new Date();
                 });
               }
 
   ngOnInit() {
+    this.userId = this.authService.decodedToken.nameid;
     this.loadCounts();
     this.loadTypes();
   }

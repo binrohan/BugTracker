@@ -13,4 +13,3 @@ export interface Project {
     tickets?: Ticket[];
     users?: User[];
 }
-

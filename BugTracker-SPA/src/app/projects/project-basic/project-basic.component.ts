@@ -11,7 +11,7 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 })
 export class ProjectBasicComponent implements OnInit {
 
-  
+
 
   projectBasic: Project;
 

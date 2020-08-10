@@ -650,31 +650,54 @@ namespace BugTracker.API.Data
             return await comments.ToListAsync();
         }
 
-        public async Task<Counts> Counting()
+        public async Task<Counts> Counting(IList<string> roles, string userId)
         {
             Counts counts = new Counts();
 
-            var tickets = await _context.Tickets.ToListAsync();
-            var projects = await _context.Projects.ToListAsync();
-            var users = await _context.Users.ToListAsync();
-            var comments = await _context.Comments.ToListAsync();
-            
-            counts.TotalTickets = tickets.Count();
-            counts.ActiveTickets = tickets.Where(t => !t.isArchived).Count();
-            counts.ArchivedTickets = tickets.Where(t => t.isArchived).Count();
-            counts.PassedTickets = tickets.Where(t => t.isDeveloperPassed && !t.isArchived).Count();
-            counts.ApprovedTickets = tickets.Where(t => t.isManagerPassed && !t.isArchived).Count();
+            var tickets = _context.Tickets.AsQueryable();
+            var projects = _context.Projects.AsQueryable();
+            var users = _context.Users.AsQueryable();
+            var comments = _context.Comments.AsQueryable();
 
-            counts.TotalProjects = projects.Count();
-            counts.ActiveProjects = projects.Where(p => !p.isArchived).Count();
-            counts.ArchivedProjects = projects.Where(p => p.isArchived).Count();
+            if(roles.Contains("Admin"))
+            {
+                counts.TotalTickets = await tickets.CountAsync();
+                counts.ActiveTickets = await tickets.Where(t => !t.isArchived).CountAsync();
+                counts.ArchivedTickets = await tickets.Where(t => t.isArchived).CountAsync();
+                counts.PassedTickets = await tickets.Where(t => t.isDeveloperPassed && !t.isArchived).CountAsync();
+                counts.ApprovedTickets = await tickets.Where(t => t.isManagerPassed && !t.isArchived).CountAsync();
 
-            counts.TotalUsers = users.Count();
-            counts.FreeUsers = users.Where(u => u.project == null).Count();
-            counts.BusyUsers = users.Where(u => u.project != null).Count();
+                counts.TotalProjects = await projects.CountAsync();
+                counts.ActiveProjects = await projects.Where(p => !p.isArchived).CountAsync();
+                counts.ArchivedProjects = await projects.Where(p => p.isArchived).CountAsync();
 
-            counts.Comments = comments.Count();
+                counts.TotalUsers = await users.CountAsync();
+                counts.FreeUsers = await users.Where(u => u.project == null).CountAsync();
+                counts.BusyUsers = await users.Where(u => u.project != null).CountAsync();
 
+                counts.Comments = await comments.CountAsync();
+            }
+            if(roles.Contains("Manager") || roles.Contains("Developer"))
+            {
+                var user = GetUser(userId, false).Result;
+                counts.ProjectId = user.project.Id;
+                counts.ProjectTitle = user.project.Title;
+
+                counts.ProjectUsers = await users.Where(u => u.project.Id == counts.ProjectId).CountAsync();
+                counts.ProjectActiveTickets = await tickets.Where(t => t.project.Id == counts.ProjectId && !t.isArchived).CountAsync();
+                counts.ProjectArchivedTickets = await tickets.Where(t => t.project.Id == counts.ProjectId && t.isArchived).CountAsync();
+                counts.Projectcomments = await comments.Where(c => c.Commenter.project.Id == counts.ProjectId).CountAsync();
+            }
+            if(roles.Contains("Developer"))
+            {
+                // var user = GetUser(userId, false).Result;
+                // counts.ProjectId = user.project.Id;
+                // counts.ProjectTitle = user.project.Title;
+
+                counts.DevActiveTickets = await tickets.Where(t => t.User.Id.Equals(userId) && !t.isArchived).CountAsync();
+                counts.DevArchivedTickets = await tickets.Where(t => t.User.Id.Equals(userId) && !t.isArchived).CountAsync();
+                counts.DevComments = await  comments.Where(C => C.Commenter.Id.Equals(userId)).CountAsync();
+            }
             return counts;
         }
     }

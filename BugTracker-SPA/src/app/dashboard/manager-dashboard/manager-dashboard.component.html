@@ -1,0 +1,152 @@
+<div class="whole">
+    <h1>Dashboard</h1>
+    <div class="time">
+      <p>{{now | date: 'EEEE dd MMMM, yyyy'}} &nbsp; {{now | date: 'hh:mm'}}</p>
+    </div>
+    <div class="d-row">
+      <div class="sm-card-container">
+        <div class="sm-card">
+          <div class="icon"><mat-icon>supervisor_account</mat-icon></div>
+          <div class="card-content">
+            <p class="card-number">{{counts.totalUsers}}</p>
+            <p class="card-title">Personnel</p>
+          </div>
+        </div>
+        <div class="sm-card">
+          <div class="icon"><mat-icon>build</mat-icon></div>
+          <div class="card-content">
+            <p class="card-number">{{counts.totalProjects}}</p>
+            <p class="card-title">Projects</p>
+          </div>
+        </div>
+        <div class="sm-card">
+          <div class="icon"><mat-icon>bug_report</mat-icon></div>
+          <div class="card-content">
+            <p class="card-number">{{counts.totalTickets}}</p>
+            <p class="card-title">Tickets</p>
+          </div>
+        </div>
+        <div class="sm-card">
+          <div class="icon"><mat-icon>comment</mat-icon></div>
+          <div class="card-content">
+            <p class="card-number">{{counts.comments}}</p>
+            <p class="card-title">Comments</p>
+          </div>
+        </div>
+        <div class="double-card">
+          <div class="sm-card">
+            <div class="icon"><mat-icon>free_breakfast</mat-icon></div>
+            <div class="card-content">
+              <p class="card-number">{{counts.freeUsers}}</p>
+              <p class="card-title">Free Users</p>
+            </div>
+          </div>
+          <div class="sm-card">
+            <div class="icon"><mat-icon>keyboard</mat-icon></div>
+            <div class="card-content">
+              <p class="card-number">{{counts.busyUsers}}</p>
+              <p class="card-title">Busy Users</p>
+            </div>
+          </div>
+        </div>
+        <div class="double-card">
+          <div class="sm-card">
+            <div class="icon"><mat-icon>settings</mat-icon></div>
+            <div class="card-content">
+              <p class="card-number">{{counts.activeProjects}}</p>
+              <p class="card-title">Active Projects</p>
+            </div>
+          </div>
+          <div class="sm-card">
+            <div class="icon"><mat-icon>archive</mat-icon></div>
+            <div class="card-content">
+              <p class="card-number">{{counts.archivedProjects}}</p>
+              <p class="card-title">Archived Projects</p>
+            </div>
+          </div>
+        </div>
+        <div class="double-card">
+          <div class="sm-card">
+            <div class="icon"><mat-icon>assignment_late</mat-icon></div>
+            <div class="card-content">
+              <p class="card-number">{{counts.activeTickets}}</p>
+              <p class="card-title">Live Tickets</p>
+            </div>
+          </div>
+          <div class="sm-card">
+            <div class="icon"><mat-icon>assignment_turned_in</mat-icon></div>
+            <div class="card-content">
+              <p class="card-number">{{counts.archivedTickets}}</p>
+              <p class="card-title">Resolved Tickets</p>
+            </div>
+          </div>
+        </div>
+        <div class="double-card">
+          <div class="sm-card">
+            <div class="icon"><mat-icon>assignment_late</mat-icon></div>
+            <div class="card-content">
+              <p class="card-number">{{counts.passedTickets}}</p>
+              <p class="card-title">Developer Passed</p>
+            </div>
+          </div>
+          <div class="sm-card">
+            <div class="icon"><mat-icon>assignment_turned_in</mat-icon></div>
+            <div class="card-content">
+              <p class="card-number">{{counts.approvedTickets}}</p>
+              <p class="card-title">Manager Passed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-row">
+      <div class="type-container">
+        <div class="type">
+          <div class="type-title">Tickets By Category</div>
+          <div *ngFor="let c of cate; let i = index">
+            <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
+              <div class="type-part">{{c.ticketCategory}}</div>
+              <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+            </div>
+          </div>
+        </div>
+        <div class="type">
+          <div class="type-title">Tickets By Priority</div>
+          <div *ngFor="let c of pri; let i = index">
+            <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
+              <div class="type-part">{{c.ticketPriority}}</div>
+              <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="type">
+          <div class="type-title">Tickets By Status</div>
+          <div *ngFor="let c of sta; let i = index">
+            <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
+              <div class="type-part">{{c.ticketStatus}}</div>
+              <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Approved Tickets
+            </mat-panel-title>
+            <mat-panel-description>
+              List of Tickets approved by manager waiting for your approved
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          
+          <p>Table of tickets that passed to manager</p>
+  
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  

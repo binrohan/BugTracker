@@ -30,7 +30,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/admin-dashboard/dashboard.component';
 import { UserManagementComponent } from './UserManagement/UserManagement.component';
 import { TicketComponent } from './tickets/ticket/ticket.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -78,6 +78,8 @@ import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 import { SettingsComponent } from './settings/settings.component';
 import { TicketListApprovedComponent } from './tickets/ticket-list-approved/ticket-list-approved.component';
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
+import { ManagerDashboardComponent } from './dashboard/manager-dashboard/manager-dashboard.component';
+import { DeveloperDashboardComponent } from './dashboard/developer-dashboard/developer-dashboard.component';
 
 
 export function tokenGetter() {
@@ -114,6 +116,8 @@ export function tokenGetter() {
       ProjectArchivedTicketsComponent,
       UserTicketsComponent,
       FreeUsersComponent,
+      ManagerDashboardComponent,
+      DeveloperDashboardComponent,
       HasRoleDirective,
       SettingsComponent
    ],
