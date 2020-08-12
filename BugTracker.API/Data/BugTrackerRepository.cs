@@ -376,6 +376,12 @@ namespace BugTracker.API.Data
                     case "all":
                         tickets = tickets.Where(t => !t.isArchived || t.isArchived);
                         break;
+                    case "approved":
+                        tickets = tickets.Where(t => !t.isArchived && t.isManagerPassed);
+                        break;
+                    case "passed":
+                        tickets = tickets.Where(t => !t.isArchived || t.isDeveloperPassed);
+                        break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
                         break;
@@ -464,7 +470,7 @@ namespace BugTracker.API.Data
             
             
 
-            if(!string.IsNullOrEmpty(ticketParams.StateBy))
+             if(!string.IsNullOrEmpty(ticketParams.StateBy))
             {
                 switch(ticketParams.StateBy)
                 {
@@ -476,6 +482,12 @@ namespace BugTracker.API.Data
                         break;
                     case "all":
                         tickets = tickets.Where(t => !t.isArchived || t.isArchived);
+                        break;
+                    case "approved":
+                        tickets = tickets.Where(t => !t.isArchived && t.isManagerPassed);
+                        break;
+                    case "passed":
+                        tickets = tickets.Where(t => !t.isArchived || t.isDeveloperPassed);
                         break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
@@ -546,13 +558,15 @@ namespace BugTracker.API.Data
 
 
 
-        public async Task<IEnumerable<Category>> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategories(string id)
         {
-            var categories = await _context.Categories
+            var categories =  _context.Categories
                                             .Include(c => c.Tickets)
-                                            .ToListAsync();
+                                            .AsQueryable();
+            
+            categories = categories.Where(c => c.Tickets.Any(t => t.User.Id.Equals(id)));            
 
-            return categories;
+            return await categories.ToListAsync();
         }
 
         public async Task<Category> GetCategory(int id)

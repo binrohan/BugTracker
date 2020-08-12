@@ -5,6 +5,8 @@ import { Category } from '../../_models/Category';
 import { Priority } from '../../_models/Priority';
 import { Status } from '../../_models/Status';
 import { AuthService } from 'src/app/_services/auth.service';
+import { Counts } from 'src/app/_models/Counts';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class DashboardComponent implements OnInit {
 
   now: Date = new Date();
-  counts: any = {};
+  counts: Counts;
   cate: Category[];
   pri: Priority[];
   sta: Status[];
@@ -22,7 +24,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private assistService: AssistService,
               private snackbar: SnackbarService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private route: ActivatedRoute) {
                 setInterval(() => {
                   this.now = new Date();
                 });

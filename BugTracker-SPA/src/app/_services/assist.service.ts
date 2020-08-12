@@ -4,6 +4,7 @@ import { Category } from '../_models/Category';
 import { environment } from 'src/environments/environment';
 import { Status } from '../_models/Status';
 import { Priority } from '../_models/Priority';
+import { Counts } from '../_models/Counts';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -51,7 +52,7 @@ export class AssistService {
     return this.http.delete(this.baseUrl + 'assist/pri/' + id);
   }
 
-  getCounts(): Observable<any> {
-    return this.http.get(this.baseUrl + 'assist/counts');
+  getCounts(): Observable<Counts> {
+    return this.http.get<Counts>(this.baseUrl + 'assist/counts');
   }
 }

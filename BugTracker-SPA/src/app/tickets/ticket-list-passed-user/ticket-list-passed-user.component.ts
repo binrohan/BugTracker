@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { SnackbarService } from 'src/app/_services/snackbar.service';
-import { ActivatedRoute } from '@angular/router';
 import { TicketService } from 'src/app/_services/ticket.service';
+import { AuthService } from 'src/app/_services/auth.service';
+import { TicketRes } from 'src/app/_models/TicketRes';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { Sort } from '@angular/material/sort';
-import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
-  selector: 'app-ticket-list-approved',
-  templateUrl: './ticket-list-approved.component.html',
-  styleUrls: ['./ticket-list-approved.component.css']
+  selector: 'app-ticket-list-passed-user',
+  templateUrl: './ticket-list-passed-user.component.html',
+  styleUrls: ['./ticket-list-passed-user.component.css']
 })
-export class TicketListApprovedComponent implements OnInit {
+export class TicketListPassedUserComponent implements OnInit {
 
-  ticketRes: any;
+  ticketParams: any = { pageSize: 5, pageIndex: 0, filter: '' , stateBy: 'passed'};
+
+  ticketRes: TicketRes;
+  userId: string;
 
   displayedColumns: string[] = [
     'title',
@@ -23,23 +26,27 @@ export class TicketListApprovedComponent implements OnInit {
     'status',
     'Action',
   ];
-
   pageSizeOptions: number[] = [5, 10, 15];
   pageIndex = 0;
   length: number;
   pagesize = 5;
-  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: 'approved'};
 
-  constructor(private snackbar: SnackbarService,
-              private route: ActivatedRoute,
-              private adminService: AdminService) { }
+  constructor(private ticketService: TicketService,
+              private authservice: AuthService,
+              private snackbar: SnackbarService) { }
 
   ngOnInit() {
-    this.loadData();
+    this.userId = this.authservice.decodedToken.nameid;
+
+    this.ticketService.getUserTickets(this.userId, this.ticketParams).subscribe(data => {
+      this.ticketRes = data;
+    }, error => {
+      this.snackbar.Success('Failed to load Tickets (dev)');
+    });
   }
 
   loadData(){
-    this.adminService.getTickets(this.ticketParams).subscribe(data => {
+    this.ticketService.getUserTickets(this.userId, this.ticketParams).subscribe(data => {
       this.ticketRes = data;
     }, error => {
       this.snackbar.Success('Connection Error');

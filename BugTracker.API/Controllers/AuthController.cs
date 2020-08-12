@@ -80,7 +80,6 @@ namespace BugTracker.API.Controllers {
             };
 
             var roles = await _userManager.GetRolesAsync(user);
-Console.WriteLine("************************Roolelellel*******************");
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));

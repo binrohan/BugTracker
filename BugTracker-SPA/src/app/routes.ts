@@ -29,9 +29,6 @@ import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-ti
 import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 import { SettingsComponent } from './settings/settings.component';
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
-import { ManagerDashboardComponent } from './dashboard/manager-dashboard/manager-dashboard.component';
-import { DeveloperDashboardComponent } from './dashboard/developer-dashboard/developer-dashboard.component';
-
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: '', component: LoginComponent },
@@ -45,65 +42,77 @@ export const appRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        resolve: {ticketRes: TicketsApprovedResolver}
+        resolve: {
+          ticketRes: TicketsApprovedResolver
+        },
       },
       {
-        path: 'manager-dashboard',
-        component: ManagerDashboardComponent
-      },
-      {
-        path: 'developer-dashboard',
-        component: DeveloperDashboardComponent
-      },
-      { path: 'user/:id',
+        path: 'user/:id',
         component: UserDetailsComponent,
-        resolve: {user: UserDetailsResolver, ticketRes: UserTicketsResolver, projectRes: ProjectsResolver }
+        resolve: {
+          user: UserDetailsResolver,
+          ticketRes: UserTicketsResolver,
+          projectRes: ProjectsResolver,
+        },
       },
       {
         path: 'users',
         component: UserManagementComponent,
         resolve: { users: UsersResolver },
-        data: {roles: ['Admin']}
+        data: { roles: ['Admin'] },
       },
       {
         path: 'projects/:tab',
         component: ProjectComponent,
-        resolve: { projectRes: ProjectsResolver, projectArchivedRes: ProjectsArchivedTableResolver }
+        resolve: {
+          projectRes: ProjectsResolver,
+          projectArchivedRes: ProjectsArchivedTableResolver,
+        },
       },
       {
         path: 'project/:id',
         component: ProjectDetailComponent,
-        // tslint:disable-next-line: max-line-length
-        resolve: { project: ProjectDetailsResolver, ticketRes: ProjectTicketsResolver, userRes: ProjectUsersResolver, freeRes: FreeUsersResolver, archivedTicketRes: ProjectArchivedTicketsResolver }
+        resolve: {
+          project: ProjectDetailsResolver,
+          ticketRes: ProjectTicketsResolver,
+          userRes: ProjectUsersResolver,
+          freeRes: FreeUsersResolver,
+          archivedTicketRes: ProjectArchivedTicketsResolver,
+        },
       },
       {
         path: 'project/edit/:id',
         component: ProjectEditComponent,
-        resolve: { project: ProjectDetailsResolver }
+        resolve: { project: ProjectDetailsResolver },
       },
-      { path: 'tickets/:tab', component: TicketComponent,
-        resolve: {ticketRes: TicketsResolver, archivedTicketRes: TicketsArchivedResolver}
+      {
+        path: 'tickets/:tab',
+        component: TicketComponent,
+        resolve: {
+          ticketRes: TicketsResolver,
+          archivedTicketRes: TicketsArchivedResolver,
+        },
       },
       {
         path: 'ticket/:id',
         component: TicketDetailComponent,
-        resolve: {ticket: TicketDetailsResolver}
-       },
-       {
+        resolve: { ticket: TicketDetailsResolver },
+      },
+      {
         path: 'ticket/edit/:id',
         component: TicketEditComponent,
-        resolve: {ticket: TicketDetailsResolver}
-       },
+        resolve: { ticket: TicketDetailsResolver },
+      },
       {
         path: 'profile',
         component: ProfileComponent,
         resolve: { user: ProfileResolver },
-        canDeactivate: [PreventUnsavedChanges]
+        canDeactivate: [PreventUnsavedChanges],
       },
       {
         path: 'settings',
-        component: SettingsComponent
-      }
+        component: SettingsComponent,
+      },
     ],
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },

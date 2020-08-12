@@ -80,6 +80,8 @@ import { TicketListApprovedComponent } from './tickets/ticket-list-approved/tick
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
 import { ManagerDashboardComponent } from './dashboard/manager-dashboard/manager-dashboard.component';
 import { DeveloperDashboardComponent } from './dashboard/developer-dashboard/developer-dashboard.component';
+import { TicketListPassedComponent } from './tickets/ticket-list-passed/ticket-list-passed.component';
+import { TicketListPassedUserComponent } from './tickets/ticket-list-passed-user/ticket-list-passed-user.component';
 
 
 export function tokenGetter() {
@@ -104,6 +106,8 @@ export function tokenGetter() {
       TicketListComponent,
       TicketListArchivedComponent,
       TicketListApprovedComponent,
+      TicketListPassedComponent,
+      TicketListPassedUserComponent,
       CommentComponent,
       TicketEditComponent,
       ProjectTableComponent,
