@@ -29,6 +29,10 @@ import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-ti
 import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 import { SettingsComponent } from './settings/settings.component';
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
+import { MyTicketsComponent } from './tickets/my-tickets/my-tickets.component';
+import { ProjectTicketsComponent } from './projects/project-tickets/project-tickets.component';
+import { TicketsOfProjectComponent } from './tickets/tickets-of-project/tickets-of-project.component';
+import { TicketFormComponent } from './tickets/ticket-form/ticket-form.component';
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: '', component: LoginComponent },
@@ -101,6 +105,10 @@ export const appRoutes: Routes = [
         resolve: { ticket: TicketDetailsResolver },
       },
       {
+        path: 'myTickets',
+        component: MyTicketsComponent
+      },
+      {
         path: 'profile',
         component: ProfileComponent,
         resolve: { user: ProfileResolver },
@@ -109,7 +117,7 @@ export const appRoutes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
-      },
+      }
     ],
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },

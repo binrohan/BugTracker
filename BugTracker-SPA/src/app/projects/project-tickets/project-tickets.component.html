@@ -14,7 +14,7 @@
         matSort
         (matSortChange)="sortData($event)"
         mat-table
-        [dataSource]="ticketRes.tickets"
+        [dataSource]="ticketRes?.tickets"
         class="mat-elevation-z8"
       >
         <!-- Position Column -->
@@ -102,7 +102,7 @@
         [pageSizeOptions]="pageSizeOptions"
         (page)="paginating($event)"
         [pageSize]="pagesize"
-        [length]="ticketRes.length"
+        [length]="ticketRes?.length"
         showFirstLastButtons
       ></mat-paginator>
     </div>

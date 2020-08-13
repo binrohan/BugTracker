@@ -133,9 +133,9 @@ namespace BugTracker.API.Controllers {
             
             
             ticketFromRepo.isArchived = true;
-            ticketFromRepo.User = null;
-            ticketFromRepo.Status = null;
-            ticketFromRepo.Priority = null;
+            //ticketFromRepo.User = null;
+            //ticketFromRepo.Status = null;
+            //ticketFromRepo.Priority = null;
 
             
             if(await _repo.SaveAll())
@@ -178,7 +178,7 @@ namespace BugTracker.API.Controllers {
                 BadRequest("Ticket is Archived");
             
             
-            ticketFromRepo.isDeveloperPassed = true;
+            ticketFromRepo.isDeveloperPassed = !ticketFromRepo.isDeveloperPassed;
 
             
             if(await _repo.SaveAll())

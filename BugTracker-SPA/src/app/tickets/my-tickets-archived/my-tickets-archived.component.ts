@@ -1,28 +1,25 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { TicketRes } from 'src/app/_models/TicketRes';
 import { Sort } from '@angular/material/sort';
-import { ActivatedRoute } from '@angular/router';
-import { Ticket } from '../../_models/Ticket';
-import { TicketService } from '../../_services/ticket.service';
-import { TicketRes } from '../../_models/TicketRes';
-import { AdminService } from 'src/app/_services/admin.service';
+import { TicketService } from 'src/app/_services/ticket.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
-  selector: 'app-ticket-list',
-  templateUrl: './ticket-list.component.html',
-  styleUrls: ['./ticket-list.component.css']
+  selector: 'app-my-tickets-archived',
+  templateUrl: './my-tickets-archived.component.html',
+  styleUrls: ['./my-tickets-archived.component.css']
 })
-export class TicketListComponent implements OnInit {
+export class MyTicketsArchivedComponent implements OnInit {
+
+  @Input() userId: string;
 
   ticketRes: TicketRes;
 
 
   displayedColumns: string[] = [
-    'id',
     'title',
     'projectName',
     'updated',
-    'submissionDate',
     'category',
     'priority',
     'status',
@@ -30,24 +27,17 @@ export class TicketListComponent implements OnInit {
   ];
 
 
-  pageSizeOptions: number[] = [5, 9, 15];
+  pageSizeOptions: number[] = [5, 10, 15];
   pageIndex = 0;
-  length: number;
-  pagesize = 9;
-  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: 'active'};
-
+  pagesize = 10;
+  ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: 'archived'};
 
 
   constructor(private ticketService: TicketService,
-              private route: ActivatedRoute,
-              private adminService: AdminService, private snackbar: SnackbarService) { }
+              private snackbar: SnackbarService) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.ticketRes = data.ticketRes;
-    }, error => {
-      this.snackbar.Success('Failed to load data');
-    });
+    this.loadTickets();
   }
 
   applyFilter(event: Event) {
@@ -63,7 +53,7 @@ export class TicketListComponent implements OnInit {
     }
   }
   loadTickets() {
-    this.adminService.getTickets(this.ticketParams).subscribe(
+    this.ticketService.getUserTickets(this.userId, this.ticketParams).subscribe(
       (data) => {
         this.ticketRes = data;
       },

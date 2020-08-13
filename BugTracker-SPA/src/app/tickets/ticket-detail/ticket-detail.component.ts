@@ -47,7 +47,7 @@ export class TicketDetailComponent implements OnInit {
       }, error => {
         this.snackbar.Success('Failed to Archived');
       }, () => {
-        this.router.navigate(['/tickets/2']);
+        this.router.navigate(['/tickets/0']);
       });
     }
   }

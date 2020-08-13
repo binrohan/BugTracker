@@ -14,17 +14,17 @@ import { TicketListComponent } from '../ticket-list/ticket-list.component';
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
-  tab = 0;
+  currentTabIndex = 0;
 
   @ViewChild(TicketListComponent) ticketList: TicketListComponent;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.tab = parseInt(this.route.snapshot.paramMap.get('tab'), 10);
+    this.currentTabIndex = parseInt(this.route.snapshot.paramMap.get('tab'), 10);
   }
-  test(){
-    if (this.tab === 0) {
+  onTabChange(){
+    if (this.currentTabIndex === 0) {
       this.ticketList.loadTickets();
     }
   }

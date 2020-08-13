@@ -101,6 +101,11 @@ namespace BugTracker.API.Controllers
                 if(!ticket.isArchived)
                     BadRequest("Project has ticket to resolve");
             }
+            
+            foreach (var user in projectFromRepo.Users)
+            {
+                user.Tickets = null;
+            }
 
             projectFromRepo.Users = null;
 

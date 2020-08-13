@@ -487,7 +487,7 @@ namespace BugTracker.API.Data
                         tickets = tickets.Where(t => !t.isArchived && t.isManagerPassed);
                         break;
                     case "passed":
-                        tickets = tickets.Where(t => !t.isArchived || t.isDeveloperPassed);
+                        tickets = tickets.Where(t => !t.isArchived && t.isDeveloperPassed);
                         break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);

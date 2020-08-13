@@ -117,20 +117,6 @@ namespace BugTracker.API.Controllers {
             var user = await _repo.GetUser(id, false);
             var roles =  _userManager.GetRolesAsync(user).Result;
 
-            // if(!role.Equals("Admin"))
-            // {
-
-
-            //     if(role.Equals("Manager"))
-            //     {
-            //         return Ok(await _repo.Counting(id, role));
-            //     }
-            //     if(role.Equals("Developer"))
-            //     {
-            //         return Ok(await _repo.Counting(id, role));
-            //     }
-            // }
-
             return Ok(await _repo.Counting(roles, id));
 
 

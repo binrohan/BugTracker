@@ -82,6 +82,10 @@ import { ManagerDashboardComponent } from './dashboard/manager-dashboard/manager
 import { DeveloperDashboardComponent } from './dashboard/developer-dashboard/developer-dashboard.component';
 import { TicketListPassedComponent } from './tickets/ticket-list-passed/ticket-list-passed.component';
 import { TicketListPassedUserComponent } from './tickets/ticket-list-passed-user/ticket-list-passed-user.component';
+import { MyTicketsComponent } from './tickets/my-tickets/my-tickets.component';
+import { MyTicketsArchivedComponent } from './tickets/my-tickets-archived/my-tickets-archived.component';
+import { MyTicketsApprovedComponent } from './tickets/my-tickets-approved/my-tickets-approved.component';
+import { MyTicketsActiveComponent } from './tickets/my-tickets-active/my-tickets-active.component';
 
 
 export function tokenGetter() {
@@ -123,7 +127,11 @@ export function tokenGetter() {
       ManagerDashboardComponent,
       DeveloperDashboardComponent,
       HasRoleDirective,
-      SettingsComponent
+      SettingsComponent,
+      MyTicketsComponent,
+      MyTicketsArchivedComponent,
+      MyTicketsApprovedComponent,
+      MyTicketsActiveComponent
    ],
    imports: [
       BrowserModule,

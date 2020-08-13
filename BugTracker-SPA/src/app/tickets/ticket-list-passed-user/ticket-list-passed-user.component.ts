@@ -40,6 +40,13 @@ export class TicketListPassedUserComponent implements OnInit {
 
     this.ticketService.getUserTickets(this.userId, this.ticketParams).subscribe(data => {
       this.ticketRes = data;
+      this.ticketRes.tickets.forEach(t => {
+        if (t.isManagerPassed){
+          const i = this.ticketRes.tickets.indexOf(t);
+          this.ticketRes.tickets.splice(i, 1);
+          this.ticketRes.length--;
+        }
+      });
     }, error => {
       this.snackbar.Success('Failed to load Tickets (dev)');
     });

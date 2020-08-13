@@ -105,6 +105,25 @@ form mat-form-field,
   .right-nav button {
   width: 100%;
   margin-bottom: 10px;
-  }
+}
 
+/****  Angular Component Table  ****/
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+
+/**  Override Default Style  **/
+.extra-style {
+  padding: 0 18px;
+}
+/***********Ends***************/
 

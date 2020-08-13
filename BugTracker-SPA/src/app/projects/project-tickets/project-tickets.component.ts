@@ -30,10 +30,10 @@ export class ProjectTicketsComponent implements OnInit {
     'Action',
   ];
 
-  pageSizeOptions: number[] = [5, 9, 15];
+  pageSizeOptions: number[] = [5, 10, 15];
   pageIndex = 0;
-  pagesize = 9;
-  ticketParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Starteddesc', stateBy: 'active'};
+  pagesize = 10;
+  ticketParams: any = {pageSize: this.pagesize, pageIndex: 0, filter: '', orderBy: 'Starteddesc', stateBy: 'active'};
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
@@ -47,6 +47,7 @@ export class ProjectTicketsComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.ticketRes = data.ticketRes;
     });
+    this.loadTickets();
   }
 
   applyFilter(event: Event) {
