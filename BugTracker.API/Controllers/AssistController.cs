@@ -25,9 +25,9 @@ namespace BugTracker.API.Controllers {
             _mapper = mapper;
         }
 
-        [HttpGet ("cate/{id}")]
-        public async Task<IActionResult> GetCategories (string id) {
-            var categories = await _repo.GetCategories (id);
+        [HttpGet ("cate")]
+        public async Task<IActionResult> GetCategories () {
+            var categories = await _repo.GetCategories ();
             var categoriesToReturn = _mapper.Map<IEnumerable<CategoryToReturn>> (categories);
 
             // return Ok (categories);

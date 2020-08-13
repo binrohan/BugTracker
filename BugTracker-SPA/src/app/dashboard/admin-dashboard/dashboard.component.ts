@@ -7,6 +7,8 @@ import { Status } from '../../_models/Status';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Counts } from 'src/app/_models/Counts';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/_services/user.service';
+import { User } from 'src/app/_models/User';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,11 +23,11 @@ export class DashboardComponent implements OnInit {
   pri: Priority[];
   sta: Status[];
   userId: string;
+  user: User;
 
   constructor(private assistService: AssistService,
               private snackbar: SnackbarService,
-              private authService: AuthService,
-              private route: ActivatedRoute) {
+              private authService: AuthService) {
                 setInterval(() => {
                   this.now = new Date();
                 });
@@ -61,5 +63,4 @@ export class DashboardComponent implements OnInit {
       this.snackbar.Success('Failed to load data');
     });
   }
-
 }

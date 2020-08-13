@@ -42,9 +42,6 @@ export const appRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        resolve: {
-          ticketRes: TicketsApprovedResolver
-        },
       },
       {
         path: 'user/:id',

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { User } from './_models/User';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { share } from 'rxjs/operators';
+import { UserService } from './_services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +22,15 @@ export class AppComponent implements OnInit{
   shouldRun = true;
   hide = true;
   user: User;
+  userDetails: User;
   jwtHelper = new JwtHelperService();
   showToolbar = false;
+  projectLink: string;
 
   constructor(private snackbar: SnackbarService,
               public authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private userService: UserService) { }
   ngOnInit() {
     const token = localStorage.getItem('token');
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -48,6 +52,19 @@ export class AppComponent implements OnInit{
 
   loggedIn() {
     return this.authService.loggedIn();
+  }
+  
+  userProject(){
+    this.userService.getUser(this.authService.decodedToken?.nameid).subscribe(data => {
+      this.userDetails = data;
+    }, error => {
+      this.snackbar.Success('Something worng');
+    }, () => {
+      this.projectLink = '/project/' + this.userDetails.project?.id;
+      if (this.userDetails.project != null){
+        this.router.navigate(['/project/', this.userDetails.project.id]);
+      }
+    });
   }
 
 }

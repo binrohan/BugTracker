@@ -29,7 +29,7 @@ namespace BugTracker.API.Data
         Task<Comment> GetComment(int id);
         Task<IEnumerable<Comment>> GetComments(int ticketId, CommentParams commentParams);
 
-        Task<IEnumerable<Category>> GetCategories(string id);
+        Task<IEnumerable<Category>> GetCategories();
         Task<Category> GetCategory(int id);
         Task<IEnumerable<Status>> GetStatuses();
         Task<Status> GetStatus(int id);

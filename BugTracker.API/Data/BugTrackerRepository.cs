@@ -558,15 +558,10 @@ namespace BugTracker.API.Data
 
 
 
-        public async Task<IEnumerable<Category>> GetCategories(string id)
+        public async Task<IEnumerable<Category>> GetCategories()
         {
-            var categories =  _context.Categories
-                                            .Include(c => c.Tickets)
-                                            .AsQueryable();
-            
-            categories = categories.Where(c => c.Tickets.Any(t => t.User.Id.Equals(id)));            
-
-            return await categories.ToListAsync();
+            var categories  = await _context.Categories.Include(c => c.Tickets).ToListAsync();
+            return categories;
         }
 
         public async Task<Category> GetCategory(int id)
@@ -694,13 +689,17 @@ namespace BugTracker.API.Data
             if(roles.Contains("Manager") || roles.Contains("Developer"))
             {
                 var user = GetUser(userId, false).Result;
-                counts.ProjectId = user.project.Id;
-                counts.ProjectTitle = user.project.Title;
+                if(user.project != null)
+                {
+                    counts.ProjectId = user.project.Id;
+                    counts.ProjectTitle = user.project.Title;
 
-                counts.ProjectUsers = await users.Where(u => u.project.Id == counts.ProjectId).CountAsync();
-                counts.ProjectActiveTickets = await tickets.Where(t => t.project.Id == counts.ProjectId && !t.isArchived).CountAsync();
-                counts.ProjectArchivedTickets = await tickets.Where(t => t.project.Id == counts.ProjectId && t.isArchived).CountAsync();
-                counts.Projectcomments = await comments.Where(c => c.Commenter.project.Id == counts.ProjectId).CountAsync();
+                    counts.ProjectUsers = await users.Where(u => u.project.Id == counts.ProjectId).CountAsync();
+                    counts.ProjectActiveTickets = await tickets.Where(t => t.project.Id == counts.ProjectId && !t.isArchived).CountAsync();
+                    counts.ProjectArchivedTickets = await tickets.Where(t => t.project.Id == counts.ProjectId && t.isArchived).CountAsync();
+                    counts.Projectcomments = await comments.Where(c => c.Commenter.project.Id == counts.ProjectId).CountAsync();
+                }
+                
             }
             if(roles.Contains("Developer"))
             {

@@ -63,7 +63,7 @@
         </div>
         <div class="right-nav">
 
-                <button mat-flat-button color="accent" type="button" (click) = "isNameLock = !isNameLock">edit</button>
+                <button mat-flat-button color="accent" type="button" (click) = "isNameLock = !isNameLock">Edit</button>
                 <button mat-flat-button color="primary" type="submit" form="editForm" [disabled] = "!editForm.dirty" >Save</button>
                 <div class="alert" *ngIf="editForm.dirty">
                     <mat-icon>warning</mat-icon><p>You have made changes</p>

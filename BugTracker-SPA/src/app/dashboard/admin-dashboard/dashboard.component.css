@@ -17,11 +17,19 @@ h1{
     row-gap: 20px;
 }
 .sm-card{
-    background-color: hotpink;
     padding: 10px;
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 10px;
+}
+.admin .sm-card{
+    background-color: #f35f52;
+}
+.manager .sm-card{
+    background-color: #3D6AF2;
+}
+.dev .sm-card{
+    background-color: #27a854;
 }
 .sm-card p{
     margin: 0;
@@ -47,7 +55,8 @@ h1{
 }
 .type-title{
     padding: 10px 10px;
-    background-color: wheat;
+    background-color: #ebe050;
+    color: black;
 }
 .type-part{
     display: inline-block;
