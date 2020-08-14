@@ -43,11 +43,11 @@ export class TicketDetailComponent implements OnInit {
   passTicket(){
     if (confirm('Are you sure?')){
       this.ticketService.passTicket(this.ticket.id).subscribe(() => {
-        this.snackbar.Success('Ticket Archived');
+        this.snackbar.Success('Ticket successfully passed ticket to manager');
       }, error => {
-        this.snackbar.Success('Failed to Archived');
+        this.snackbar.Success('Failed to undo pass the ticket');
       }, () => {
-        this.router.navigate(['/tickets/0']);
+        this.reload();
       });
     }
   }
@@ -55,11 +55,11 @@ export class TicketDetailComponent implements OnInit {
   approveTicket(){
     if (confirm('Are you sure?')){
       this.ticketService.approveTicket(this.ticket.id).subscribe(() => {
-        this.snackbar.Success('Ticket Archived');
+        this.snackbar.Success('Ticket Approved');
       }, error => {
-        this.snackbar.Success('Failed to Archived');
+        this.snackbar.Success('Error during approve the ticket');
       }, () => {
-        this.router.navigate(['/tickets/2']);
+        this.reload();
       });
     }
   }
@@ -71,7 +71,7 @@ export class TicketDetailComponent implements OnInit {
       }, error => {
         this.snackbar.Success('Failed to Archived');
       }, () => {
-        this.router.navigate(['/tickets/2']);
+        this.reload();
       });
     }
   }

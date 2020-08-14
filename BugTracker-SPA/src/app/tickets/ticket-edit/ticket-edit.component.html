@@ -12,6 +12,7 @@
             <mat-form-field class="example-full-width">
               <input matInput 
               formControlName="title"
+              [readonly]="noAdminOrManager"
               />
             </mat-form-field>
           </div>
@@ -20,6 +21,7 @@
             <mat-form-field class="example-full-width">
               <textarea matInput
               formControlName="description"
+              [readonly]="noAdminOrManager"
               >
               </textarea>
             </mat-form-field>
@@ -32,8 +34,8 @@
               <select matNativeControl
               formControlName="userId"
               >
-              <option value="">_Blank_</option>
-                <option *ngFor="let user of users" value="{{user.id}}">{{ user.userName}}</option>
+              <option [disabled]="noAdminOrManager" value="">_Blank_</option>
+                <option [disabled]="noAdminOrManager" *ngFor="let user of users" value="{{user.id}}">{{ user.userName}}</option>
               </select>
             </mat-form-field>
           </div>
@@ -42,6 +44,7 @@
             <mat-form-field color="accent">
               <input matInput [matDatepicker]="picker1" 
               formControlName="submissionDate"
+              [readonly]="noAdminOrManager"
               />
               <mat-datepicker-toggle
                 matSuffix
@@ -61,8 +64,9 @@
             <mat-form-field>
               <select matNativeControl
               formControlName="priorityId"
+              
               >
-                <option *ngFor="let pri of priorities" value="{{pri.id}}"   >{{pri.ticketPriority}}</option>
+                <option [disabled]="noAdminOrManager" *ngFor="let pri of priorities" value="{{pri.id}}"   >{{pri.ticketPriority}}</option>
               </select>
             </mat-form-field>
           </div>
@@ -86,7 +90,7 @@
               matNativeControl
               formControlName="categoryId"
               >
-                <option *ngFor="let cate of categories" value="{{cate.id}}">{{cate.ticketCategory}}</option>
+                <option [disabled]="noAdminOrManager" *ngFor="let cate of categories" value="{{cate.id}}">{{cate.ticketCategory}}</option>
               </select>
             </mat-form-field>
           </div>
@@ -94,11 +98,11 @@
         <div class="row info">
           <div class="box">
             <h3>CREATED</h3>
-            <p>{{ticket.created | date: "dd-mm-yyyy"}}</p>
+            <p>{{ticket.created | date: "dd MMMM, yyyy"}}</p>
           </div>
           <div class="box">
             <h3>LAST UPDATED</h3>
-            <p>{{ticket.updated | date: "dd-mm-yyyy"}}</p>
+            <p>{{ticket.updated | date: "dd MMMM, yyyy"}}</p>
           </div>
         </div>
         <div class="row info">

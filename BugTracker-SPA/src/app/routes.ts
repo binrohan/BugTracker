@@ -31,7 +31,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
 import { MyTicketsComponent } from './tickets/my-tickets/my-tickets.component';
 import { ProjectTicketsComponent } from './projects/project-tickets/project-tickets.component';
-import { TicketsOfProjectComponent } from './tickets/tickets-of-project/tickets-of-project.component';
 import { TicketFormComponent } from './tickets/ticket-form/ticket-form.component';
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },

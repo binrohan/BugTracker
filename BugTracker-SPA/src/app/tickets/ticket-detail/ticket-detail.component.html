@@ -76,11 +76,18 @@
         <app-comment [comments] = "comments" [ticketId] = "ticket.id" [length]="length" [disableComments]="ticket.isArchived"></app-comment>
       </div>
     </div>
-    <div *ngIf="!ticket.isArchived" class="right-nav">
-      <button mat-flat-button color="warn" [disabled]="ticket.isArchived" [routerLink]="['/ticket/edit/', ticket.id]">Edit</button>
-      <button mat-flat-button color="accent" (click)="passTicket()" [disabled]="ticket.isDeveloperPassed">Pass</button>
-      <button mat-flat-button color="primary" [disabled]="!isDeveloperPassed || ticket.isManagerPassed" (click)="approveTicket()">Approve</button>
-      <button mat-flat-button color="warn" [disabled]="ticket.isArchived" (click)="archiveTicket()">Archived</button>
+    <div class="right-nav">
+      <div *ngIf="!ticket.isArchived">
+        <button mat-flat-button color="warn" [disabled]="ticket.isArchived" [routerLink]="['/ticket/edit/', ticket.id]">Edit</button>
+        <button mat-flat-button color="accent" (click)="passTicket()" [disabled]="ticket.isDeveloperPassed">Pass</button>
+        <button mat-flat-button color="accent" (click)="passTicket()" [disabled]="!ticket.isDeveloperPassed">Keep Working</button>
+        <button mat-flat-button color="primary" [disabled]="!ticket.isDeveloperPassed || ticket.isManagerPassed" (click)="approveTicket()">Approve</button>
+        <button mat-flat-button color="accent" [disabled]="!ticket.isManagerPassed" (click)="approveTicket()">Approve Undo</button>
+        <button mat-flat-button color="warn" [disabled]="ticket.isArchived" (click)="archiveTicket()">Archived</button>
+      </div>
+      <div *ngIf="ticket.isArchived"> 
+        <button mat-flat-button color="primary" [disabled]="!ticket.isArchived" (click)="archiveTicket()">Reopen</button>
+      </div>
     </div>
   </div>
 </div>

@@ -36,6 +36,8 @@ export class TicketFormComponent implements OnInit {
   priorities: Priority[];
   users: User[] = [];
   ticket: Ticket;
+  projectSubDate: Date = new Date();
+  today: Date = new Date();
 
 
   constructor(
@@ -103,6 +105,7 @@ export class TicketFormComponent implements OnInit {
     this.projectService.getProject(projectId).subscribe((data) => {
       this.project = data;
       this.project.users.forEach(u => u.roles.includes('Developer') ? this.users.push(u) : false);
+      this.projectSubDate = this.project.deadTime;
     });
   }
 

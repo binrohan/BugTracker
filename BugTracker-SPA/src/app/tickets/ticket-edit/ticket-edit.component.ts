@@ -11,6 +11,7 @@ import { Category } from '../../_models/Category';
 import { Status } from '../../_models/Status';
 import { Priority } from '../../_models/Priority';
 import { SnackbarService } from '../../_services/snackbar.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-ticket-edit',
@@ -27,18 +28,24 @@ export class TicketEditComponent implements OnInit {
   categories: Category[];
   statuses: Status[];
   priorities: Priority[];
+  noAdminOrManager = false;
 
   constructor(private route: ActivatedRoute,
               private ticketService: TicketService,
               private fb: FormBuilder,
               private projectService: ProjectService,
               private assistService: AssistService,
-              private snackbar: SnackbarService) { }
+              private snackbar: SnackbarService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.ticket = data.ticket;
     });
+    // tslint:disable-next-line: max-line-length
+    if (!(this.authService.decodedToken.role as Array<string>).includes('Admin') || !(this.authService.decodedToken.role as Array<string>).includes('Manager')){
+      this.noAdminOrManager = true;
+    }
     this.createEditTicketForm();
     this.loadData();
     this.getUsersForProject(this.ticket.project.id);

@@ -34,7 +34,7 @@ export class CommentComponent implements OnInit {
   @Input() length: number;
   pagesize = 5;
   previousPageIndex: number;
-  commentParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', oderBy: 'createdasc' };
+  commentParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', orderBy: 'createddesc' };
 
   constructor(private snackbar: SnackbarService,
               private commentService: CommentService, private fb: FormBuilder, private authService: AuthService) { }
@@ -60,7 +60,7 @@ export class CommentComponent implements OnInit {
 
   sortData(sort: Sort) {
     if (sort.active) {
-      this.commentParams.orderBy = (sort.active + sort.direction);
+      this.commentParams.orderBy = (sort.active + sort.direction);console.log(sort.active + sort.direction);
       this.loadComments();
     }
   }

@@ -128,11 +128,11 @@ namespace BugTracker.API.Controllers {
         {          
             var ticketFromRepo =await _repo.GetTicket(ticketId);
  
-            if(ticketFromRepo.isArchived)
-                BadRequest("Ticket is Archived");
+            // if(ticketFromRepo.isArchived)
+            //     BadRequest("Ticket is Archived");
             
             
-            ticketFromRepo.isArchived = true;
+            ticketFromRepo.isArchived = !ticketFromRepo.isArchived;
             //ticketFromRepo.User = null;
             //ticketFromRepo.Status = null;
             //ticketFromRepo.Priority = null;
@@ -153,11 +153,13 @@ namespace BugTracker.API.Controllers {
             var ticketFromRepo =await _repo.GetTicket(ticketId);
  
             if(ticketFromRepo.isArchived)
-                BadRequest("Ticket is Archived");
+               return BadRequest("Ticket is Archived");
+            
+            if(ticketFromRepo.project.Users==null || !ticketFromRepo.project.Users.Contains(_repo.GetUser(User.FindFirst(ClaimTypes.NameIdentifier).Value, false).Result))
+                return Unauthorized();
             
             
-            ticketFromRepo.isManagerPassed = true;
-
+            ticketFromRepo.isManagerPassed = !ticketFromRepo.isManagerPassed;
             
             if(await _repo.SaveAll())
             {
@@ -175,8 +177,10 @@ namespace BugTracker.API.Controllers {
             var ticketFromRepo =await _repo.GetTicket(ticketId);
  
             if(ticketFromRepo.isArchived)
-                BadRequest("Ticket is Archived");
-            
+                return BadRequest("Ticket is Archived");
+
+            if(ticketFromRepo.isManagerPassed)
+                return BadRequest("Ticket is Approved already");
             
             ticketFromRepo.isDeveloperPassed = !ticketFromRepo.isDeveloperPassed;
 

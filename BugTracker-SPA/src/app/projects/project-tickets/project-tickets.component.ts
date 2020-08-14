@@ -47,7 +47,9 @@ export class ProjectTicketsComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.ticketRes = data.ticketRes;
     });
-    this.loadTickets();
+    if(this.ticketRes.length > 0){
+      this.loadTickets();
+    }
   }
 
   applyFilter(event: Event) {

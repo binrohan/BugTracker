@@ -607,15 +607,14 @@ namespace BugTracker.API.Data
 
         public async Task<Comment> GetComment(int id)
         {
-            var comment = await _context.Comments
-                                    .FirstOrDefaultAsync(c => c.Id == id);
+            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
             return comment;
         }
 
         public async Task<IEnumerable<Comment>> GetComments(int ticketId, CommentParams commentParams)
         {
             var comments = _context.Comments.Where(c => c.Ticket.Id == ticketId && c.IsDeleted == false)
-                                            .Include(c => c.Commenter)    
+                                            .Include(c => c.Commenter) 
                                             .AsQueryable();
 
             int length = comments.Count();

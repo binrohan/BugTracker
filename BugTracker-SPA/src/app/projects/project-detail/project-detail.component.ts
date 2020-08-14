@@ -10,6 +10,7 @@ import { FreeUsersResolver } from 'src/app/_resolvers/free-users.resolver';
 import { ProjectTicketsComponent } from '../project-tickets/project-tickets.component';
 import { ProjectBasicComponent } from '../project-basic/project-basic.component';
 import { ProjectUsersComponent } from '../project-users/project-users.component';
+import { TicketFormComponent } from 'src/app/tickets/ticket-form/ticket-form.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -21,6 +22,8 @@ export class ProjectDetailComponent implements OnInit {
   @ViewChild(FreeUsersComponent) assignUser: FreeUsersComponent;
   @ViewChild(ProjectUsersComponent) ProjectUsers: ProjectUsersComponent;
   @ViewChild(ProjectBasicComponent) projectBasic: ProjectBasicComponent;
+  // @ViewChild(TicketFormComponent) ticketForm: TicketFormComponent;
+  @ViewChild(ProjectTicketsComponent) projectTickets: ProjectTicketsComponent;
 
   step = 0;
   projectId: number;
@@ -60,5 +63,8 @@ export class ProjectDetailComponent implements OnInit {
   }
   loadUsers(){
     this.ProjectUsers.loadUsers();
+  }
+  loadTickets(){
+    this.projectTickets.loadTickets();
   }
 }

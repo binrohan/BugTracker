@@ -6,6 +6,7 @@ using BugTracker.API.Data;
 using BugTracker.API.Dtos;
 using BugTracker.API.Helpers;
 using BugTracker.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugTracker.API.Controllers {
@@ -27,7 +28,7 @@ namespace BugTracker.API.Controllers {
 
             return Ok( new { comments, commentParams.Length });
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> AddComment(CommentToCreateDto commentToCreate)
         {
@@ -44,19 +45,20 @@ namespace BugTracker.API.Controllers {
             throw new Exception ("Commect is not posted"); 
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> EditComment(int id, CommentToUpdateDto commentToUpdate)
-        {
-            var commenntFromRepo = await _repo.GetComment(id);
+        //This method is deprecated
+        // [HttpPut("{id}")]
+        // public async Task<IActionResult> EditComment(int id, CommentToUpdateDto commentToUpdate)
+        // {
+        //     var commenntFromRepo = await _repo.GetComment(id);
 
-            if(commenntFromRepo.IsDeleted == true)
-                return BadRequest();
+        //     if(commenntFromRepo.IsDeleted == true)
+        //         return BadRequest();
 
-            _mapper.Map(commenntFromRepo, commentToUpdate);
+        //     _mapper.Map(commenntFromRepo, commentToUpdate);
 
-            if(await _repo.SaveAll())
-                return NoContent();
-            throw new Exception ("Can't Updated");
-        }
+        //     if(await _repo.SaveAll())
+        //         return NoContent();
+        //     throw new Exception ("Can't Updated");
+        // }
     }
 }
