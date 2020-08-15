@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using BugTracker.API.Dtos;
 using BugTracker.API.Models;

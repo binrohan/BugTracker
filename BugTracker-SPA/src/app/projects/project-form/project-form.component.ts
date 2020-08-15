@@ -35,7 +35,7 @@ export class ProjectFormComponent implements OnInit {
     });
   }
 
-  addProject(){
+  addProject(){console.log(this.projectForm.value);
     if (this.projectForm.valid){
       this.newProject = Object.assign({}, this.projectForm.value);
       this.projectService.addProject(this.newProject).subscribe(() => {

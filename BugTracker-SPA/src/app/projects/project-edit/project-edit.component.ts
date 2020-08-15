@@ -9,6 +9,7 @@ import { User } from 'src/app/_models/User';
 import { Category } from 'src/app/_models/Category';
 import { Status } from 'src/app/_models/Status';
 import { Priority } from 'src/app/_models/Priority';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-project-edit',
@@ -16,6 +17,7 @@ import { Priority } from 'src/app/_models/Priority';
   styleUrls: ['./project-edit.component.css']
 })
 export class ProjectEditComponent implements OnInit {
+  events: string[] = [];
 
   project: Project;
   updatedProject: Project;
@@ -38,7 +40,7 @@ export class ProjectEditComponent implements OnInit {
     this.projectEditForm = this.fb.group({
       title: [this.project.title, Validators.required],
       description: [this.project.description, Validators.required],
-      deadline: [this.project.deadTime, Validators.required]
+      deadTime: [this.project.deadTime, Validators.required]
     });
   }
 

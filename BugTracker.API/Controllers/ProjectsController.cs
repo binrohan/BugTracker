@@ -54,9 +54,8 @@ namespace BugTracker.API.Controllers
         [Authorize(Policy = "RequiredAdminRole")]
         [HttpPost("add")]
         public async Task<IActionResult> AddProject(ProjectToCreateDto projectToCreate)
-        {
+        { 
             var newProject = _mapper.Map<Project>(projectToCreate);
-
             _repo.Add(newProject);
 
             if (await _repo.SaveAll())
