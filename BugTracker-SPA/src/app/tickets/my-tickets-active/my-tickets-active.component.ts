@@ -31,7 +31,7 @@ export class MyTicketsActiveComponent implements OnInit {
     pageIndex: this.pageIndex,
     pageSize: this.pagesize,
     filter: '',
-    stateBy: 'active',
+    stateBy: 'live',
   };
 
   constructor(
@@ -59,13 +59,6 @@ export class MyTicketsActiveComponent implements OnInit {
     this.ticketService.getUserTickets(this.userId, this.ticketParams).subscribe(
       (data) => {
         this.ticketRes = data;
-        this.ticketRes.tickets.forEach(t => {
-          if (t.isManagerPassed || t.isDeveloperPassed){
-            const i = this.ticketRes.tickets.indexOf(t);
-            this.ticketRes.tickets.splice(i, 1);
-            this.ticketRes.length--;
-          }
-        });
       },
       (error) => {
         this.snackbar.Success('Failed to load data');

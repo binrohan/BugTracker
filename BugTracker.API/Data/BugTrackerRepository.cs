@@ -271,6 +271,9 @@ namespace BugTracker.API.Data
                     case "active":
                         tickets = tickets.Where(t => !t.isArchived);
                         break;
+                    case "live":
+                        tickets = tickets.Where(t => !t.isArchived && !t.isManagerPassed && !t.isDeveloperPassed);
+                        break;
                     case "all":
                         tickets = tickets.Where(t => !t.isArchived || t.isArchived);
                         break;
@@ -372,6 +375,9 @@ namespace BugTracker.API.Data
                         break;
                     case "active":
                         tickets = tickets.Where(t => !t.isArchived);
+                        break;
+                     case "live":
+                        tickets = tickets.Where(t => !t.isArchived && !t.isManagerPassed && !t.isDeveloperPassed);
                         break;
                     case "all":
                         tickets = tickets.Where(t => !t.isArchived || t.isArchived);
@@ -479,6 +485,9 @@ namespace BugTracker.API.Data
                         break;
                     case "active":
                         tickets = tickets.Where(t => !t.isArchived);
+                        break;
+                     case "live":
+                        tickets = tickets.Where(t => !t.isArchived && !t.isManagerPassed && !t.isDeveloperPassed);
                         break;
                     case "all":
                         tickets = tickets.Where(t => !t.isArchived || t.isArchived);

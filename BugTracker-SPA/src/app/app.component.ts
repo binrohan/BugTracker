@@ -25,7 +25,8 @@ export class AppComponent implements OnInit{
   userDetails: User;
   jwtHelper = new JwtHelperService();
   showToolbar = false;
-  projectLink: string;
+  projectLink = '';
+  isProjectNull = true;
 
   constructor(private snackbar: SnackbarService,
               public authService: AuthService,
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit{
     if (this.user) {
       this.authService.currentUser = this.user;
     }
+    this.userProject();
   }
   logout(){
     localStorage.removeItem('token');
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit{
   loggedIn() {
     return this.authService.loggedIn();
   }
-  
+
   userProject(){
     this.userService.getUser(this.authService.decodedToken?.nameid).subscribe(data => {
       this.userDetails = data;
@@ -61,9 +63,7 @@ export class AppComponent implements OnInit{
       this.snackbar.Success('Something worng');
     }, () => {
       this.projectLink = '/project/' + this.userDetails.project?.id;
-      if (this.userDetails.project != null){
-        this.router.navigate(['/project/', this.userDetails.project.id]);
-      }
+      this.isProjectNull = this.userDetails.project ? false : true;
     });
   }
 
