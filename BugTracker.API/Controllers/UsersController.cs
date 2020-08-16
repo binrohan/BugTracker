@@ -80,12 +80,13 @@ namespace BugTracker.API.Controllers
             if (!id.Equals(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var userFromRepo = await _repo.GetUser(id, false);
-
+            //var userFromRepo = await _repo.GetUser(id, false);
+            var userFromRepo = await _userManager.FindByEmailAsync(userToUpdate.Email);
             _mapper.Map(userToUpdate, userFromRepo);
+            var user = _mapper.Map<UserForDetailed>(userFromRepo);
 
             if (await _repo.SaveAll())
-                return Ok(userFromRepo);
+                return Ok(user);
 
             throw new Exception("Failed to save");
         }

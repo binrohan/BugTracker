@@ -30,7 +30,7 @@
         <span>Bug Tracker</span>
         <span class="example-spacer"></span>
         <div class="example-button-row">
-          <a mat-button [routerLink]="['/profile']" routerLinkActive="router-link-active" >{{authService.decodedToken?.unique_name | titlecase}}</a>
+          <a mat-button [routerLink]="['/profile']" routerLinkActive="router-link-active" >{{authService.currentUser?.userName | titlecase}}</a>
           <a mat-button (click)="logout()" [routerLink]="['/login']" routerLinkActive="router-link-active" >Logout</a>
         </div>
     </mat-toolbar>

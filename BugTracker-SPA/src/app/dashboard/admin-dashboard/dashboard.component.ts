@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   sta: Status[];
   userId: string;
   user: User;
+  step = 0;
 
   constructor(private assistService: AssistService,
               private snackbar: SnackbarService,
@@ -62,5 +63,17 @@ export class DashboardComponent implements OnInit {
     }, error => {
       this.snackbar.Success('Failed to load data');
     });
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 }

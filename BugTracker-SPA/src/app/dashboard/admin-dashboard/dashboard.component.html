@@ -1,9 +1,9 @@
 <div class="whole">
-  <h1>Dashboard</h1>
+  <h1>DASHBOARD</h1>
   <div class="time">
     <p>{{now | date: 'EEEE dd MMMM, yyyy'}} &nbsp; {{now | date: 'hh:mm'}}</p>
   </div>
-  <div class="d-row admin" *appHasRole="['Admin']">
+  <div class="d-row over" *appHasRole="['Admin']">
     <div class="sm-card-container">
       <div class="sm-card">
         <div class="icon"><mat-icon>supervisor_account</mat-icon></div>
@@ -99,7 +99,7 @@
       </div>
     </div>
   </div>
-  <div class="d-row manager" *appHasRole="['Manager', 'Developer']">
+  <div class="d-row mid" *appHasRole="['Manager', 'Developer']">
     <div class="sm-card-container">
       <div class="sm-card">
         <div class="icon"><mat-icon>build</mat-icon></div>
@@ -196,7 +196,7 @@
     </div>
   </div>
   <div>
-    <mat-accordion>
+    <mat-accordion class="example-headers-align">
       <mat-expansion-panel *appHasRole="['Admin']">
         <mat-expansion-panel-header>
           <mat-panel-title>
