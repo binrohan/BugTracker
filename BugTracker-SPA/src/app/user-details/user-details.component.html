@@ -62,7 +62,7 @@
         </div>
       </div>
       <div class="row table-holder">
-        <app-user-tickets [userId]="user.id" *ngIf="user.tickets.length>0"></app-user-tickets>
+        <app-user-tickets [userId]="user.id" *ngIf="user.tickets.length>0" (length)="getLength($event)"></app-user-tickets>
         <div class="project-table" *ngIf="showList">
           <div class="banner">
             <p>Active Projects</p>
@@ -76,7 +76,7 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
           </mat-form-field>
           <div class="mat-elevation-z8">
-            <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="projectRes.projects" class="mat-elevation-z8">
+            <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="projectRes?.projects" class="mat-elevation-z8">
         
                 <!-- Position Column -->
                 <ng-container matColumnDef="Title">
@@ -110,7 +110,7 @@
                   <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
                 </tr>
               </table>
-              <mat-paginator [pageSizeOptions]="pageSizeOptions" (page) = "paginating($event)" [pageSize] = "pagesize" [length]="projectRes.length" showFirstLastButtons></mat-paginator>
+              <mat-paginator [pageSizeOptions]="pageSizeOptions" (page) = "paginating($event)" [pageSize] = "pagesize" [length]="projectRes?.length" showFirstLastButtons></mat-paginator>
           </div>
       </div>
     </div>

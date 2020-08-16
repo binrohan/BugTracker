@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { TicketService } from 'src/app/_services/ticket.service';
 import { TicketRes } from 'src/app/_models/TicketRes';
 import { Sort } from '@angular/material/sort';
@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UserTicketsComponent implements OnInit {
 
   @Input() userId: string;
+  @Output() length = new EventEmitter<number>();
 
   displayedColumns: string[] = [
     'title',
@@ -61,8 +62,11 @@ export class UserTicketsComponent implements OnInit {
       data => {
         this.ticketRes = data;
       },
-      (error) => {}
-    );
+      (error) => {
+
+      }, () => {
+        this.length.emit(this.ticketRes.length);
+      });
   }
 
   paginating(e){

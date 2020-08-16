@@ -18,6 +18,7 @@ import { TicketService } from 'src/app/_services/ticket.service';
 export class ProjectTicketsComponent implements OnInit {
 
   ticketRes: TicketRes;
+  projectId: number;
 
   displayedColumns: string[] = [
     'id',
@@ -40,16 +41,14 @@ export class ProjectTicketsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private snackbar: SnackbarService,
-              private ticketService: TicketService,
-              private authService: AuthService) { }
+              private ticketService: TicketService) { }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.ticketRes = data.ticketRes;
     });
-    if(this.ticketRes.length > 0){
-      this.loadTickets();
-    }
+    this.projectId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+    this.loadTickets();
   }
 
   applyFilter(event: Event) {
@@ -66,7 +65,7 @@ export class ProjectTicketsComponent implements OnInit {
   }
 
   loadTickets() {
-    this.ticketService.getProjectTickets(this.ticketRes.tickets.pop().projectId, this.ticketParams).subscribe(
+    this.ticketService.getProjectTickets(this.projectId, this.ticketParams).subscribe(
       (data) => {
         this.ticketRes = data;
       },

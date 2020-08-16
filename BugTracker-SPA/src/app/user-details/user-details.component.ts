@@ -13,6 +13,7 @@ import { Ticket } from '../_models/Ticket';
 import { ProjectRes } from '../_models/ProjectRes';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-user-details',
@@ -27,10 +28,10 @@ export class UserDetailsComponent implements OnInit {
   isFree: boolean;
   userRoles: any[];
   projectRes: ProjectRes;
+  length: number;
 
   userId: string[] = [];
   showList = false;
-  showTicketForm = false;
 
   displayedProjectColumns: string[] = [
     'Title',
@@ -50,16 +51,12 @@ export class UserDetailsComponent implements OnInit {
     private snackbar: SnackbarService,
     private projectService: ProjectService,
     private userService: UserService,
-    private ticketService: TicketService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.user = data.user;
-    });
-    this.route.data.subscribe((data) => {
-      this.projectRes = data.projectRes;
     });
     this.roles = this.user.roles;
     if (this.user.project != null){
@@ -97,6 +94,14 @@ export class UserDetailsComponent implements OnInit {
       this.projectRes = data;
     });
     this.showList = true;
+  }
+
+  loadUser(){
+    this.userService.getUser((this.route.snapshot.paramMap.get('id'))).subscribe( data => {
+      this.user = data;
+    }, error => {
+      this.snackbar.Success('Error during reload');
+    });
   }
 
   assignProject(id: number){
@@ -174,5 +179,10 @@ export class UserDetailsComponent implements OnInit {
     this.projectParams.pageIndex = this.pageIndex;
 
     this.getProjects();
+  }
+
+  getLength(e){
+    this.length = e;
+    this.loadUser();
   }
 }
