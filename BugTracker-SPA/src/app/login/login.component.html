@@ -1,16 +1,14 @@
 <div class="full-body">
   <div>
-  <form #loginForm="ngForm" (ngSubmit)="login()">
+  <form [formGroup] = "loginForm" (ngSubmit) = "login()">
     <h1>Bug_Tracker Login</h1>
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input
         matInput
         placeholder="pat@example.com"
-        [formControl]="email"
         required
-        [(ngModel)]="model.email"
-        name="email"
+        formControlName="email"
       />
       <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
@@ -19,12 +17,9 @@
       <input
         matInput
         [type]="hide ? 'password' : 'text'"
-        [(ngModel)]="model.password"
-        [formControl] = "password"
-        name="password"
-        value="password"
+        formControlName="password"
       />
-      <button
+      <span class="icon"
         mat-icon-button
         matSuffix
         (click)="hide = !hide"
@@ -32,14 +27,14 @@
         [attr.aria-pressed]="hide"
       >
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
+      </span>
     </mat-form-field>
     <button
       class="form-submit"
       mat-flat-button
       color="primary"
       type="submit"
-      [disabled]="!password.valid || !email.valid"
+      [disabled]="!loginForm.valid"
     >
       SIGN IN
     </button>

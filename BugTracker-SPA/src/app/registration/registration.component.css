@@ -6,3 +6,6 @@ mat-radio-group{
 mat-radio-button, label{
     margin-right: 20px;
 }
+.icon:hover{
+    cursor: pointer;
+}

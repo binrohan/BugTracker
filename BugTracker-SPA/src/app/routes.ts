@@ -32,6 +32,7 @@ import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
 import { MyTicketsComponent } from './tickets/my-tickets/my-tickets.component';
 import { ProjectTicketsComponent } from './projects/project-tickets/project-tickets.component';
 import { TicketFormComponent } from './tickets/ticket-form/ticket-form.component';
+import { FallbackComponent } from './fallback/fallback.component';
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: '', component: LoginComponent },
@@ -116,6 +117,10 @@ export const appRoutes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
+      },
+      {
+        path: 'fallback',
+        component: FallbackComponent
       }
     ],
   },

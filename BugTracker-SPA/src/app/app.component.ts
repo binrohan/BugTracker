@@ -17,7 +17,7 @@ import { UserService } from './_services/user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'BugTracker-SPA';
+  title = 'Bug_Tracker';
   mode = 'over';
   shouldRun = true;
   hide = true;
@@ -25,13 +25,11 @@ export class AppComponent implements OnInit{
   userDetails: User;
   jwtHelper = new JwtHelperService();
   showToolbar = false;
-  projectLink = '';
-  isProjectNull = true;
+
 
   constructor(private snackbar: SnackbarService,
               public authService: AuthService,
-              private router: Router,
-              private userService: UserService) { }
+              private router: Router) { }
   ngOnInit() {
     const token = localStorage.getItem('token');
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -41,7 +39,6 @@ export class AppComponent implements OnInit{
     if (this.user) {
       this.authService.currentUser = this.user;
     }
-    this.userProject();
   }
   logout(){
     localStorage.removeItem('token');
@@ -55,21 +52,6 @@ export class AppComponent implements OnInit{
   loggedIn() {
     return this.authService.loggedIn();
   }
-
-  userProject(){
-    if (!this.authService.loggedIn()){
-      return false;
-    }
-    this.userService.getUser(this.authService.decodedToken?.nameid).subscribe(data => {
-      this.userDetails = data;
-    }, error => {
-      this.snackbar.Success('Something worng');
-    }, () => {
-      this.projectLink = '/project/' + this.userDetails.project?.id;
-      this.isProjectNull = this.userDetails.project ? false : true;
-    });
-  }
-
 }
 
 

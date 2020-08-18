@@ -27,7 +27,15 @@ export class LoginComponent implements OnInit {
     if (this.authService.loggedIn()) {
       this.router.navigate(['dashboard']);
     }
+    this.createLoginForm();
 
+  }
+
+  createLoginForm(){
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['password', [Validators.required]]
+    });
   }
 
   getErrorMessage() {
@@ -42,7 +50,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.model).subscribe(
+
+    this.authService.login(this.loginForm.value).subscribe(
       (next) => {
         this.snackbar.Success('Logged in successfully');
       },
