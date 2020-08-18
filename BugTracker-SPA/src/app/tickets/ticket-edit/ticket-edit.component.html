@@ -22,6 +22,7 @@
               <textarea matInput
               formControlName="description"
               [readonly]="noAdminOrManager"
+              rows= "5"
               >
               </textarea>
             </mat-form-field>
@@ -30,7 +31,7 @@
         <div class="row info">
           <div class="box">
             <h3>ASSIGNED DEVELOPER</h3>
-            <mat-form-field>
+            <mat-form-field class="example-half-width">
               <select matNativeControl
               formControlName="userId"
               >
@@ -41,7 +42,7 @@
           </div>
           <div class="box">
             <h3>SUBMISSION DATE</h3>
-            <mat-form-field color="accent">
+            <mat-form-field color="accent" class="example-half-width">
               <input matInput [matDatepicker]="picker1" 
               formControlName="submissionDate"
               [readonly]="noAdminOrManager"
@@ -61,7 +62,7 @@
           </div>
           <div class="box">
             <h3>TICKET PRIORITY</h3>
-            <mat-form-field>
+            <mat-form-field class="example-half-width">
               <select matNativeControl
               formControlName="priorityId"
               
@@ -74,7 +75,7 @@
         <div class="row info">
           <div class="box">
             <h3>STATUS</h3>
-            <mat-form-field>  
+            <mat-form-field class="example-half-width">  
               <select
               matNativeControl
               formControlName="statusId"
@@ -85,7 +86,7 @@
           </div>
           <div class="box">
             <h3>TICKET CATEGORY</h3>
-            <mat-form-field>
+            <mat-form-field class="example-half-width">
               <select
               matNativeControl
               formControlName="categoryId"

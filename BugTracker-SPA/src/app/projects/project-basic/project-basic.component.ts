@@ -21,6 +21,8 @@ export class ProjectBasicComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.projectBasic = data.project;
+      console.log(this.projectBasic.deadTime);
+      this.subDate(this.projectBasic.deadTime);
     });
   }
 
@@ -37,5 +39,10 @@ export class ProjectBasicComponent implements OnInit {
     }, error => {
       this.snackbar.Success('Failed to archive the project');
     });
+  }
+  subDate(thedate: any): any{
+    thedate = thedate + 'Z';
+    console.log(thedate);
+    console.log(new Date(thedate));
   }
 }

@@ -15,7 +15,7 @@
             </div>
             <div class="box">
               <h3>SUBMISSION DATE</h3>
-              <mat-form-field color="accent">
+              <mat-form-field color="accent" class="example-half-width">
                 <input
                   matInput
                   [matDatepicker]="picker1"
@@ -32,8 +32,8 @@
           <div class="row info">
             <div class="box long">
               <h3>DESCRIPTION</h3>
-              <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="description"> </textarea>
+              <mat-form-field>
+                <textarea matInput formControlName="description" rows="5"> </textarea>
               </mat-form-field>
             </div>
           </div>

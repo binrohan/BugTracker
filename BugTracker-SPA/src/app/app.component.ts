@@ -57,6 +57,9 @@ export class AppComponent implements OnInit{
   }
 
   userProject(){
+    if (!this.authService.loggedIn()){
+      return false;
+    }
     this.userService.getUser(this.authService.decodedToken?.nameid).subscribe(data => {
       this.userDetails = data;
     }, error => {
