@@ -3,6 +3,7 @@
   <div class="time">
     <p>{{now | date: 'EEEE dd MMMM, yyyy'}} &nbsp; {{now | date: 'hh:mm'}}</p>
   </div>
+  <div class="new-user" *ngIf="isNewUser">Waiting for Account Approval</div>
   <div class="d-row over" *appHasRole="['Admin']">
     <div class="sm-card-container">
       <div class="sm-card">
@@ -197,6 +198,20 @@
   </div>
   <div>
     <mat-accordion class="example-headers-align">
+      <mat-expansion-panel *appHasRole="['Admin']">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            New Users
+          </mat-panel-title>
+          <mat-panel-description>
+            Assign new user review account and assign role
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+       <app-new-users *appHasRole="['Admin']" ></app-new-users>
+
+      </mat-expansion-panel>
+
       <mat-expansion-panel *appHasRole="['Admin']">
         <mat-expansion-panel-header>
           <mat-panel-title>

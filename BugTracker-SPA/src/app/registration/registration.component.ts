@@ -29,9 +29,6 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       gender: ['male', Validators.required],
       adrs_local: ['', Validators.required],
-      adrs_city: ['', Validators.required],
-      adrs_division: ['', Validators.required],
-      adrs_country: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
       confirmPassword: ['', Validators.required]
     }, { validators: this.passwordMatchValidator });
@@ -47,7 +44,7 @@ export class RegistrationComponent implements OnInit {
       this.authService.register(this.user).subscribe(() => {
         this.snackbar.Success('Registration Successful');
       }, err => {
-        this.snackbar.Success('Erro');
+        this.snackbar.Success('User can not registered');
       }, () => {
                 this.authService.login(this.user).subscribe(() => {
           this.router.navigate(['/dashboard']);

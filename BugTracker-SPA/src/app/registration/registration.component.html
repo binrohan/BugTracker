@@ -1,6 +1,6 @@
 <div class="full-body">
-  <h1>Bug_Tracker Login</h1>
   <form [formGroup] = "registerForm" (ngSubmit) = "register()" >
+    <h1>Bug_Tracker Login</h1>
     <mat-form-field appearance="fill">
       <mat-label>Full Name</mat-label>
       <input matInput
@@ -30,36 +30,13 @@
   
       <mat-form-field appearance="fill">
         <mat-label>Address: Area</mat-label>
-        <input matInput 
+        <textarea matInput 
+        rows="5"
         required
         formControlName = "adrs_local"
-        />
+        ></textarea>
       </mat-form-field>
-  
-      <mat-form-field appearance="fill">
-        <mat-label>Address: City</mat-label>
-        <input matInput 
-        required
-        formControlName = "adrs_city"
-        />
-      </mat-form-field>
-  
-      <mat-form-field appearance="fill">
-        <mat-label>Address: Division</mat-label>
-        <input matInput 
-        required
-        formControlName = "adrs_division"
-        />
-      </mat-form-field>
-  
-      <mat-form-field appearance="fill">
-        <mat-label>Address: Country</mat-label>
-        <input matInput 
-        required
-        formControlName = "adrs_country"
-        />
-      </mat-form-field>
-  
+
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" 
@@ -93,6 +70,6 @@
           <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
         </span>
       </mat-form-field>
-      <button mat-flat-button color="primary" class="form-submit" type="submit">SIGN UP</button>
+      <button [disabled]="!registerForm.valid" mat-flat-button color="primary" class="form-submit" type="submit">SIGN UP</button>
   </form>
 </div>

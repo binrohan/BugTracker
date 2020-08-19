@@ -6,19 +6,33 @@
         </button>
       </div>
       <mat-list role="list" *ngIf="loggedIn()">
-        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item  role="listitem" *appHasRole="['Admin']" routerLinkActive="active" ><a mat-stroked-button color="primary" [routerLink]="['/users']" routerLinkActive="router-link-active" >User Management</a></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/projects/0']" routerLinkActive="router-link-active" >Projects</a></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/fallback']" routerLinkActive="router-link-active" >My Project</a></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/tickets/0']" routerLinkActive="router-link-active" >Tickets</a></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/myTickets/']" routerLinkActive="router-link-active" >My Tickets</a></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/settings']" routerLinkActive="router-link-active" >Settings</a></mat-list-item>
+        <div>
+          <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a></mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+        <div *appHasRole="['Admin']">
+          <mat-list-item  role="listitem" routerLinkActive="active" ><a mat-stroked-button color="primary" [routerLink]="['/users']" routerLinkActive="router-link-active" >User Management</a></mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+        <div *appHasRole="['Admin']">
+          <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/projects/0']" routerLinkActive="router-link-active" >Projects</a></mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+        <div *appHasRole="['Manager', 'Developer']">
+          <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/fallback']" routerLinkActive="router-link-active" >My Project</a></mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+        <div *appHasRole="['Admin']">
+          <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/tickets/0']" routerLinkActive="router-link-active" >Tickets</a></mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+        <div *appHasRole="['Developer']">
+          <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/myTickets/']" routerLinkActive="router-link-active" >My Tickets</a></mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+        <div>
+          <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/settings']" routerLinkActive="router-link-active" >Settings</a></mat-list-item>
+        </div>
       </mat-list>
     </mat-sidenav>
 

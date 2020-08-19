@@ -9,10 +9,9 @@ import { ProjectService } from '../_services/project.service';
 @Component({
   selector: 'app-free-users',
   templateUrl: './free-users.component.html',
-  styleUrls: ['./free-users.component.css']
+  styleUrls: ['./free-users.component.css'],
 })
 export class FreeUsersComponent implements OnInit {
-
   userRes: UserRes;
   usersId: string[] = [];
   projectId: string;
@@ -20,18 +19,24 @@ export class FreeUsersComponent implements OnInit {
   @Output() sendId = new EventEmitter<string[]>();
   @Input() projectid;
 
-  displayedColumns: string[] = [
-    'Name',
-    'Roles',
-    'Action',
-  ];
+  displayedColumns: string[] = ['Name', 'Roles', 'Action'];
   pageSizeOptions: number[] = [5, 9, 15];
   pageIndex = 0;
   pagesize = 5;
-  userParams: any = {pageSize: 5, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'free'};
+  userParams: any = {
+    pageSize: 5,
+    pageIndex: 0,
+    filter: '',
+    orderBy: 'Nameasc',
+    stateBy: 'free',
+  };
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private snackbar: SnackbarService,
-              private projectService: ProjectService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private snackbar: SnackbarService,
+    private projectService: ProjectService
+  ) {}
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
@@ -47,7 +52,7 @@ export class FreeUsersComponent implements OnInit {
 
   sortData(sort: Sort) {
     if (sort.active) {
-      this.userParams.orderBy = (sort.active + sort.direction);
+      this.userParams.orderBy = sort.active + sort.direction;
       this.loadUsers();
     }
   }
@@ -63,7 +68,7 @@ export class FreeUsersComponent implements OnInit {
     );
   }
 
-  paginating(e){
+  paginating(e) {
     this.pagesize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
@@ -73,9 +78,8 @@ export class FreeUsersComponent implements OnInit {
     this.loadUsers();
   }
 
-  onSelect( id: string, name: string) {
-
-    if (!this.usersId.includes(id)){
+  onSelect(id: string, name: string) {
+    if (!this.usersId.includes(id)) {
       this.usersId.push(id);
     } else if (this.usersId.includes(id)) {
       const i = this.usersId.indexOf(id);
@@ -88,13 +92,21 @@ export class FreeUsersComponent implements OnInit {
       this.snackbar.Success('Select some your first');
       return false;
     }
-    this.projectService.assignUsers( parseInt(this.projectId = this.route.snapshot.paramMap.get('id'), 10),
-                                    {userId: this.usersId}).subscribe(() => {
-      this.snackbar.Success('Assigned Successfully');
-    }, error => {
-      this.snackbar.Success('Failed to Assigned');
-    }, () => {
-      this.loadUsers();
-    });
+    this.projectService
+      .assignUsers(
+        parseInt((this.projectId = this.route.snapshot.paramMap.get('id')), 10),
+        { userId: this.usersId }
+      )
+      .subscribe(
+        () => {
+          this.snackbar.Success('Assigned Successfully');
+        },
+        (error) => {
+          this.snackbar.Success('Failed to Assigned');
+        },
+        () => {
+          this.loadUsers();
+        }
+      );
   }
 }

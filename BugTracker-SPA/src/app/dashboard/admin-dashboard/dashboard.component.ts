@@ -6,8 +6,6 @@ import { Priority } from '../../_models/Priority';
 import { Status } from '../../_models/Status';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Counts } from 'src/app/_models/Counts';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/_services/user.service';
 import { User } from 'src/app/_models/User';
 
 @Component({
@@ -25,6 +23,7 @@ export class DashboardComponent implements OnInit {
   userId: string;
   user: User;
   step = 0;
+  isNewUser = false;
 
   constructor(private assistService: AssistService,
               private snackbar: SnackbarService,
@@ -36,6 +35,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.authService.decodedToken.nameid;
+    if (this.authService.decodedToken.role as Array<string> == null){
+      this.isNewUser = true;
+    }
     this.loadCounts();
     this.loadTypes();
   }

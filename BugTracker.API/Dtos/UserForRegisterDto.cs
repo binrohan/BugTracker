@@ -18,11 +18,6 @@ namespace BugTracker.API.Dtos
         [Required]
         public string Adrs_Local { get; set; }
         [Required]
-        public string Adrs_City { get; set; }
-        [Required]
-        public string Adrs_Division { get; set; }
-        [Required]
-        public string Adrs_Country { get; set; }
 
         //Remove this property after adding the Email confirmation system 
         public bool EmailConfirmed { get; set; }

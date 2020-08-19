@@ -87,6 +87,7 @@ import { MyTicketsArchivedComponent } from './tickets/my-tickets-archived/my-tic
 import { MyTicketsApprovedComponent } from './tickets/my-tickets-approved/my-tickets-approved.component';
 import { MyTicketsActiveComponent } from './tickets/my-tickets-active/my-tickets-active.component';
 import { FallbackComponent } from './fallback/fallback.component';
+import { NewUsersComponent } from './new-users/new-users.component';
 
 
 export function tokenGetter() {
@@ -133,7 +134,8 @@ export function tokenGetter() {
       MyTicketsArchivedComponent,
       MyTicketsApprovedComponent,
       MyTicketsActiveComponent,
-      FallbackComponent
+      FallbackComponent,
+      NewUsersComponent
    ],
    imports: [
       BrowserModule,

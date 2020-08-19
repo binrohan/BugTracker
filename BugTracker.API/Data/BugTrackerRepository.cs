@@ -115,6 +115,11 @@ namespace BugTracker.API.Data
                     case "assigned":
                         users = users.Where(u => u.project != null);
                         break;
+                    case "new":
+                        users = users.Where(c => !c.UserRoles
+                                    .Select(b => b.UserId).Distinct()
+                                    .Contains(c.Id));
+                        break;
                 }
             }
             
@@ -133,6 +138,12 @@ namespace BugTracker.API.Data
                         break;
                     case "Emaildesc":
                         users = users.OrderByDescending(u => u.Email);
+                        break;
+                    case "Registerdateasc":
+                        users = users.OrderBy(u => u.Joined);
+                        break;
+                    case "Registerdatedescdesc":
+                        users = users.OrderByDescending(u => u.Joined);
                         break;
                     default:
                         users = users.OrderBy(u => u.Id);
@@ -386,7 +397,7 @@ namespace BugTracker.API.Data
                         tickets = tickets.Where(t => !t.isArchived && t.isManagerPassed);
                         break;
                     case "passed":
-                        tickets = tickets.Where(t => !t.isArchived || t.isDeveloperPassed);
+                        tickets = tickets.Where(t => !t.isArchived && t.isDeveloperPassed && !t.isManagerPassed);
                         break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
@@ -496,7 +507,7 @@ namespace BugTracker.API.Data
                         tickets = tickets.Where(t => !t.isArchived && t.isManagerPassed);
                         break;
                     case "passed":
-                        tickets = tickets.Where(t => !t.isArchived && t.isDeveloperPassed);
+                        tickets = tickets.Where(t => !t.isArchived && t.isDeveloperPassed && !t.isManagerPassed);
                         break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);

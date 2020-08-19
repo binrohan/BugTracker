@@ -19,8 +19,6 @@ export class TicketListPassedUserComponent implements OnInit {
 
   displayedColumns: string[] = [
     'title',
-    'projectName',
-    'user',
     'category',
     'priority',
     'status',
@@ -38,18 +36,7 @@ export class TicketListPassedUserComponent implements OnInit {
   ngOnInit() {
     this.userId = this.authservice.decodedToken.nameid;
 
-    this.ticketService.getUserTickets(this.userId, this.ticketParams).subscribe(data => {
-      this.ticketRes = data;
-      this.ticketRes.tickets.forEach(t => {
-        if (t.isManagerPassed){
-          const i = this.ticketRes.tickets.indexOf(t);
-          this.ticketRes.tickets.splice(i, 1);
-          this.ticketRes.length--;
-        }
-      });
-    }, error => {
-      this.snackbar.Success('Failed to load Tickets (dev)');
-    });
+    this.loadData();
   }
 
   loadData(){
