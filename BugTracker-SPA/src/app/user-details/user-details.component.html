@@ -22,7 +22,7 @@
           </div>
           <div class="box">
             <h3>JOINED DATE</h3>
-            <p>{{user.joined | date: "dd-mm-yy"  || "N/A"}}</p>
+            <p>{{user.joined | Local | date: "dd-mm-yy"  || "N/A"}}</p>
           </div>
         </div>
         <div class="row info">
@@ -87,7 +87,7 @@
                 <!-- Position Column -->
                 <ng-container matColumnDef="Started">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header="Started"> Created </th>
-                  <td mat-cell *matCellDef="let element"> {{element.startTime | date: 'd MMMM, y'}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.startTime | Local | date: 'd MMMM, y'}} </td>
                 </ng-container>
 
                 <!-- Position Column -->

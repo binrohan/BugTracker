@@ -29,21 +29,16 @@ export class TicketListArchivedComponent implements OnInit {
 
   pageSizeOptions: number[] = [5, 10, 15];
   pageIndex = 0;
-  length: number;
   pagesize = 10;
   previousPageIndex: number;
   ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: 'archived' };
 
   constructor(private snackbar: SnackbarService,
-              private authService: AuthService, private route: ActivatedRoute, private ticketService: TicketService,
-              private adminService: AdminService) { }
+              private ticketService: TicketService
+              ) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.ticketRes = data.archivedTicketRes;
-    }, error => {
-      this.snackbar.Success('Failed to load data');
-    });
+    this.loadArchivedTickets();
   }
 
 
@@ -60,11 +55,13 @@ export class TicketListArchivedComponent implements OnInit {
     }
   }
   loadArchivedTickets() {
-    this.adminService.getTickets(this.ticketParams).subscribe(
+    this.ticketService.getTickets(this.ticketParams).subscribe(
       (data) => {
         this.ticketRes = data;
       },
-      (error) => {}
+      (error) => {
+        this.snackbar.Success('Failed to load Archived Tickets');
+      }
     );
   }
 

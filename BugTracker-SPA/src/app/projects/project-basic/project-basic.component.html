@@ -2,27 +2,27 @@
   <div class="row info">
     <div class="box">
       <h3>TITLE</h3>
-      <p>{{ projectBasic.title | titlecase }}</p>
+      <p>{{ projectBasic?.title | titlecase }}</p>
     </div>
     <div class="box">
       <h3>TICKETS</h3>
-      <p>{{ projectBasic.ticketCount }}</p>
+      <p>{{ projectBasic?.ticketCount }}</p>
     </div>
   </div>
   <div class="row info">
     <div class="box long">
       <h3>DESCRIPTION</h3>
-      <p>{{ projectBasic.description }}</p>
+      <p>{{ projectBasic?.description }}</p>
     </div>
   </div>
   <div class="row info">
     <div class="box">
       <h3>STARTED</h3>
-      <p>{{ projectBasic.startTime | date: "d MMMM, y" }}</p>
+      <p>{{ projectBasic?.startTime | Local | date: "d MMMM, y" }}</p>
     </div>
     <div class="box">
       <h3>DEADLINE</h3>
-      <p>{{ projectBasic.deadTime | date: "d MMMM, y" }}</p>
+      <p>{{ projectBasic?.deadTime | Local | date: "d MMMM, y" }}</p>
     </div>
   </div>
 </div>

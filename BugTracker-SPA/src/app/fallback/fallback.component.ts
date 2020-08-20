@@ -12,6 +12,7 @@ import { Route, Router } from '@angular/router';
 })
 export class FallbackComponent implements OnInit {
   user: User;
+  isFallBack: boolean;
 
   constructor(private userService: UserService,
               private authService: AuthService,
@@ -22,7 +23,7 @@ export class FallbackComponent implements OnInit {
     this.userService.getUser(this.authService.currentUser.id).subscribe( data => {
       this.user = data;
     }, () => {
-      this.snackbar.Success('Something is wrong');
+      this.isFallBack = true;
     }, () => {
       if (this.user.project != null){
         this.router.navigate(['/project/' + this.user.project.id]);

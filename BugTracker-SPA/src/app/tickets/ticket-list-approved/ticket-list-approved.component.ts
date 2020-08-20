@@ -32,14 +32,14 @@ export class TicketListApprovedComponent implements OnInit {
 
   constructor(private snackbar: SnackbarService,
               private route: ActivatedRoute,
-              private adminService: AdminService) { }
+              private ticketService: TicketService) { }
 
   ngOnInit() {
     this.loadData();
   }
 
   loadData(){
-    this.adminService.getTickets(this.ticketParams).subscribe(data => {
+    this.ticketService.getTickets(this.ticketParams).subscribe(data => {
       this.ticketRes = data;
     }, error => {
       this.snackbar.Success('Connection Error');

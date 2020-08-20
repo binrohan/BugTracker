@@ -41,7 +41,6 @@ import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.co
 import { ProfileResolver } from './_resolvers/profile.resolver';
 import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
-import { UsersResolver } from './_resolvers/users.resolver';
 import { ProjectsResolver } from './_resolvers/projects.resolver';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
@@ -49,7 +48,6 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
 import { TicketFormComponent } from './tickets/ticket-form/ticket-form.component';
-import { TicketsResolver } from './_resolvers/ticket.resolver';
 import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
 import { TicketListArchivedComponent } from './tickets/ticket-list-archived/ticket-list-archived.component';
 import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
@@ -74,7 +72,6 @@ import { ProjectUsersResolver } from './_resolvers/project-users.resolver';
 import { FreeUsersComponent } from './free-users/free-users.component';
 import { FreeUsersResolver } from './_resolvers/free-users.resolver';
 import { ProjectArchivedTicketsComponent } from './projects/project-archived-tickets/project-archived-tickets.component';
-import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 import { SettingsComponent } from './settings/settings.component';
 import { TicketListApprovedComponent } from './tickets/ticket-list-approved/ticket-list-approved.component';
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
@@ -88,6 +85,7 @@ import { MyTicketsApprovedComponent } from './tickets/my-tickets-approved/my-tic
 import { MyTicketsActiveComponent } from './tickets/my-tickets-active/my-tickets-active.component';
 import { FallbackComponent } from './fallback/fallback.component';
 import { NewUsersComponent } from './new-users/new-users.component';
+import { LocalTimePipe } from './_pipe/local-time.pipe';
 
 
 export function tokenGetter() {
@@ -135,7 +133,8 @@ export function tokenGetter() {
       MyTicketsApprovedComponent,
       MyTicketsActiveComponent,
       FallbackComponent,
-      NewUsersComponent
+      NewUsersComponent,
+      LocalTimePipe
    ],
    imports: [
       BrowserModule,
@@ -178,11 +177,9 @@ export function tokenGetter() {
       AuthService,
       UserService,
       ProfileResolver,
-      UsersResolver,
       ProjectsResolver,
       UserDetailsResolver,
       ProjectDetailsResolver,
-      TicketsResolver,
       TicketDetailsResolver,
       UserTicketsResolver,
       ProjectsArchivedTableResolver,
@@ -192,7 +189,6 @@ export function tokenGetter() {
       PreventUnsavedChanges,
       FreeUsersResolver,
       ProjectArchivedTicketsResolver,
-      TicketsArchivedResolver,
       TicketsApprovedResolver,
       DataService
    ],

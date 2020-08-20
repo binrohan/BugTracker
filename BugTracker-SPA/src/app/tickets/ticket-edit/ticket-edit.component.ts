@@ -12,11 +12,15 @@ import { Status } from '../../_models/Status';
 import { Priority } from '../../_models/Priority';
 import { SnackbarService } from '../../_services/snackbar.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { LocalTimePipe } from '../../_pipe/local-time.pipe';
 
 @Component({
   selector: 'app-ticket-edit',
   templateUrl: './ticket-edit.component.html',
-  styleUrls: ['./ticket-edit.component.css']
+  styleUrls: ['./ticket-edit.component.css'],
+  providers: [
+    LocalTimePipe
+  ]
 })
 export class TicketEditComponent implements OnInit {
 
@@ -29,6 +33,7 @@ export class TicketEditComponent implements OnInit {
   statuses: Status[];
   priorities: Priority[];
   noAdminOrManager = false;
+  today = new Date();
 
   constructor(private route: ActivatedRoute,
               private ticketService: TicketService,
@@ -36,7 +41,8 @@ export class TicketEditComponent implements OnInit {
               private projectService: ProjectService,
               private assistService: AssistService,
               private snackbar: SnackbarService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private local: LocalTimePipe) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -55,7 +61,7 @@ export class TicketEditComponent implements OnInit {
     this.ticketEditForm = this.fb.group({
       title: [this.ticket.title, Validators.required],
       description: [this.ticket.description, Validators.required],
-      submissionDate: [this.ticket.submissionDate, Validators.required],
+      submissionDate: [this.local.transform(this.ticket.submissionDate), Validators.required],
       userId: [this.ticket.user?.id],
       categoryId: [this.ticket.category?.id, Validators.required],
       priorityId: [this.ticket.priority?.id, Validators.required],

@@ -130,5 +130,10 @@ table {
 .example-half-width{
   width: 50%;
 }
-/***********Ends**************/
-
+/***********Edit Page Ends*****************/
+/***********Expansion Panel****************/
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+/***********Expansion Panel Ends**********/

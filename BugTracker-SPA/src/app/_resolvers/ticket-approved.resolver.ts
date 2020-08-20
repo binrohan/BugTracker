@@ -17,7 +17,7 @@ import { TicketRes } from '../_models/TicketRes';
 export class TicketsApprovedResolver implements Resolve<TicketRes> {
   ticketParams: any = { pageSize: 5, pageIndex: 0, filter: '', stateBy: 'approved' };
   constructor(
-    private adminService: AdminService,
+    private ticketService: TicketService,
     private snackbar: SnackbarService,
     private route: Router
   ) {}
@@ -25,7 +25,7 @@ export class TicketsApprovedResolver implements Resolve<TicketRes> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<TicketRes> {
-    return this.adminService.getTickets(this.ticketParams).pipe(
+    return this.ticketService.getTickets(this.ticketParams).pipe(
       catchError((error) => {
         this.snackbar.Success('Problem retrieving data');
         this.route.navigate(['/dashboard']);

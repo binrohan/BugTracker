@@ -1,7 +1,7 @@
 <div class="whole">
   <h1>DASHBOARD</h1>
   <div class="time">
-    <p>{{now | date: 'EEEE dd MMMM, yyyy'}} &nbsp; {{now | date: 'hh:mm'}}</p>
+    <p>{{now | date: 'EEEE dd MMMM, yyyy'}} &nbsp; {{now | Local | date: 'hh:mm'}}</p>
   </div>
   <div class="new-user" *ngIf="isNewUser">Waiting for Account Approval</div>
   <div class="d-row over" *appHasRole="['Admin']">

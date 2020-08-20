@@ -10,11 +10,15 @@ import { Category } from 'src/app/_models/Category';
 import { Status } from 'src/app/_models/Status';
 import { Priority } from 'src/app/_models/Priority';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { LocalTimePipe } from '../../_pipe/local-time.pipe';
 
 @Component({
   selector: 'app-project-edit',
   templateUrl: './project-edit.component.html',
-  styleUrls: ['./project-edit.component.css']
+  styleUrls: ['./project-edit.component.css'],
+  providers: [
+    LocalTimePipe
+  ]
 })
 export class ProjectEditComponent implements OnInit {
   events: string[] = [];
@@ -27,7 +31,8 @@ export class ProjectEditComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private projectService: ProjectService,
               private fb: FormBuilder,
-              private snackbar: SnackbarService) { }
+              private snackbar: SnackbarService,
+              private local: LocalTimePipe) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -40,7 +45,7 @@ export class ProjectEditComponent implements OnInit {
     this.projectEditForm = this.fb.group({
       title: [this.project.title, Validators.required],
       description: [this.project.description, Validators.required],
-      deadTime: [this.project.deadTime, Validators.required]
+      deadTime: [this.local.transform(this.project.deadTime), Validators.required]
     });
   }
 

@@ -26,26 +26,20 @@ export class UserManagementComponent implements OnInit {
   i = 0;
   pageSizeOptions: number[] = [5, 9, 15];
   pageIndex = 0;
-  length: number;
-  pagesize = 9;
-  userParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'all'};
+  pagesize = 10;
+  userParams: any = {pageSize: this.pagesize, pageIndex: 0, filter: '', orderBy: 'Nameasc', stateBy: 'all'};
+
   userRes: UserRes;
-  users: User[];
+  step = 0;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private route: ActivatedRoute,
     private snackbar: SnackbarService,
-    private userService: UserService,
-    private authService: AuthService
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data) => {
-      this.userRes = data.users;
-      this.users = this.userRes.users;
-      this.length = this.userRes.length;
-    });
+    this.loadUsers();
   }
 
   applyFilter(event: Event) {
@@ -64,10 +58,11 @@ export class UserManagementComponent implements OnInit {
   loadUsers() {
     this.userService.getUsers(this.userParams).subscribe(
       (data) => {
-        this.users = data.users;
-        this.length = data.length;
+        this.userRes = data;
       },
-      (error) => {}
+      (error) => {
+        this.snackbar.Success('Failed to reload data');
+      }
     );
   }
 
@@ -79,5 +74,8 @@ export class UserManagementComponent implements OnInit {
     this.userParams.pageIndex = this.pageIndex;
 
     this.loadUsers();
+  }
+  setStep(index: number) {
+    this.step = index;
   }
 }

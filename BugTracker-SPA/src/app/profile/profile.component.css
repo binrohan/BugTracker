@@ -1,71 +1,78 @@
-*{
-    margin: 0;
-    box-sizing: border-box;
+h3, h1, h4, p, input{ margin: 0; }
+input, textarea, p{
+    font-weight: lighter;
 }
-h1, h2{
-    text-decoration: underline #3f51b58e;
+.p-container{
+   background: white;
+   border-radius: 5px;
+   box-shadow: 0px 1px 1px 3px rgba(214,214,214,1);
 }
-h2{
-    margin: 10px;
+.name-plate{
+    padding: 0 20px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+h4{
+    font-size: 1.15rem;
+}
+.name-plate>div{
+    color: darkgray;
     text-align: center;
 }
-h3{
-    margin: 0;
+.name-plate>div>span{
+    padding: 0 5px;
+    font-size: .5rem;
+    font-weight: lighter;
+    color: darkorange;
 }
+.p-content{
+    padding: 5px 25px;
+}
+.row{
+    width: 100%;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    /* border-bottom: 1px solid rgb(219, 219, 219); */
+}
+.row:last-child{
+    border-bottom: none;
+}
+.row>div{
+    width: 50%;
+}
+.row>.xl{ width: 100%; }
+.role{ padding-left: 10px; }
 input, textarea{
+    max-width: 80%;
+    min-width: 80%;
     height: 30px;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     border: 1px solid rgb(160, 160, 160);
     margin-bottom: 10px;
 }
 textarea{
-    width: 100%
+    min-height: 100px;
+    max-height: 100px;
 }
-span{
-    padding-left: 10px;
-}
-
-.container{
-    display: grid;
-    grid-template-columns: auto minmax(150px, 20%);
-}
-.content{
-}
-.right-nav{
-    padding-left: 20px;
-    border-left: 1px solid #3f51b58e;
-    margin-left: 20px;
-}
-.right-nav button{
-    width: 100%;
-    margin-bottom: 10px;
-}
-form{
+.bottom-nav{
+    border-top: 1px solid rgb(206, 206, 206);
+    padding: 5px 20px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-}
-.info-block{
-   padding: 20px;
-}
-.black-border{
-    border: 2px solid rgb(235, 235, 235);
-    background-color: rgb(255, 255, 255);
-    min-width: 250px;
-}
-.alert{
-    background-color: rgb(255, 190, 166);
-    border-radius: 5px;
-    vertical-align: center;
-    padding: 7px;
-    display: flex;
-    justify-content: center;
     align-items: center;
 }
-.alert p{
-    margin: 0;
+button{
+    margin-left: 25px;
 }
-mat-icon{
-    padding-right: 2px;
+.alert{
+    display: flex;
+}
+.alert>*{
+    margin-right: 25px;
+    color: coral;
 }

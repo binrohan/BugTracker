@@ -1,26 +1,23 @@
 <div class="whole">
+  <h1>MY TICKETS</h1>
   <mat-tab-group mat-align-tabs="end" backgroundColor="accent" color="accent" dynamicHeight>
     <mat-tab label="Active Tickets">
       <ng-template matTabContent>
-        Your active tickets
         <app-my-tickets-active [userId]="userId" ></app-my-tickets-active>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Approved Tickets">
+    <mat-tab label="Resolved Tickets">
       <ng-template matTabContent>
-        Resolved Tickets approved by manager and admin
         <app-my-tickets-archived [userId]="userId" ></app-my-tickets-archived>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Tickets waiting for manager approval">
+    <mat-tab label="Tickets Waiting for Manager Approval">
       <ng-template matTabContent>
-        Tickets resolved and waiting for manager approval
         <app-ticket-list-passed-user></app-ticket-list-passed-user>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Waiting for admin approval">
+    <mat-tab label="Waiting for Admin Approval">
       <ng-template matTabContent>
-        Manager approved tickets waiting for admin approval
         <app-my-tickets-approved [userId]="userId"></app-my-tickets-approved>
       </ng-template>
     </mat-tab>

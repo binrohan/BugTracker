@@ -7,7 +7,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ProfileResolver } from './_resolvers/profile.resolver';
-import { UsersResolver } from './_resolvers/users.resolver';
 import { ProjectsResolver } from './_resolvers/projects.resolver';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
@@ -15,7 +14,6 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDetailsResolver } from './_resolvers/user-datails.resolver';
 import { ProjectDetailsResolver } from './_resolvers/project-details.resolver';
 import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
-import { TicketsResolver } from './_resolvers/ticket.resolver';
 import { TicketDetailComponent } from './tickets/ticket-detail/ticket-detail.component';
 import { TicketDetailsResolver } from './_resolvers/ticket-details.resolver';
 import { TicketEditComponent } from './tickets/ticket-edit/ticket-edit.component';
@@ -26,12 +24,9 @@ import { ProjectUsersResolver } from './_resolvers/project-users.resolver';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { FreeUsersResolver } from './_resolvers/free-users.resolver';
 import { ProjectArchivedTicketsResolver } from './_resolvers/project-archived-tickets.resolver';
-import { TicketsArchivedResolver } from './_resolvers/ticket-archived.resolver';
 import { SettingsComponent } from './settings/settings.component';
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
 import { MyTicketsComponent } from './tickets/my-tickets/my-tickets.component';
-import { ProjectTicketsComponent } from './projects/project-tickets/project-tickets.component';
-import { TicketFormComponent } from './tickets/ticket-form/ticket-form.component';
 import { FallbackComponent } from './fallback/fallback.component';
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
@@ -59,7 +54,6 @@ export const appRoutes: Routes = [
       {
         path: 'users',
         component: UserManagementComponent,
-        resolve: { users: UsersResolver },
         data: { roles: ['Admin'] },
       },
       {
@@ -88,11 +82,7 @@ export const appRoutes: Routes = [
       },
       {
         path: 'tickets/:tab',
-        component: TicketComponent,
-        resolve: {
-          ticketRes: TicketsResolver,
-          archivedTicketRes: TicketsArchivedResolver,
-        },
+        component: TicketComponent
       },
       {
         path: 'ticket/:id',

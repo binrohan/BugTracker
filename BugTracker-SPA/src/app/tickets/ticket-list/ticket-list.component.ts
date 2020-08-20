@@ -33,7 +33,7 @@ export class TicketListComponent implements OnInit {
   pageSizeOptions: number[] = [5, 9, 15];
   pageIndex = 0;
   length: number;
-  pagesize = 9;
+  pagesize = 10;
   ticketParams: any = { pageIndex: this.pageIndex, pageSize: this.pagesize, filter: '', stateBy: 'active'};
 
 
@@ -43,11 +43,7 @@ export class TicketListComponent implements OnInit {
               private adminService: AdminService, private snackbar: SnackbarService) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.ticketRes = data.ticketRes;
-    }, error => {
-      this.snackbar.Success('Failed to load data');
-    });
+    this.loadTickets();
   }
 
   applyFilter(event: Event) {
@@ -63,7 +59,7 @@ export class TicketListComponent implements OnInit {
     }
   }
   loadTickets() {
-    this.adminService.getTickets(this.ticketParams).subscribe(
+    this.ticketService.getTickets(this.ticketParams).subscribe(
       (data) => {
         this.ticketRes = data;
       },
