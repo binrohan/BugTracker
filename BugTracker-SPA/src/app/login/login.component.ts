@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { SnackbarService } from '../_services/snackbar.service';
 import { UserService } from '../_services/user.service';
+import { DataService } from '../_services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private snackbar: SnackbarService,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private dataService: DataService
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['dashboard']);
     }
     this.createLoginForm();
-
+    this.dataService.currentProjectId.subscribe(i => this.projectId = i);
   }
 
   createLoginForm(){
@@ -74,7 +76,11 @@ export class LoginComponent implements OnInit {
       () => {
         this.router.navigate(['dashboard']);
         this.userService.getUser(this.authService.currentUser.id).subscribe(data => {
-          this.projectId = data.project?.id; console.log(this.projectId + '   aaa');
+          this.projectId = data.project?.id; console.log(this.projectId + '   login');
+        }, error => {
+          this.snackbar.Success('Something is wrong');
+        }, () => {
+          this.dataService.setProjectId(this.projectId);
         });
       }
     );

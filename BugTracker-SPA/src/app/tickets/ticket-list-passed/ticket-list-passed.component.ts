@@ -45,15 +45,17 @@ export class TicketListPassedComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUser(this.authService.decodedToken.nameid).subscribe(data => {
-      this.projectId = data.project.id; console.log(this.projectId);
+      this.projectId = data.project?.id; console.log(this.projectId);
     }, error => {
       this.snackbar.Success('Failed to load Related Data');
     }, () => {
-      this.ticketService.getProjectTickets(this.projectId, this.ticketParams ).subscribe( data => {
-        this.ticketRes = data; console.log(data);
-      }, error => {
-        this.snackbar.Success('Failed to load table data');
-      });
+      if (this.projectId != null) {
+        this.ticketService.getProjectTickets(this.projectId, this.ticketParams ).subscribe( data => {
+          this.ticketRes = data; console.log(data);
+        }, error => {
+          this.snackbar.Success('Failed to load table data');
+        });
+      }
     });
   }
 

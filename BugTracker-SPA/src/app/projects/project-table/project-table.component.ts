@@ -43,11 +43,6 @@ export class ProjectTableComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.projectRes = data.projectRes;
     });
-    if (this.dataService.subsVar === undefined) {
-      this.dataService.subsVar = this.dataService.invokeProjectTable.subscribe((name: string) => {
-        this.loadProjects();
-      });
-    }
   }
 
   loadProjects() {

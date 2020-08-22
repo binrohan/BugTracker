@@ -86,6 +86,8 @@ import { MyTicketsActiveComponent } from './tickets/my-tickets-active/my-tickets
 import { FallbackComponent } from './fallback/fallback.component';
 import { NewUsersComponent } from './new-users/new-users.component';
 import { LocalTimePipe } from './_pipe/local-time.pipe';
+import { TicketsManagerComponent } from './tickets/tickets-manager/tickets-manager.component';
+import { TicketManagerResolver } from './_resolvers/ticket-manager.resolver';
 
 
 export function tokenGetter() {
@@ -112,6 +114,7 @@ export function tokenGetter() {
       TicketListApprovedComponent,
       TicketListPassedComponent,
       TicketListPassedUserComponent,
+      TicketsManagerComponent,
       CommentComponent,
       TicketEditComponent,
       ProjectTableComponent,
@@ -190,6 +193,7 @@ export function tokenGetter() {
       FreeUsersResolver,
       ProjectArchivedTicketsResolver,
       TicketsApprovedResolver,
+      TicketManagerResolver,
       DataService
    ],
    bootstrap: [

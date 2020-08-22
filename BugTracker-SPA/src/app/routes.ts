@@ -28,6 +28,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { TicketsApprovedResolver } from './_resolvers/ticket-approved.resolver';
 import { MyTicketsComponent } from './tickets/my-tickets/my-tickets.component';
 import { FallbackComponent } from './fallback/fallback.component';
+import { TicketsManagerComponent } from './tickets/tickets-manager/tickets-manager.component';
+import { TicketManagerResolver } from './_resolvers/ticket-manager.resolver';
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: '', component: LoginComponent },
@@ -54,7 +56,7 @@ export const appRoutes: Routes = [
       {
         path: 'users',
         component: UserManagementComponent,
-        data: { roles: ['Admin'] },
+        data: { roles: ['Admin'] }
       },
       {
         path: 'projects/:tab',
@@ -63,6 +65,7 @@ export const appRoutes: Routes = [
           projectRes: ProjectsResolver,
           projectArchivedRes: ProjectsArchivedTableResolver,
         },
+        data: { roles: ['Admin'] }
       },
       {
         path: 'project/:id',
@@ -79,24 +82,34 @@ export const appRoutes: Routes = [
         path: 'project/edit/:id',
         component: ProjectEditComponent,
         resolve: { project: ProjectDetailsResolver },
+        data: { roles: ['Admin'] }
       },
       {
         path: 'tickets/:tab',
-        component: TicketComponent
+        component: TicketComponent,
+        data: { roles: ['Admin'] }
       },
       {
         path: 'ticket/:id',
         component: TicketDetailComponent,
-        resolve: { ticket: TicketDetailsResolver },
+        resolve: { ticket: TicketDetailsResolver }
       },
       {
         path: 'ticket/edit/:id',
         component: TicketEditComponent,
         resolve: { ticket: TicketDetailsResolver },
+        data: { roles: ['Admin', 'Manager'] }
+      },
+      {
+        path: 'ticket-manager/:id',
+        component: TicketsManagerComponent,
+        resolve: {project: TicketManagerResolver},
+        data: { roles: ['Manager'] }
       },
       {
         path: 'myTickets',
-        component: MyTicketsComponent
+        component: MyTicketsComponent,
+        data: { roles: ['Developer'] }
       },
       {
         path: 'profile',

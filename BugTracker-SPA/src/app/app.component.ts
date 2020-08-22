@@ -10,6 +10,7 @@ import { User } from './_models/User';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { share } from 'rxjs/operators';
 import { UserService } from './_services/user.service';
+import { DataService } from './_services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit{
   constructor(private snackbar: SnackbarService,
               public authService: AuthService,
               private router: Router,
+              private dataService: DataService,
               private userService: UserService) { }
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -40,6 +42,18 @@ export class AppComponent implements OnInit{
     if (this.user) {
       this.authService.currentUser = this.user;
     }
+
+    this.userService.getUser(this.authService.currentUser.id).subscribe(data => {
+      this.projectId = data.project?.id; console.log(this.projectId + '   app');
+    }, error => {
+      this.snackbar.Success('Something is wrong');
+    });
+
+    this.dataService.currentProjectId.subscribe(id => {
+      this.projectId = id;
+      console.log(this.projectId + ' before app');
+    });
+    console.log(this.projectId + ' From app');
   }
   logout(){
     localStorage.removeItem('token');

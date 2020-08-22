@@ -1,19 +1,17 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  invokeProjectTable = new EventEmitter();
-  subsVar: Subscription;
-
-
+  private projectIdSource = new BehaviorSubject(undefined);
+  currentProjectId = this.projectIdSource.asObservable();
 constructor() { }
 
-  onProjectFormButtonClick() {
-    this.invokeProjectTable.emit();
-  }
+setProjectId(id: number) {
+  this.projectIdSource.next(id);
+}
 
 }
