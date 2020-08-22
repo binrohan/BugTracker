@@ -16,6 +16,15 @@ export class LoginComponent implements OnInit {
   hide = true;
   model: any = {};
 
+  styleForModal: any = {};
+
+  // Get the modal
+  modal = document.getElementById('myModal');
+  // Get the button that opens the modal
+  btn = document.getElementById('myBtn');
+  // Get the <span> element that closes the modal
+  span = document.getElementsByClassName('close')[0];
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -55,12 +64,44 @@ export class LoginComponent implements OnInit {
       (next) => {
         this.snackbar.Success('Logged in successfully');
       },
-      (err) => {
-        this.snackbar.Success(err.toString());
+      (error) => {
+        this.snackbar.Success('Failed to login');
       },
       () => {
         this.router.navigate(['dashboard']);
       }
     );
+  }
+
+  demoLogin(n: number){
+    const loginModel = { email: '', password: 'password' };
+    if (n === 1){
+      loginModel.email = 'demoAdmin@mail.com';
+    } else if (n === 2){
+      loginModel.email = 'demoManager@mail.com';
+    } else if (n === 3){
+      loginModel.email = 'demoDeveloper@mail.com';
+    } else if (n === 4){
+      loginModel.email = 'demoOmni@mail.com';
+    }
+    this.authService.login(loginModel).subscribe(data => {
+      this.snackbar.Success('Demo Login Succesful');
+    }, error => {
+      this.snackbar.Success('Problem in connection');
+    }, () => {
+      this.closeModal();
+      this.router.navigate(['dashboard']);
+    });
+  }
+
+
+  // When the user clicks on the button, open the modal
+  openModal() {
+    this.styleForModal = { display: 'flex', justifyContent: 'center', alignItems: 'center' };
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  closeModal() {
+    this.styleForModal = { display: 'none'};
   }
 }

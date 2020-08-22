@@ -137,3 +137,7 @@ table {
   flex-basis: 0;
 }
 /***********Expansion Panel Ends**********/
+/**  Override Default Style  **/
+.extra-style {
+  padding: 0 18px;
+}

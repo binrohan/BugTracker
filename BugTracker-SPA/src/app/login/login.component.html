@@ -40,11 +40,30 @@
     </button>
   </form>
   <div class="login-link-group">
-    <div class="login-login-link">Forgot your <a href="#">Password?</a></div>
+    <div class="login-login-link">Forgot your <a>Password?</a></div>
     <div class="login-login-link">
       Create an account <a (click)="goToRegistration()">Sign Up</a>
     </div>
-    <div class="login-login-link">Sign in as a <a href="#">Demo User</a></div>
+    <div class="login-login-link">Sign in as a <a (click)="openModal()">Demo User</a></div>
   </div>
   </div>
 </div>
+
+ <!-- The Modal -->
+ <div id="myModal" [style]="styleForModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-content-head">
+      <h3>Demo Login</h3>
+      <span class="close" (click)="closeModal()">&times;</span>
+    </div>
+    <div class="modal-content-body">
+      <div (click)="demoLogin(1)"><h4>Demo_Admin</h4></div>
+      <div (click)="demoLogin(2)"><h4>Demo_Manager</h4></div>
+      <div (click)="demoLogin(3)"><h4>Demo_Developer</h4></div>
+      <div (click)="demoLogin(4)"><h4>Demo_Omni_User</h4></div>
+    </div>
+  </div>
+
+</div> 

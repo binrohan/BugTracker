@@ -3,10 +3,10 @@
     <div class="name-plate">
       <h4>PROFILE</h4>
       <div>
-        Information of user <span>asfgatjdfnkgapierg-gjkndg-n klfgn0-</span>
+        Information of user <span>{{user.id}}</span>
       </div>
       <div>
-        I
+        
       </div>
     </div>
     <form
@@ -99,7 +99,7 @@
     </form>
     <div class="bottom-nav">
         <div>
-            <div class="alert" *ngIf="!editForm.dirty">
+            <div class="alert" *ngIf="editForm.dirty">
                 <mat-icon>warning</mat-icon>
                 <p>You have made changes</p>
             </div>
@@ -126,22 +126,3 @@
     </div>
   </div>
 </div>
-
-<mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Information
-      </mat-panel-title>
-      <mat-panel-description>
-        Basic Information of The Project
-        <mat-icon>assignment</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <app-project-basic></app-project-basic>
-
-    <mat-action-row>
-      <button mat-button color="primary">List of projects</button>
-      <button mat-button color="warn">Archived</button>
-    </mat-action-row>
-  </mat-expansion-panel>

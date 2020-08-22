@@ -5,7 +5,9 @@ input, textarea, p{
 .p-container{
    background: white;
    border-radius: 5px;
-   box-shadow: 0px 1px 1px 3px rgba(214,214,214,1);
+   /* box-shadow: 0px 1px 1px 3px rgba(214,214,214,1); */
+   border: 1px solid rgb(235, 235, 235);
+   border-bottom: 1px solid rgb(138, 138, 138);
 }
 .name-plate{
     padding: 0 20px;
