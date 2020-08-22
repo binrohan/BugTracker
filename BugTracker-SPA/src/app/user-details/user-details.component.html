@@ -116,11 +116,11 @@
     </div>
     </div>
     <div class="right-nav">
-      <button [disabled]="!isRoleChanged" mat-raised-button color="primary" (click)="updateUserRole()" >Save</button>
-      <button [disabled]="!isFree" mat-raised-button color="primary" (click)="getProjects()">Assign to a project</button>
-      <button [disabled]="isFree" mat-raised-button color="warn" (click)="removeProject(user.project.id)" >Remove from project</button>
-      <button [disabled]="isFree" mat-raised-button color="accent" [routerLink] = "['/tickets/1']">Issue a ticket</button>
-      <button mat-raised-button color="warn" (click)="deleteUser()" >Delete Account</button>
+      <button *appHasRole="['Admin']" [disabled]="!isRoleChanged" mat-raised-button color="primary" (click)="updateUserRole()" >Save</button>
+      <button *appHasRole="['Admin', 'Manager']" [disabled]="!isFree" mat-raised-button color="primary" (click)="getProjects()">Assign to a project</button>
+      <button *appHasRole="['Admin', 'Manager']" [disabled]="isFree" mat-raised-button color="warn" (click)="removeProject(user.project.id)" >Remove from project</button>
+      <button *appHasRole="['Admin', 'Manager']" [disabled]="isFree" mat-raised-button color="accent" [routerLink] = "['/tickets/1']">Issue a ticket</button>
+      <button *appHasRole="['Admin']" mat-raised-button color="warn" (click)="deleteUser()" >Delete Account</button>
     </div>
   </div>
 </div>

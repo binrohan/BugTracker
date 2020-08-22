@@ -19,7 +19,7 @@
           <mat-divider></mat-divider>
         </div>
         <div *appHasRole="['Manager', 'Developer']">
-          <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="['/fallback']" routerLinkActive="router-link-active" >My Project</a></mat-list-item>
+          <mat-list-item role="listitem"><a mat-stroked-button color="primary" [routerLink]="projectId? ['/project/'+projectId]:['/fallback']" routerLinkActive="router-link-active" >My Project</a></mat-list-item>
           <mat-divider></mat-divider>
         </div>
         <div *appHasRole="['Admin']">

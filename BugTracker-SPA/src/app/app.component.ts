@@ -22,14 +22,15 @@ export class AppComponent implements OnInit{
   shouldRun = true;
   hide = true;
   user: User;
-  userDetails: User;
+  projectId: number;
   jwtHelper = new JwtHelperService();
   showToolbar = false;
 
 
   constructor(private snackbar: SnackbarService,
               public authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private userService: UserService) { }
   ngOnInit() {
     const token = localStorage.getItem('token');
     this.user = JSON.parse(localStorage.getItem('user'));

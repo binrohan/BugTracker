@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { SnackbarService } from '../_services/snackbar.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide = true;
   model: any = {};
+
+  projectId: number;
 
   styleForModal: any = {};
 
@@ -29,7 +32,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private snackbar: SnackbarService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -69,6 +73,9 @@ export class LoginComponent implements OnInit {
       },
       () => {
         this.router.navigate(['dashboard']);
+        this.userService.getUser(this.authService.currentUser.id).subscribe(data => {
+          this.projectId = data.project?.id; console.log(this.projectId + '   aaa');
+        });
       }
     );
   }

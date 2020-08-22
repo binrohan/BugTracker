@@ -11,24 +11,10 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./fallback.component.css']
 })
 export class FallbackComponent implements OnInit {
-  user: User;
-  isFallBack: boolean;
 
-  constructor(private userService: UserService,
-              private authService: AuthService,
-              private snackbar: SnackbarService,
-              private router: Router) { }
 
-  ngOnInit() {
-    this.userService.getUser(this.authService.currentUser.id).subscribe( data => {
-      this.user = data;
-    }, () => {
-      this.isFallBack = true;
-    }, () => {
-      if (this.user.project != null){
-        this.router.navigate(['/project/' + this.user.project.id]);
-      }
-    });
-  }
+  constructor() { }
+
+  ngOnInit() {}
 
 }

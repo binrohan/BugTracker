@@ -14,9 +14,9 @@
     <app-project-basic></app-project-basic>
 
     <mat-action-row>
-      <button mat-button color="primary" [routerLink]="['/projects']">List of projects</button>
-      <button mat-button color="warn" (click)="archiveProject()">Archived</button>
-      <button mat-button color="accent" [routerLink]="['/project/edit/', projectId]">Edit</button>
+      <button *appHasRole="['Admin']" mat-button color="primary" [routerLink]="['/projects/0']">List of projects</button>
+      <button *appHasRole="['Admin']" mat-button color="warn" (click)="archiveProject()">Archived</button>
+      <button *appHasRole="['Admin']" mat-button color="accent" [routerLink]="['/project/edit/', projectId]">Edit</button>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
   </mat-expansion-panel>
@@ -35,14 +35,14 @@
     <app-project-users></app-project-users>
 
     <mat-action-row>
-      <button mat-button color="accent" (click)="addPersonnel()">Add person</button>
-      <button mat-button color="primary" [routerLink]="['/users']">Go to users</button>
+      <button *appHasRole="['Admin', 'Manager']" mat-button color="accent" (click)="addPersonnel()">Add person</button>
+      <button *appHasRole="['Admin']" mat-button color="primary" [routerLink]="['/users']">Go to User Management</button>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel *appHasRole="['Admin']" [expanded]="step === 2" (click)="loadFreeUsers()" (opened)="setStep(2)" hideToggle>
+  <mat-expansion-panel *appHasRole="['Admin', 'Manager']" [expanded]="step === 2" (click)="loadFreeUsers()" (opened)="setStep(2)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Add Person
@@ -56,8 +56,8 @@
     <app-free-users></app-free-users>
 
     <mat-action-row>
-      <button mat-button color="primary" (click)="assignUsers()">Add Users</button>
-      <button mat-button color="accent" [routerLink]="['/users']">Go to User Management</button>
+      <button *appHasRole="['Admin', 'Manager']" mat-button color="primary" (click)="assignUsers()">Add Users</button>
+      <button *appHasRole="['Admin']" mat-button color="accent" [routerLink]="['/users']">Go to User Management</button>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
@@ -77,14 +77,14 @@
     <app-project-tickets></app-project-tickets>
 
     <mat-action-row>
-      <button mat-button color="primary" [routerLink]="['/tickets/1']">Create new ticket</button>
-      <button mat-button color="primary" [routerLink]="['/tickets/0']">List of tickets</button>
+      <button *appHasRole="['Admin']" mat-button color="primary" [routerLink]="['/tickets/1']">Create new ticket</button>
+      <button *appHasRole="['Admin']" mat-button color="primary" [routerLink]="['/tickets/0']">List of tickets</button>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
-      <button mat-button color="primary" (click)="nextStep()">End</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 4"  *appHasRole="['Manager']" (opened)="setStep(4)" hideToggle>
+  <mat-expansion-panel *appHasRole="['Admin', 'Manager']" [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Create New Ticket
@@ -117,7 +117,7 @@
     <app-project-archived-tickets></app-project-archived-tickets>
 
     <mat-action-row>
-      <button mat-button color="primary" [routerLink]="['/tickets/2']">List of archived tickets</button>
+      <button *appHasRole="['Admin', 'Manager']" mat-button color="primary" [routerLink]="['/tickets/2']">List of archived tickets</button>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="primary" (click)="nextStep()">End</button>
     </mat-action-row>
