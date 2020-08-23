@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { TicketRes } from 'src/app/_models/TicketRes';
@@ -13,6 +13,8 @@ import { Sort } from '@angular/material/sort';
   styleUrls: ['./project-archived-tickets.component.css']
 })
 export class ProjectArchivedTicketsComponent implements OnInit {
+  @Input() projectId: number;
+  
   ticketRes: TicketRes;
 
   displayedColumns: string[] = [
@@ -26,10 +28,10 @@ export class ProjectArchivedTicketsComponent implements OnInit {
     'Action',
   ];
 
-  pageSizeOptions: number[] = [5, 9, 15];
+  pageSizeOptions: number[] = [5, 10, 15];
   pageIndex = 0;
-  pagesize = 9;
-  ticketParams: any = {pageSize: 9, pageIndex: 0, filter: '', orderBy: 'Starteddesc', stateBy: 'active'};
+  pagesize = 10;
+  ticketParams: any = {pageSize: this.pagesize, pageIndex: this.pageIndex, filter: '', orderBy: 'Starteddesc', stateBy: 'archived'};
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
@@ -43,6 +45,7 @@ export class ProjectArchivedTicketsComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.ticketRes = data.archivedTicketRes;
     });
+    this.loadTickets();
   }
 
   applyFilter(event: Event) {
@@ -59,7 +62,7 @@ export class ProjectArchivedTicketsComponent implements OnInit {
   }
 
   loadTickets() {
-    this.ticketService.getProjectTickets(this.ticketRes.tickets.pop().projectId, this.ticketParams).subscribe(
+    this.ticketService.getProjectTickets(this.projectId, this.ticketParams).subscribe(
       (data) => {
         this.ticketRes = data;
       },

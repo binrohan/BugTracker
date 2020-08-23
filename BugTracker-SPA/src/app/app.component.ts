@@ -43,11 +43,13 @@ export class AppComponent implements OnInit{
       this.authService.currentUser = this.user;
     }
 
-    this.userService.getUser(this.authService.currentUser.id).subscribe(data => {
+    if (this.authService.currentUser != null) {
+      this.userService.getUser(this.authService.currentUser?.id).subscribe(data => {
       this.projectId = data.project?.id; console.log(this.projectId + '   app');
     }, error => {
       this.snackbar.Success('Something is wrong');
     });
+  }
 
     this.dataService.currentProjectId.subscribe(id => {
       this.projectId = id;

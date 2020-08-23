@@ -25,7 +25,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class TicketFormComponent implements OnInit {
   @Input() projectIdFromParent: number;
-  @Input() userIdFromParent: number;
+  projectTitle: string;
 
   ticketForm: FormGroup;
 
@@ -38,7 +38,6 @@ export class TicketFormComponent implements OnInit {
   ticket: Ticket;
   projectSubDate: Date = new Date();
   today: Date = new Date();
-
 
   constructor(
     private fb: FormBuilder,
@@ -58,7 +57,10 @@ export class TicketFormComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       submissionDate: ['', Validators.required],
-      projectId: ['', Validators.required],
+      projectId: [
+        this.projectIdFromParent ? this.projectIdFromParent : '',
+        Validators.required,
+      ],
       userId: [],
       categoryId: ['', Validators.required],
       priorityId: ['', Validators.required],
@@ -68,43 +70,83 @@ export class TicketFormComponent implements OnInit {
   addTicket() {
     if (this.ticketForm.valid) {
       this.ticket = Object.assign({}, this.ticketForm.value);
-      this.ticketService.addTicket(this.ticket).subscribe(() => {
-        this.snackbar.Success('New ticket added');
-        this.ticketForm.markAsUntouched();
-        this.ticketForm.markAsPristine();
-      }, error => {
-        this.snackbar.Success('Error in adding ticket');
-      });
+      // if (this.projectIdFromParent != null) {
+      //   this.ticket.projectId = this.projectIdFromParent;
+      // }
+      this.ticketService.addTicket(this.ticket).subscribe(
+        () => {
+          this.snackbar.Success('New ticket added');
+          this.ticketForm.reset();
+        },
+        (error) => {
+          this.snackbar.Success('Error in adding ticket');
+        }
+      );
     }
   }
   loadData() {
-    this.assistService.getCate().subscribe((data) => {
-      this.categories = data;
-    }, error => {
-      this.snackbar.Success('Failed Cate');
-    });
-    this.assistService.getPri().subscribe((data) => {
-    this.priorities = data;
-    }, error => {
-      this.snackbar.Success('Failed Cate');
-  });
-    this.assistService.getSta().subscribe((data) => {
-    this.statuses = data;
-    }, error => {
-      this.snackbar.Success('Failed Cate');
-  });
-    this.adminService.getProjects({pageIndex: 0, filter: '' , orderBy: 'Starteddesc', stateBy: 'active'}).subscribe((data) => {
-      this.projects = data.projects;
-      }, error => {
+    this.assistService.getCate().subscribe(
+      (data) => {
+        this.categories = data;
+      },
+      (error) => {
         this.snackbar.Success('Failed Cate');
-    });
-}
+      }
+    );
+    this.assistService.getPri().subscribe(
+      (data) => {
+        this.priorities = data;
+      },
+      (error) => {
+        this.snackbar.Success('Failed Cate');
+      }
+    );
+    this.assistService.getSta().subscribe(
+      (data) => {
+        this.statuses = data;
+      },
+      (error) => {
+        this.snackbar.Success('Failed Cate');
+      }
+    );
+    if (this.projectIdFromParent != null) {
+      this.projectService.getProject(this.projectIdFromParent).subscribe(
+        (data) => {
+          this.projectTitle = data.title;
+        },
+        (error) => {
+          this.snackbar.Success('Failed Cate');
+        },
+        () => {
+          this.getUsersForProject(this.projectIdFromParent);
+        }
+      );
+    } else {
+      this.adminService
+      .getProjects({
+        pageIndex: 0,
+        filter: '',
+        orderBy: 'Starteddesc',
+        stateBy: 'active',
+      })
+      .subscribe(
+        (data) => {
+          this.projects = data.projects;
+        },
+        (error) => {
+          this.snackbar.Success('Failed Cate');
+        }
+      );
+    }
+  }
 
-  getUsersForProject(projectId){
+  getUsersForProject(projectId) {
     this.users = [];
     this.projectService.getProject(projectId).subscribe((data) => {
       this.project = data;
-      this.project.users.forEach(u => u.roles.includes('Developer') ? this.users.push(u) : false);
+      this.project.users.forEach((u) =>
+        u.roles.includes('Developer') ? this.users.push(u) : false
+      );
       this.projectSubDate = this.project.deadTime;
     });
   }

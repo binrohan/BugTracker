@@ -95,7 +95,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <app-ticket-form></app-ticket-form>
+    <app-ticket-form [projectIdFromParent]="projectId"></app-ticket-form>
 
     <mat-action-row>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
@@ -114,7 +114,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <app-project-archived-tickets></app-project-archived-tickets>
+    <app-project-archived-tickets [projectId]="projectId" ></app-project-archived-tickets>
 
     <mat-action-row>
       <button *appHasRole="['Admin', 'Manager']" mat-button color="primary" [routerLink]="['/tickets/2']">List of archived tickets</button>
