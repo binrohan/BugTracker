@@ -235,7 +235,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         
-        <app-ticket-list-passed *appHasRole="['Manager']"></app-ticket-list-passed>
+        <app-ticket-list-passed [userId]="userId" *appHasRole="['Manager']"></app-ticket-list-passed>
 
       </mat-expansion-panel>
       <mat-expansion-panel *appHasRole="['Developer']">

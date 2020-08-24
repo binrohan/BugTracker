@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit {
   pri: Priority[];
   sta: Status[];
   userId: string;
-  user: User;
   step = 0;
   isNewUser = false;
 

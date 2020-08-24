@@ -14,7 +14,7 @@ import { Sort } from '@angular/material/sort';
 })
 export class ProjectArchivedTicketsComponent implements OnInit {
   @Input() projectId: number;
-  
+
   ticketRes: TicketRes;
 
   displayedColumns: string[] = [
@@ -42,9 +42,6 @@ export class ProjectArchivedTicketsComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    this.route.data.subscribe((data) => {
-      this.ticketRes = data.archivedTicketRes;
-    });
     this.loadTickets();
   }
 

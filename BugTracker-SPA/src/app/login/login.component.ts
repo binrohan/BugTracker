@@ -75,13 +75,7 @@ export class LoginComponent implements OnInit {
       },
       () => {
         this.router.navigate(['dashboard']);
-        this.userService.getUser(this.authService.currentUser.id).subscribe(data => {
-          this.projectId = data.project?.id; console.log(this.projectId + '   login');
-        }, error => {
-          this.snackbar.Success('Something is wrong');
-        }, () => {
-          this.dataService.setProjectId(this.projectId);
-        });
+        this.getUser();
       }
     );
   }
@@ -104,6 +98,17 @@ export class LoginComponent implements OnInit {
     }, () => {
       this.closeModal();
       this.router.navigate(['dashboard']);
+      this.getUser();
+    });
+  }
+
+  getUser(){
+    this.userService.getUser(this.authService.currentUser.id).subscribe(data => {
+      this.projectId = data.project?.id; console.log(this.projectId + '   login');
+    }, error => {
+      this.snackbar.Success('Something is wrong');
+    }, () => {
+      this.dataService.setProjectId(this.projectId);
     });
   }
 
