@@ -294,6 +294,9 @@ namespace BugTracker.API.Data
                     case "passed":
                         tickets = tickets.Where(t => !t.isArchived || t.isDeveloperPassed);
                         break;
+                    case "unassigned":
+                        tickets = tickets.Where(t => !t.isArchived && t.User == null);
+                        break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
                         break;
@@ -332,6 +335,18 @@ namespace BugTracker.API.Data
                     case "submissionDatedesc":
                         tickets = tickets.OrderByDescending(t => t.SubmissionDate);
                         break;
+                    case "updatedasc":
+                        tickets = tickets.OrderBy(t => t.Updated);
+                        break;
+                    case "updateddesc":
+                        tickets = tickets.OrderByDescending(t => t.Updated);
+                        break;
+                    case "createdasc":
+                        tickets = tickets.OrderBy(t => t.Created);
+                        break;
+                    case "createddesc":
+                        tickets = tickets.OrderByDescending(t => t.Created);
+                        break;
                     case "categoryasc":
                         tickets = tickets.OrderBy(t => t.Category.TicketCategory);
                         break;
@@ -344,12 +359,17 @@ namespace BugTracker.API.Data
                     case "prioritydesc":
                         tickets = tickets.OrderByDescending(t => t.Priority.TicketPriority);
                         break;
-                    
                     case "statusasc":
                         tickets = tickets.OrderBy(t => t.Status.TicketStatus);
                         break;
                     case "statusdesc":
                         tickets = tickets.OrderByDescending(t => t.Status.TicketStatus);
+                        break;
+                    case "userasc":
+                        tickets = tickets.OrderBy(t => t.User.UserName);
+                        break;
+                    case "userdesc":
+                        tickets = tickets.OrderByDescending(t => t.User.UserName);
                         break;
                     default:
                         tickets = tickets.OrderByDescending(t => t.Created);
@@ -399,6 +419,9 @@ namespace BugTracker.API.Data
                     case "passed":
                         tickets = tickets.Where(t => !t.isArchived && t.isDeveloperPassed && !t.isManagerPassed);
                         break;
+                    case "unassigned":
+                        tickets = tickets.Where(t => !t.isArchived && t.User == null);
+                        break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
                         break;
@@ -435,6 +458,18 @@ namespace BugTracker.API.Data
                     case "submissionDatedesc":
                         tickets = tickets.OrderByDescending(t => t.SubmissionDate);
                         break;
+                    case "updatedasc":
+                        tickets = tickets.OrderBy(t => t.Updated);
+                        break;
+                    case "updateddesc":
+                        tickets = tickets.OrderByDescending(t => t.Updated);
+                        break;
+                    case "createdasc":
+                        tickets = tickets.OrderBy(t => t.Created);
+                        break;
+                    case "createddesc":
+                        tickets = tickets.OrderByDescending(t => t.Created);
+                        break;
                     case "categoryasc":
                         tickets = tickets.OrderBy(t => t.Category.TicketCategory);
                         break;
@@ -447,12 +482,17 @@ namespace BugTracker.API.Data
                     case "prioritydesc":
                         tickets = tickets.OrderByDescending(t => t.Priority.TicketPriority);
                         break;
-                    
                     case "statusasc":
                         tickets = tickets.OrderBy(t => t.Status.TicketStatus);
                         break;
                     case "statusdesc":
                         tickets = tickets.OrderByDescending(t => t.Status.TicketStatus);
+                        break;
+                    case "userasc":
+                        tickets = tickets.OrderBy(t => t.User.UserName);
+                        break;
+                    case "userdesc":
+                        tickets = tickets.OrderByDescending(t => t.User.UserName);
                         break;
                     default:
                         tickets = tickets.OrderByDescending(t => t.Created);
@@ -509,6 +549,9 @@ namespace BugTracker.API.Data
                     case "passed":
                         tickets = tickets.Where(t => !t.isArchived && t.isDeveloperPassed && !t.isManagerPassed);
                         break;
+                    case "unassigned":
+                        tickets = tickets.Where(t => !t.isArchived && t.User == null);
+                        break;
                     default:
                         tickets = tickets.Where(t => !t.isArchived);
                         break;
@@ -545,6 +588,18 @@ namespace BugTracker.API.Data
                     case "submissionDatedesc":
                         tickets = tickets.OrderByDescending(t => t.SubmissionDate);
                         break;
+                    case "updatedasc":
+                        tickets = tickets.OrderBy(t => t.Updated);
+                        break;
+                    case "updateddesc":
+                        tickets = tickets.OrderByDescending(t => t.Updated);
+                        break;
+                    case "createdasc":
+                        tickets = tickets.OrderBy(t => t.Created);
+                        break;
+                    case "createddesc":
+                        tickets = tickets.OrderByDescending(t => t.Created);
+                        break;
                     case "categoryasc":
                         tickets = tickets.OrderBy(t => t.Category.TicketCategory);
                         break;
@@ -557,12 +612,17 @@ namespace BugTracker.API.Data
                     case "prioritydesc":
                         tickets = tickets.OrderByDescending(t => t.Priority.TicketPriority);
                         break;
-                    
                     case "statusasc":
                         tickets = tickets.OrderBy(t => t.Status.TicketStatus);
                         break;
                     case "statusdesc":
                         tickets = tickets.OrderByDescending(t => t.Status.TicketStatus);
+                        break;
+                    case "userasc":
+                        tickets = tickets.OrderBy(t => t.User.UserName);
+                        break;
+                    case "userdesc":
+                        tickets = tickets.OrderByDescending(t => t.User.UserName);
                         break;
                     default:
                         tickets = tickets.OrderByDescending(t => t.Created);

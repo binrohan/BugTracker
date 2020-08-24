@@ -1,10 +1,4 @@
 <div>
-  <div class="banner">
-    <p>LIST OF ASSIGN TICKETS</p>
-  </div>
-  <div class="sec-nav">
-    <a [routerLink]="['/tickets']">list of tickets</a>
-  </div>
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
@@ -14,41 +8,47 @@
   
         <!-- Position Column -->
         <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header="title"> TITLE </th>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header="title"> Title </th>
           <td mat-cell *matCellDef="let element"> {{element.title}} </td>
         </ng-container>
-      
-        <!-- Weight Column -->
-        <ng-container matColumnDef="updated">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="updated"> UPDATED </th>
-          <td mat-cell *matCellDef="let element"> {{element.updated | Local | date: 'd MMMM, y'}} </td>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="user"> User </th>
+          <td mat-cell *matCellDef="let element"> {{ element.userName }} </td>
         </ng-container>
-      
-        <!-- Symbol Column -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="updated">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="updated"> LAST UPDATED </th>
+          <td mat-cell *matCellDef="let element"> {{ element.updated | Local | date: 'dd MMMM y' }} </td>
+        </ng-container>
+
+        <!-- Name Column -->
         <ng-container matColumnDef="submissionDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header="submissionDate"> SUB. DATE </th>
-          <td mat-cell *matCellDef="let element"> {{element.submissionDate | Local | date: 'd MMMM, y'}} </td>
+          <td mat-cell *matCellDef="let element"> {{ element.submissionDate | Local | date: 'dd MMMM y' }} </td>
         </ng-container>
   
         <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="category"> CATEGORY </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="category"> Category </th>
           <td mat-cell *matCellDef="let element"> {{element.category}} </td>
         </ng-container>
   
         <ng-container matColumnDef="priority">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="priority"> PRIORITY </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="priority"> Priority </th>
           <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
         </ng-container>
   
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="status"> STATUS </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="status"> Status </th>
           <td mat-cell *matCellDef="let element"> {{element.status}} </td>
         </ng-container>
   
         <!-- Symbol Column -->
         <ng-container matColumnDef="Action">
-            <th mat-header-cell *matHeaderCellDef class="extra-style"> ACTIONS </th>
-            <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/ticket/', element.id]" >Detail</button><button mat-button color="warn" (click)="unassignTicket(element.id)">Unassign</button></td>
+            <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
+            <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/ticket/', element.id]" >Detail</button></td>
           </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

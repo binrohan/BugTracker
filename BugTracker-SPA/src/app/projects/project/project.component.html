@@ -1,14 +1,14 @@
 <div class="whole">
     <mat-tab-group dynamicHeight mat-align-tabs="end" color="primary" backgroundColor="accent" [(selectedIndex)]="tab" (selectedTabChange)="onTabChange()">
-        <mat-tab label="Active Projects">
+        <mat-tab label="ACTIVE PROJECTS">
             <ng-template matTabContent>
                 <app-project-table></app-project-table>
             </ng-template>
         </mat-tab>
-        <mat-tab label="Create New Project">
+        <mat-tab label="CREATE NEW PROJECT">
           <app-project-form (goToIndex)="setIndex($event)" ></app-project-form>
         </mat-tab>
-        <mat-tab label="Archived Projects">
+        <mat-tab label="ARCHIVED PROJECTS">
           <ng-template matTabContent>
             <app-project-archived-table></app-project-archived-table>
           </ng-template>

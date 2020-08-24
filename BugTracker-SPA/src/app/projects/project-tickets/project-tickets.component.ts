@@ -21,7 +21,6 @@ export class ProjectTicketsComponent implements OnInit {
   projectId: number;
 
   displayedColumns: string[] = [
-    'id',
     'title',
     'updated',
     'submissionDate',

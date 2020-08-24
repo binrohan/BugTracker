@@ -3,11 +3,11 @@
     <div class="content">
       <div>
         <div class="banner">
-          <p>Details for User</p>
+          <p>DETAILS FOR USER</p>
         </div>
         <div class="row info">
           <div class="box">
-            <h3>Name</h3>
+            <h3>NAME</h3>
             <p>{{user.userName | titlecase}}</p>
           </div>
           <div class="box">
@@ -41,7 +41,7 @@
             <p>{{user.adrs_Local || "N/A"}}</p>
           </div>
           <div class="box">
-            <h3>ROLE</h3>
+            <h3>ROLE(s)</h3>
             <form #testform="ngForm">
               <div *ngFor="let role of allRoles" class="role">
                 <input type="checkbox" #checkboxValue (change)='onSelect($event, checkboxValue)' id="{{role}}" class="form-control" name="vehicle1" value="{{role}}" [checked] = "roles.includes(role)" >
@@ -65,10 +65,10 @@
         <app-user-tickets [userId]="user.id" *ngIf="user.tickets.length>0" (length)="getLength($event)"></app-user-tickets>
         <div class="project-table" *ngIf="showList">
           <div class="banner">
-            <p>Active Projects</p>
+            <p>ACTIVE PROJECTS</p>
           </div>
           <div class="sec-nav">
-            <a [routerLink]="['/projects/1']">Create new project</a>
+            <a [routerLink]="['/projects/1']">create new project</a>
             <a (click)="closeProjectList()">close</a>
           </div>
           <mat-form-field>
@@ -80,25 +80,25 @@
         
                 <!-- Position Column -->
                 <ng-container matColumnDef="Title">
-                  <th mat-header-cell *matHeaderCellDef  mat-sort-header="Title"> Title </th>
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header="Title"> TITLE </th>
                   <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                 </ng-container>
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="Started">
-                  <th mat-header-cell *matHeaderCellDef  mat-sort-header="Started"> Created </th>
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header="Started"> CREATED </th>
                   <td mat-cell *matCellDef="let element"> {{element.startTime | Local | date: 'd MMMM, y'}} </td>
                 </ng-container>
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="Tickets">
-                  <th mat-header-cell *matHeaderCellDef  mat-sort-header="Tickets"> Tickets Count </th>
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header="Tickets"> TICKETS COUNT </th>
                   <td mat-cell *matCellDef="let element"> {{element.ticketCount}} </td>
                 </ng-container>
     
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="Action">
-                    <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
+                    <th mat-header-cell *matHeaderCellDef class="extra-style"> ACTION </th>
                     <td mat-cell *matCellDef="let element"><button mat-button color="primary" (click)="assignProject(element.id)" >Add</button></td>
                   </ng-container>
               

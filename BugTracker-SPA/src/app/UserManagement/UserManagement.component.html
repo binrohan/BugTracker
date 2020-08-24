@@ -4,7 +4,7 @@
     <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          All Users
+          ALL USERS
         </mat-panel-title>
         <mat-panel-description>
           List of all users registered
@@ -21,31 +21,31 @@
       
               <!-- Position Column -->
               <ng-container matColumnDef="Name">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header="Name"> Name </th>
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header="Name"> NAME </th>
                 <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
               </ng-container>
             
               <!-- Name Column -->
               <ng-container matColumnDef="Email">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header="Email"> Email </th>
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header="Email"> EMAIL </th>
                 <td mat-cell *matCellDef="let element"> {{element.email}} </td>
               </ng-container>
             
               <!-- Weight Column -->
               <ng-container matColumnDef="Phone">
-                <th mat-header-cell *matHeaderCellDef> Phone </th>
+                <th mat-header-cell *matHeaderCellDef> PHONE </th>
                 <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
               </ng-container>
             
               <!-- Symbol Column -->
               <ng-container matColumnDef="Roles">
-                <th mat-header-cell *matHeaderCellDef> Roles </th>
+                <th mat-header-cell *matHeaderCellDef> ROLES </th>
                 <td mat-cell *matCellDef="let element"> {{element.roles}} </td>
               </ng-container>
     
               <!-- Symbol Column -->
               <ng-container matColumnDef="Action">
-                  <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
+                  <th mat-header-cell *matHeaderCellDef class="extra-style"> ACTION </th>
                   <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/user/', element.id]" >Details</button></td>
                 </ng-container>
             
@@ -66,7 +66,7 @@
     <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          New Users
+          NEW USERS
         </mat-panel-title>
         <mat-panel-description>
           Assign new user review account and assign role

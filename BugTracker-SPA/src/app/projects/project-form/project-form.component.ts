@@ -9,42 +9,48 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-project-form',
   templateUrl: './project-form.component.html',
-  styleUrls: ['./project-form.component.css']
+  styleUrls: ['./project-form.component.css'],
 })
 export class ProjectFormComponent implements OnInit {
-
   @Output() goToIndex = new EventEmitter<number>();
 
   projectForm: FormGroup;
   newProject: Project;
 
-  constructor(private fb: FormBuilder,
-              private snackbar: SnackbarService,
-              private projectService: ProjectService,
-              private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private snackbar: SnackbarService,
+    private projectService: ProjectService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.createProjectForm();
   }
 
-  createProjectForm(){
+  createProjectForm() {
     this.projectForm = this.fb.group({
       title: ['', Validators.required],
       deadTime: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
     });
   }
 
-  addProject(){console.log(this.projectForm.value);
-    if (this.projectForm.valid){
+  addProject() {
+    console.log(this.projectForm.value);
+    if (this.projectForm.valid) {
       this.newProject = Object.assign({}, this.projectForm.value);
-      this.projectService.addProject(this.newProject).subscribe(() => {
-        this.snackbar.Success('Project Added');
-      }, err => {
-        this.snackbar.Success('Failed to add project');
-      }, () => {
-        this.goToIndex.emit(0);
-      });
+      this.projectService.addProject(this.newProject).subscribe(
+        () => {
+          this.snackbar.Success('Project Added');
+        },
+        (err) => {
+          this.snackbar.Success('Failed to add project');
+        },
+        () => {
+          this.goToIndex.emit(0);
+        }
+      );
     }
   }
 }

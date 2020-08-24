@@ -3,11 +3,15 @@
   <mat-tab-group mat-align-tabs="end" backgroundColor="accent" color="accent" dynamicHeight>
     <mat-tab label="LIVE TICKETS">
       <ng-template matTabContent>
+
+        <app-tm-ticket-table [projectId]="project?.id" [ticketState]="'live'" ></app-tm-ticket-table>
         
       </ng-template>
     </mat-tab>
     <mat-tab label="WAITING FOR APPROVAL">
       <ng-template matTabContent>
+
+        <app-tm-ticket-table [projectId]="project?.id" [ticketState]="'passed'" ></app-tm-ticket-table>
         
       </ng-template>
     </mat-tab>
@@ -29,6 +33,13 @@
       <ng-template matTabContent>
 
         <app-ticket-form [projectIdFromParent]="project?.id"></app-ticket-form>
+
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="UNASSIGNED">
+      <ng-template matTabContent>
+
+        <app-tm-ticket-table [projectId]="project?.id" [ticketState]="'unassigned'"></app-tm-ticket-table>
 
       </ng-template>
     </mat-tab>

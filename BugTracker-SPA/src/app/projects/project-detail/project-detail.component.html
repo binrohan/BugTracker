@@ -3,7 +3,7 @@
   <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Information
+        INFORMATION
       </mat-panel-title>
       <mat-panel-description>
         Basic Information of The Project
@@ -24,7 +24,7 @@
   <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1);  loadUsers()" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Personnel
+        PERSONNEL
       </mat-panel-title>
       <mat-panel-description>
         List of Personnel Assigned in this Project
@@ -45,7 +45,7 @@
   <mat-expansion-panel *appHasRole="['Admin', 'Manager']" [expanded]="step === 2" (click)="loadFreeUsers()" (opened)="setStep(2)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Add Person
+        ADD PERSON
       </mat-panel-title>
       <mat-panel-description>
         List of Personnel Assigned in this Project
@@ -66,7 +66,7 @@
   <mat-expansion-panel [expanded]="step === 3" (click)="loadTickets()" (opened)="setStep(3)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Tickets
+        TICKETS
       </mat-panel-title>
       <mat-panel-description>
         List of Active Tickets 
@@ -87,7 +87,7 @@
   <mat-expansion-panel *appHasRole="['Admin', 'Manager']" [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Create New Ticket
+        CREATE NEW TICKET
       </mat-panel-title>
       <mat-panel-description>
         Create new tickets for this project
@@ -106,7 +106,7 @@
   <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Resolved Tickets
+        RESOLVED TICKETS
       </mat-panel-title>
       <mat-panel-description>
         List of resolved and approved Tickets of The Project

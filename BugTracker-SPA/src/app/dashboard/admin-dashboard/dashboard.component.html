@@ -171,7 +171,7 @@
         <div *ngFor="let c of cate; let i = index">
           <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
             <div class="type-part">{{c.ticketCategory}}</div>
-            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts?.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts?.activeTickets)*100 | number: '1.0-0'}}%&#41;</div>
           </div>
         </div>
       </div>
@@ -180,7 +180,7 @@
         <div *ngFor="let c of pri; let i = index">
           <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
             <div class="type-part">{{c.ticketPriority}}</div>
-            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts?.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts?.activeTickets)*100 | number: '1.0-0'}}%&#41;</div>
           </div>
           
         </div>
@@ -190,7 +190,7 @@
         <div *ngFor="let c of sta; let i = index">
           <div class="type-box" [style.background-color]="i%2 == 0? 'white':'whitesmoke'">
             <div class="type-part">{{c.ticketStatus}}</div>
-            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts?.totalTickets)*100 | number: '1.0-0'}}%&#41;</div>
+            <div class="type-part">{{c.ticketCounts}} &nbsp; &#40;{{(c.ticketCounts/counts?.activeTickets)*100 | number: '1.0-0'}}%&#41;</div>
           </div>
         </div>
       </div>
@@ -201,7 +201,7 @@
       <mat-expansion-panel *appHasRole="['Admin']">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            New Users
+            NEW USERS
           </mat-panel-title>
           <mat-panel-description>
             Assign new user review account and assign role
@@ -215,7 +215,7 @@
       <mat-expansion-panel *appHasRole="['Admin']">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Manager Approved Tickets
+            MANAGER APPROVED TICKETS
           </mat-panel-title>
           <mat-panel-description>
             List of Tickets resolved, waiting for admin check
@@ -228,7 +228,7 @@
       <mat-expansion-panel *appHasRole="['Manager']"> 
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Developer Passed Tickets
+            DEVELOPER PASSED TICKETS
           </mat-panel-title>
           <mat-panel-description>
             Ticket resolved by developer, waiting for manager approval
@@ -241,7 +241,7 @@
       <mat-expansion-panel *appHasRole="['Developer']">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Waiting For Approval
+            WAITING FOR APPROVAL
           </mat-panel-title>
           <mat-panel-description>
             Resolved Tickets sent to manager for approval

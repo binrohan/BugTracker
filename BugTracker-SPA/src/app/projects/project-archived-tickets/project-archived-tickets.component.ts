@@ -18,7 +18,6 @@ export class ProjectArchivedTicketsComponent implements OnInit {
   ticketRes: TicketRes;
 
   displayedColumns: string[] = [
-    'id',
     'title',
     'updated',
     'submissionDate',
@@ -38,8 +37,7 @@ export class ProjectArchivedTicketsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private snackbar: SnackbarService,
-              private ticketService: TicketService,
-              private authService: AuthService) { }
+              private ticketService: TicketService) { }
 
   ngOnInit() {
     this.loadTickets();

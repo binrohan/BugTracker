@@ -88,6 +88,7 @@ import { NewUsersComponent } from './new-users/new-users.component';
 import { LocalTimePipe } from './_pipe/local-time.pipe';
 import { TicketsManagerComponent } from './tickets/tickets-manager/tickets-manager.component';
 import { TicketManagerResolver } from './_resolvers/ticket-manager.resolver';
+import { TmTicketTableComponent } from './tickets/tm-ticket-table/tm-ticket-table.component';
 
 
 export function tokenGetter() {
@@ -137,7 +138,8 @@ export function tokenGetter() {
       MyTicketsActiveComponent,
       FallbackComponent,
       NewUsersComponent,
-      LocalTimePipe
+      LocalTimePipe,
+      TmTicketTableComponent
    ],
    imports: [
       BrowserModule,
