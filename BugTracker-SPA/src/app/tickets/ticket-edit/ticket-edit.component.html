@@ -4,7 +4,7 @@
     <div class="content">
       <div>
         <div class="banner">
-          <p>Edit ticket #{{ticket.id}}</p>
+          <p>EDIT TICKET #{{ticket.id}}</p>
         </div>
         <div class="row info">
           <div class="box">
@@ -101,11 +101,11 @@
         <div class="row info">
           <div class="box">
             <h3>CREATED</h3>
-            <p>{{ticket.created | Local | date: "dd MMMM, yyyy"}}</p>
+            <p>{{ticket.created | Local | date: "dd MMMM yyyy"}}</p>
           </div>
           <div class="box">
             <h3>LAST UPDATED</h3>
-            <p>{{ticket.updated | Local | date: "dd MMMM, yyyy"}}</p>
+            <p>{{ticket.updated | Local | date: "dd MMMM yyyy"}}</p>
           </div>
         </div>
         <div class="row info">

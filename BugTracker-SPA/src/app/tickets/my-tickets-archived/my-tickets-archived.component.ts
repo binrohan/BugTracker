@@ -18,8 +18,8 @@ export class MyTicketsArchivedComponent implements OnInit {
 
   displayedColumns: string[] = [
     'title',
-    'projectName',
-    'updated',
+    // 'projectName',
+    // 'updated',
     'category',
     'priority',
     'status',

@@ -3,7 +3,7 @@
     <div class="content">
       <div>
         <div class="banner">
-          <p>Details for ticket #{{ticket.id}}</p>
+          <p>DETAILS FOR TICKET #{{ticket.id}}</p>
         </div>
         <div class="row info">
           <div class="box">
@@ -48,11 +48,11 @@
         <div class="row info">
           <div class="box">
             <h3>CREATED</h3>
-            <p>{{ticket.created | Local | date: "dd MMMM, yyyy"}}</p>
+            <p>{{ticket.created | Local | date: "dd MMMM yyyy"}}</p>
           </div>
           <div class="box">
             <h3>LAST UPDATED</h3>
-            <p>{{ticket.updated | Local | date: "dd MMMM, yyyy"}}</p>
+            <p>{{ticket.updated | Local | date: "dd MMMM yyyy"}}</p>
           </div>
         </div>
         <div class="row info">
@@ -78,12 +78,12 @@
     </div>
     <div class="right-nav">
       <div *ngIf="!ticket.isArchived">
-        <button mat-flat-button color="warn" [disabled]="ticket.isArchived" [routerLink]="['/ticket/edit/', ticket.id]">Edit</button>
-        <button mat-flat-button color="accent" (click)="passTicket()" [disabled]="ticket.isDeveloperPassed">Pass</button>
-        <button mat-flat-button color="accent" (click)="passTicket()" [disabled]="!ticket.isDeveloperPassed">Keep Working</button>
-        <button mat-flat-button color="primary" [disabled]="!ticket.isDeveloperPassed || ticket.isManagerPassed" (click)="approveTicket()">Approve</button>
-        <button mat-flat-button color="accent" [disabled]="!ticket.isManagerPassed" (click)="approveTicket()">Approve Undo</button>
-        <button mat-flat-button color="warn" [disabled]="ticket.isArchived" (click)="archiveTicket()">Archived</button>
+        <button mat-flat-button *appHasRole="['Admin', 'Manager', 'Developer']" color="warn" [disabled]="ticket.isArchived" [routerLink]="['/ticket/edit/', ticket.id]">Edit</button>
+        <button mat-flat-button *appHasRole="['Developer']" color="accent" (click)="passTicket()" [disabled]="ticket.isDeveloperPassed">Pass</button>
+        <button mat-flat-button *appHasRole="['Developer']" color="accent" (click)="passTicket()" [disabled]="!ticket.isDeveloperPassed">Keep Working</button>
+        <button mat-flat-button *appHasRole="['Manager']" color="primary" [disabled]="!ticket.isDeveloperPassed || ticket.isManagerPassed" (click)="approveTicket()">Approve</button>
+        <button mat-flat-button *appHasRole="['Admin', 'Manager']" color="accent" [disabled]="!ticket.isManagerPassed" (click)="approveTicket()">Approve Undo</button>
+        <button mat-flat-button *appHasRole="['Admin']" color="warn" [disabled]="ticket.isArchived" (click)="archiveTicket()">Archived</button>
       </div>
       <div *ngIf="ticket.isArchived"> 
         <button mat-flat-button color="primary" [disabled]="!ticket.isArchived" (click)="archiveTicket()">Reopen</button>

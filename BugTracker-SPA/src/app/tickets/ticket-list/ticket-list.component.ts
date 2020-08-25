@@ -18,11 +18,9 @@ export class TicketListComponent implements OnInit {
 
 
   displayedColumns: string[] = [
-    'id',
     'title',
     'projectName',
-    'updated',
-    'submissionDate',
+    'user',
     'category',
     'priority',
     'status',
@@ -30,7 +28,7 @@ export class TicketListComponent implements OnInit {
   ];
 
 
-  pageSizeOptions: number[] = [5, 9, 15];
+  pageSizeOptions: number[] = [5, 10, 15];
   pageIndex = 0;
   length: number;
   pagesize = 10;

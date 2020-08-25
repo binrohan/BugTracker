@@ -27,6 +27,7 @@ export class ProjectDetailComponent implements OnInit {
 
   step = 0;
   projectId: number;
+  isProjectArchived: boolean;
 
   constructor(
     private route: ActivatedRoute

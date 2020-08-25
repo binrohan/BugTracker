@@ -76,7 +76,6 @@ export class TicketFormComponent implements OnInit {
       this.ticketService.addTicket(this.ticket).subscribe(
         () => {
           this.snackbar.Success('New ticket added');
-          this.ticketForm.reset();
         },
         (error) => {
           this.snackbar.Success('Error in adding ticket');

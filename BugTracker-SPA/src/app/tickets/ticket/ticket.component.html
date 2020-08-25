@@ -1,17 +1,17 @@
 <div class="whole">
   <mat-tab-group mat-align-tabs="end" [(selectedIndex)]="currentTabIndex" (selectedTabChange)="onTabChange()" backgroundColor="accent" color="accent" dynamicHeight>
-    <mat-tab label="Active Tickets">
+    <mat-tab label="ACTIVE TICKETS">
       <ng-template matTabContent>
         <app-ticket-list></app-ticket-list>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Create New Ticket">
+    <mat-tab label="CREATE NEW">
       <ng-template matTabContent>
         <app-ticket-form >
         </app-ticket-form>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Archived Ticket">
+    <mat-tab label="ARCHIVED TICKET">
       <ng-template matTabContent>
         <app-ticket-list-archived></app-ticket-list-archived>
       </ng-template>

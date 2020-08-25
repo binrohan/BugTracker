@@ -93,12 +93,12 @@ namespace BugTracker.API.Controllers
             var projectFromRepo = await _repo.GetProject(id);
 
             if (projectFromRepo.isArchived)
-                BadRequest("Project is Archived");
+               return BadRequest("Project is Archived");
 
             foreach (var ticket in projectFromRepo.Tickets)
             {
                 if(!ticket.isArchived)
-                    BadRequest("Project has ticket to resolve");
+                return BadRequest("Project has ticket to resolve");
             }
             
             foreach (var user in projectFromRepo.Users)

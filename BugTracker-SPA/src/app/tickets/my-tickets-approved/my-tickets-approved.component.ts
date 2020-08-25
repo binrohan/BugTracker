@@ -17,7 +17,6 @@ export class MyTicketsApprovedComponent implements OnInit {
 
     displayedColumns: string[] = [
       'title',
-      'projectName',
       'updated',
       'category',
       'priority',

@@ -16,7 +16,7 @@ export class MyTicketsActiveComponent implements OnInit {
 
   displayedColumns: string[] = [
     'title',
-    'projectName',
+    // 'projectName',
     'updated',
     'category',
     'priority',

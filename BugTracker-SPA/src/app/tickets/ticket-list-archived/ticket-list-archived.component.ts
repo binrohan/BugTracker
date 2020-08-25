@@ -19,7 +19,6 @@ export class TicketListArchivedComponent implements OnInit {
 
 
   displayedArchivedColumns: string[] = [
-    'id',
     'title',
     'projectName',
     'submissionDate',

@@ -1,22 +1,22 @@
 <div class="whole">
   <h1>MY TICKETS</h1>
   <mat-tab-group mat-align-tabs="end" backgroundColor="accent" color="accent" dynamicHeight>
-    <mat-tab label="Active Tickets">
+    <mat-tab label="ACTIVE TICKETS">
       <ng-template matTabContent>
         <app-my-tickets-active [userId]="userId" ></app-my-tickets-active>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Resolved Tickets">
+    <mat-tab label="RESOLVED TICKETS">
       <ng-template matTabContent>
         <app-my-tickets-archived [userId]="userId" ></app-my-tickets-archived>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Tickets Waiting for Manager Approval">
+    <mat-tab label="WAITING FOR MANAGER APPROVAL">
       <ng-template matTabContent>
         <app-ticket-list-passed-user></app-ticket-list-passed-user>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Waiting for Admin Approval">
+    <mat-tab label="WAITING FOR ADMIN APPROVAL">
       <ng-template matTabContent>
         <app-my-tickets-approved [userId]="userId"></app-my-tickets-approved>
       </ng-template>

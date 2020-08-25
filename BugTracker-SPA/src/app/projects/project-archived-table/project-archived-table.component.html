@@ -8,31 +8,31 @@
 
         <!-- Position Column -->
         <ng-container matColumnDef="Title">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header="Title"> Title </th>
-          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header="Title"> TITLE </th>
+          <td mat-cell *matCellDef="let element"> {{element.title | titlecase}} </td>
         </ng-container>
       
         <!-- Name Column -->
         <ng-container matColumnDef="Started">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header="Started"> Started </th>
-          <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header="Started"> STARTED </th>
+          <td mat-cell *matCellDef="let element"> {{element.startTime | Local | date: 'dd MMMM y'}} </td>
         </ng-container>
       
         <!-- Weight Column -->
         <ng-container matColumnDef="Deadline">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="Deadline"> Deadline </th>
-          <td mat-cell *matCellDef="let element"> {{element.deadTime}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="Deadline"> DEADLINE </th>
+          <td mat-cell *matCellDef="let element"> {{element.deadTime | Local | date: 'dd MMMM y'}} </td>
         </ng-container>
       
         <!-- Symbol Column -->
         <ng-container matColumnDef="Tickets">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="Tickets"> Tickets </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="Tickets"> TICKETS </th>
           <td mat-cell *matCellDef="let element"> {{element.ticketCount}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="Action">
-            <th mat-header-cell *matHeaderCellDef class="extra-style"> Actions </th>
+            <th mat-header-cell *matHeaderCellDef class="extra-style"> ACTION </th>
             <td mat-cell *matCellDef="let element"><button mat-button color="primary" [routerLink] = "['/project/', element.id]" >Detail</button></td>
           </ng-container>
       

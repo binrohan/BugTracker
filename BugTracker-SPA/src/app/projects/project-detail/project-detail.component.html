@@ -15,7 +15,7 @@
 
     <mat-action-row>
       <button *appHasRole="['Admin']" mat-button color="primary" [routerLink]="['/projects/0']">List of projects</button>
-      <button *appHasRole="['Admin']" mat-button color="warn" (click)="archiveProject()">Archived</button>
+      <button [disabled]='isProjectArchived' *appHasRole="['Admin']" mat-button color="warn" (click)="archiveProject()">Archived</button>
       <button *appHasRole="['Admin']" mat-button color="accent" [routerLink]="['/project/edit/', projectId]">Edit</button>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
