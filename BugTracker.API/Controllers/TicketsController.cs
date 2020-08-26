@@ -209,7 +209,7 @@ namespace BugTracker.API.Controllers {
 
 
 
-        [Authorize(Policy = "RequiredAdminRole")]
+        [Authorize(Policy = "ManagerAndAdmin")]
         [HttpPut("assign/{ticketId}")]
         public async Task<IActionResult> AssignUser(int ticketId, TicketAssignUserDto ticketAssignUser)
         {

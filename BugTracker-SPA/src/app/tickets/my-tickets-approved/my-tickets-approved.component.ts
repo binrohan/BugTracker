@@ -51,7 +51,7 @@ export class MyTicketsApprovedComponent implements OnInit {
   loadTickets() {
     this.ticketService.getUserTickets(this.userId, this.ticketParams).subscribe(
       (data) => {
-        this.ticketRes = data;console.log(this.ticketRes.tickets);
+        this.ticketRes = data;
       },
       (error) => {
         this.snackbar.Success('Failed to load data');

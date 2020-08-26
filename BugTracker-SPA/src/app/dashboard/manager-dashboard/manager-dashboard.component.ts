@@ -32,7 +32,6 @@ export class ManagerDashboardComponent implements OnInit {
     this.loadCounts();
     this.loadTypes();
     this. userId = this.authService.decodedToken.nameid;
-    console.log(this.userId);
   }
 
   loadCounts(){

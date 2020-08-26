@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
 
   getUser(){
     this.userService.getUser(this.authService.currentUser.id).subscribe(data => {
-      this.projectId = data.project?.id; console.log(this.projectId + '   login');
+      this.projectId = data.project?.id;
     }, error => {
       this.snackbar.Success('Something is wrong');
     }, () => {

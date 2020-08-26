@@ -18,7 +18,6 @@ export class TicketsManagerComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.project = data.project;
-      console.log(this.project);
     }, error => {
       this.snackbar.Success('Problem Retriving Data');
     });

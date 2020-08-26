@@ -49,7 +49,7 @@ export class TicketListPassedComponent implements OnInit {
       this.getTickets();
     } else {
       this.userService.getUser(this.userId).subscribe(data => {
-        this.projectId = data.project?.id; console.log(this.projectId);
+        this.projectId = data.project?.id;
       }, error => {
         this.snackbar.Success('Failed to load Related Data');
       }, () => {
@@ -62,7 +62,7 @@ export class TicketListPassedComponent implements OnInit {
 
   getTickets(){
     this.ticketService.getProjectTickets(this.projectId, this.ticketParams ).subscribe( data => {
-      this.ticketRes = data; console.log(data);
+      this.ticketRes = data;
     }, error => {
       this.snackbar.Success('Failed to load table data');
     });

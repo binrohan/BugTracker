@@ -60,7 +60,7 @@ export class CommentComponent implements OnInit {
 
   sortData(sort: Sort) {
     if (sort.active) {
-      this.commentParams.orderBy = (sort.active + sort.direction);console.log(sort.active + sort.direction);
+      this.commentParams.orderBy = (sort.active + sort.direction);
       this.loadComments();
     }
   }
