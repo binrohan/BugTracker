@@ -1,5 +1,5 @@
 <div class="banner">
-  <p>Comments</p>
+  <p>COMMENTS</p>
 </div>
 <div class="container-cmt">
   <div class="table">
@@ -12,19 +12,19 @@
     
           <!-- Position Column -->
           <ng-container matColumnDef="commenter">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header="commenter"> Commenter </th>
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header="commenter"> COMMENTER </th>
             <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
           </ng-container>
         
           <!-- Name Column -->
           <ng-container matColumnDef="content">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header="content"> Message </th>
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header="content"> MESSAGE </th>
             <td mat-cell *matCellDef="let element"> {{ element.content }} </td>
           </ng-container>
         
           <!-- Weight Column -->
           <ng-container matColumnDef="created">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header="created"> Created </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="created"> CREATED </th>
             <td mat-cell *matCellDef="let element"> {{element.created | Local | date: 'dd MMMM, yyyy - h:mm a'}} </td>
           </ng-container>
       
@@ -47,13 +47,13 @@
     </div>
   </div>
   <div *ngIf="!disableComments" class="comments">
-  <h2>Add a Comment</h2>
+  <!-- <h2>Add a Comment</h2> -->
     <form [formGroup]="commentForm" (ngSubmit) = "commentPost()">
       <mat-form-field class="example-full-width">
         <mat-label>Leave a comment</mat-label>
-        <textarea required formControlName="content" matInput placeholder="Ex. It makes me feel..."></textarea>
+        <textarea formControlName="content" matInput placeholder="Ex. It makes me feel..."></textarea>
       </mat-form-field>
-      <button [disabled]="!commentForm.valid" class="cmt-post form-submit" type="submit" mat-flat-button color="primary">Comment</button>
+      <button [disabled]="commentForm.get('content').value === ''" class="cmt-post form-submit" type="submit" mat-flat-button color="primary">Comment</button>
     </form>
   </div>
 </div>

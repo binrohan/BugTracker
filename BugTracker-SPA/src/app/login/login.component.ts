@@ -64,6 +64,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['registration']);
   }
 
+  goToSettings() {
+    this.router.navigate(['settings']);
+  }
+
   login() {
 
     this.authService.login(this.loginForm.value).subscribe(

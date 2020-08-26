@@ -46,7 +46,7 @@ export class CommentComponent implements OnInit {
 
   createCommentForm(){
     this.commentForm = this.fb.group({
-      content: ['', Validators.required]
+      content: ['']
     });
   }
 
@@ -82,7 +82,7 @@ export class CommentComponent implements OnInit {
   }
 
   commentPost(){
-    if (this.commentForm.valid){
+    if (this.commentForm.get('content').value !== ''){
       this.newComment = Object.assign({}, this.commentForm.value);
       this.newComment.created = new Date();
       this.newComment.ticketId = this.ticketId;

@@ -40,11 +40,12 @@
     </button>
   </form>
   <div class="login-link-group">
-    <div class="login-login-link">Forgot your <a>Password?</a></div>
+    <div *ngIf="false" class="login-login-link">Forgot your <a>Password?</a></div>
     <div class="login-login-link">
       Create an account <a (click)="goToRegistration()">Sign Up</a>
     </div>
     <div class="login-login-link">Sign in as a <a (click)="openModal()">Demo User</a></div>
+    <div class="login-login-link"><a (click)="goToSettings()">Learn more</a> about bug_tracker</div>
   </div>
   </div>
 </div>

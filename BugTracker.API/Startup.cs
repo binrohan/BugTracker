@@ -70,7 +70,7 @@ namespace BugTracker.API
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
-                {Console.WriteLine("****************************AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA*****************************"+(ClaimTypes.NameIdentifier));
+                {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
