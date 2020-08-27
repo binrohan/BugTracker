@@ -1,0 +1,12 @@
+.mar{
+    margin: 20px 20px;
+}
+h4{
+    font-weight: bold;
+}
+ul>li>span{
+    color: hotpink;
+}
+a{
+    text-decoration: none;
+}

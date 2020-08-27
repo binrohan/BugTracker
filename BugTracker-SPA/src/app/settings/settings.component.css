@@ -21,3 +21,6 @@ input:focus{
 h2{
     font-weight: lighter;
 }
+.mock{
+    height: 50px;
+}

@@ -30,9 +30,11 @@ import { MyTicketsComponent } from './tickets/my-tickets/my-tickets.component';
 import { FallbackComponent } from './fallback/fallback.component';
 import { TicketsManagerComponent } from './tickets/tickets-manager/tickets-manager.component';
 import { TicketManagerResolver } from './_resolvers/ticket-manager.resolver';
+import { AboutComponent } from './about/about.component';
 export const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: '', component: LoginComponent },
+  { path: 'about', component: AboutComponent},
   {
     path: '',
     runGuardsAndResolvers: 'always',

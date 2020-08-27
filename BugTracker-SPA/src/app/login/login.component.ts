@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
   }
 
   goToSettings() {
-    this.router.navigate(['settings']);
+    this.router.navigate(['about']);
   }
 
   login() {
