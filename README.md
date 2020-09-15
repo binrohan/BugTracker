@@ -61,7 +61,7 @@ A floating UI toggle hide by clicking a button on toolbar contains navigation th
 
 ### User Details
 <b>Displays</b>  the detail information of user when user visit others' profile
-<p align="center"><img src="./mdasset/user.PNG" width="80%" height="auto"> <br />User profile</p>
+<p align="center"><img src="./mdasset/user.png" width="80%" height="auto"> <br />User profile</p>
 
 ### Management UI
 Project management, ticket management all of them have same kinds of user interface.
