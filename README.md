@@ -2,7 +2,7 @@
 <h3 align="center" >Make The Kill List, Now!</h3>
 
 ## About
-Bug tracker is an application for tracking error or bug in software. It is developed by [Rohan Bin Khokon](https://binrohan.github.io/me "My Protfolio") as a student project for job preparation in 2020. Bug Tracker uses a ticketing system to record bugs or other issues in the software development process on a per-project basis. It implements user- and role-level security to ensure only authorized users can access tickets and projects.
+Bug tracker is an application for tracking error or bug in software. It is developed by [Rohan Bin Khokon](https://binrohan.github.io/me "My Protfolio") as a student project in 2020. Bug Tracker uses a ticketing system to record bugs or other issues in the software development process on a per-project basis. It implements user- and role-level security to ensure only authorized users can access tickets and projects.
 
 ## Features
 - Registration / Login
